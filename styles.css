@@ -82,8 +82,8 @@ body {
 .hero-video {
   position: absolute;
   inset: 0;
-  z-index: 1;
-  background: #000;
+  z-index: 2;
+  background: transparent;
   overflow: hidden;
 }
 
@@ -96,6 +96,8 @@ body {
 }
 
 .hero::after {
+  display: none;
+}
   content: "";
   position: absolute;
   inset: 0;
