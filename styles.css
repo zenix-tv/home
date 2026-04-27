@@ -79,36 +79,29 @@ body {
   background: #000;
 }
 
-/* VIDEO CANVA VISIBLE */
 .hero-video {
   position: absolute;
   inset: 0;
   z-index: 1;
-  opacity: 1;
-  filter: none;
-  background: transparent;
+  background: #000;
+  overflow: hidden;
 }
 
-
-.hero-video iframe {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  border: none;
-  transform: none;
-  z-index: 1;
-}
 .hero-video video {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover; /* 🔥 clave */
+  object-fit: cover;
 }
-/* APAGAMOS LA CAPA NEGRA */
+
 .hero::after {
-  display: none;
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(0,0,0,.15), rgba(0,0,0,.45));
 }
 
 .navbar {
@@ -116,7 +109,7 @@ body {
   top: 0;
   width: 100%;
   padding: 24px 50px;
-  z-index: 3;
+  z-index: 5;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -149,7 +142,7 @@ body {
 
 .hero-content {
   position: relative;
-  z-index: 3;
+  z-index: 4;
   padding: 30px;
   text-shadow: 0 0 20px rgba(0,0,0,.9);
 }
@@ -652,68 +645,10 @@ body.modal-open #siteContent {
   to { transform: translateY(-120px); }
 }
 
-@media (max-width: 768px) {
-  .navbar {
-    padding: 18px;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .nav-links {
-    gap: 12px;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .hero h1 {
-    letter-spacing: -3px;
-  }
-
-  .ranking-track img {
-    width: 145px;
-    height: 220px;
-  }
-
-  .plan-card.featured {
-    transform: scale(1);
-  }
-
-  .hero-video iframe {
-    width: 180vw;
-    height: 120vh;
-  }
-}
-/* =========================
-   OPTIMIZACIÓN RESPONSIVE
-   PC + TABLET + MÓVIL
-========================= */
-
-/* PC grandes */
-@media (min-width: 1200px) {
-  .hero-content {
-    max-width: 1200px;
-  }
-
-  .devices,
-  .plans,
-  .faq {
-    padding-left: 60px;
-    padding-right: 60px;
-  }
-}
-
-/* Tablets */
+/* RESPONSIVE */
 @media (max-width: 1024px) {
   .navbar {
-    padding: 20px 28px;
-  }
-
-  .hero h1 {
-    font-size: clamp(64px, 12vw, 120px);
-  }
-
-  .hero p {
-    font-size: clamp(20px, 3vw, 34px);
+    padding: 18px 28px;
   }
 
   .device-grid,
@@ -722,59 +657,63 @@ body.modal-open #siteContent {
   }
 }
 
-/* Móvil */
 @media (max-width: 768px) {
+  .hero {
+    min-height: 100vh;
+  }
+
   .navbar {
-    position: absolute;
-    padding: 16px 14px;
+    padding: 12px 10px;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
+    background: rgba(0,0,0,.72);
+    backdrop-filter: blur(8px);
   }
 
   .nav-logo {
-    font-size: 24px;
+    font-size: 22px;
   }
 
   .nav-links {
-    gap: 10px;
-    justify-content: center;
+    gap: 8px;
     flex-wrap: wrap;
+    justify-content: center;
   }
 
   .nav-links a {
-    font-size: 13px;
+    font-size: 12px;
   }
 
-  .hero {
-    min-height: 100vh;
-    padding-top: 110px;
+  .hero-video video {
+    object-fit: cover;
+    object-position: center center;
   }
 
   .hero-content {
-    padding: 20px;
+    padding: 110px 16px 20px;
   }
 
   .hero h1 {
-    font-size: clamp(54px, 18vw, 88px);
+    font-size: 54px;
     letter-spacing: -3px;
   }
 
   .hero p {
-    font-size: 20px;
+    font-size: 18px;
     line-height: 1.25;
   }
 
   .hero h3 {
-    font-size: 24px;
+    font-size: 20px;
+    margin-bottom: 18px;
   }
 
   .btn-main,
   .btn-secondary,
   .video-btn,
   .plan-btn {
-    font-size: 18px;
-    padding: 15px 30px;
-    border-radius: 14px;
+    font-size: 17px;
+    padding: 14px 28px;
   }
 
   .devices,
@@ -820,16 +759,19 @@ body.modal-open #siteContent {
   .footer {
     padding: 60px 18px;
   }
+
+  .plan-card.featured {
+    transform: scale(1);
+  }
 }
 
-/* Móviles pequeños */
 @media (max-width: 420px) {
   .hero h1 {
-    font-size: 58px;
+    font-size: 48px;
   }
 
   .hero p {
-    font-size: 18px;
+    font-size: 16px;
   }
 
   .devices h2,
@@ -845,306 +787,5 @@ body.modal-open #siteContent {
   .ranking-track img {
     width: 130px;
     height: 200px;
-  }
-}
-/* AJUSTE FINO SOLO PARA MÓVIL - HERO SUPERIOR */
-@media (max-width: 768px) {
-  .hero {
-    min-height: 78vh;
-    padding-top: 0;
-    align-items: center;
-  }
-
-  .navbar {
-    top: 0;
-    padding: 10px 12px;
-    gap: 6px;
-  }
-
-  .nav-logo {
-    font-size: 22px;
-  }
-
-  .nav-links {
-    gap: 8px;
-  }
-
-  .nav-links a {
-    font-size: 12px;
-  }
-
-  .hero-video iframe {
-    width: 100%;
-    height: 100%;
-    transform: none;
-  }
-
-  .hero-content {
-    margin-top: 70px;
-    padding: 10px 18px;
-  }
-
-  .hero h1 {
-    font-size: 54px;
-    margin-bottom: 8px;
-  }
-
-  .hero p {
-    font-size: 17px;
-    line-height: 1.2;
-    margin: 8px auto;
-  }
-
-  .hero h3 {
-    font-size: 20px;
-    margin: 8px 0 16px;
-  }
-
-  .btn-main {
-    font-size: 16px;
-    padding: 12px 24px;
-  }
-
-  .devices {
-    padding-top: 55px;
-  }
-}
-/* CORRECCIÓN FINAL CANVA HERO EN CELULAR */
-@media (max-width: 768px) {
-  .hero {
-    min-height: 58vh !important;
-    height: 58vh !important;
-    padding: 0 !important;
-    align-items: flex-start !important;
-  }
-
-  .hero-video {
-    top: 72px !important;
-    height: 260px !important;
-    bottom: auto !important;
-  }
-
-  .hero-video iframe {
-    width: 100% !important;
-    height: 260px !important;
-    top: 0 !important;
-    left: 0 !important;
-    transform: none !important;
-  }
-
-  .hero-content {
-    margin-top: 345px !important;
-    padding: 0 16px !important;
-  }
-
-  .hero h1 {
-    font-size: 42px !important;
-  }
-
-  .hero p {
-    font-size: 15px !important;
-    margin: 6px auto !important;
-  }
-
-  .hero h3 {
-    font-size: 17px !important;
-    margin: 6px 0 12px !important;
-  }
-
-  .btn-main {
-    font-size: 15px !important;
-    padding: 10px 22px !important;
-  }
-
-  .devices {
-    padding-top: 45px !important;
-  }
-}
-/* ===============================
-   CORRECCIÓN DEFINITIVA HERO MÓVIL
-   =============================== */
-
-@media (max-width: 768px) {
-
-  .hero {
-    display: block !important;
-    position: relative !important;
-    min-height: auto !important;
-    height: auto !important;
-    padding: 105px 0 35px 0 !important;
-    overflow: visible !important;
-    background: #000 !important;
-  }
-
-  .navbar {
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    padding: 12px 10px !important;
-    z-index: 10 !important;
-    background: rgba(0,0,0,0.75) !important;
-    backdrop-filter: blur(8px);
-  }
-
-  .nav-logo {
-    font-size: 22px !important;
-  }
-
-  .nav-links {
-    gap: 8px !important;
-  }
-
-  .nav-links a {
-    font-size: 12px !important;
-  }
-
-  .hero-video {
-    position: relative !important;
-    inset: auto !important;
-    top: auto !important;
-    left: auto !important;
-    width: 100% !important;
-    height: 235px !important;
-    z-index: 1 !important;
-    opacity: 1 !important;
-    filter: none !important;
-    margin: 0 !important;
-  }
-
-  .hero-video iframe {
-    position: absolute !important;
-    inset: 0 !important;
-    width: 100% !important;
-    height: 235px !important;
-    transform: none !important;
-    border: none !important;
-  }
-
-  .hero-content {
-    position: relative !important;
-    z-index: 3 !important;
-    margin: 18px auto 0 auto !important;
-    padding: 0 18px !important;
-  }
-
-  .hero h1 {
-    font-size: 46px !important;
-    letter-spacing: -2px !important;
-    margin: 0 0 8px 0 !important;
-  }
-
-  .hero p {
-    font-size: 16px !important;
-    line-height: 1.25 !important;
-    margin: 8px auto !important;
-  }
-
-  .hero h3 {
-    font-size: 18px !important;
-    margin: 8px 0 15px !important;
-  }
-
-  .btn-main {
-    font-size: 15px !important;
-    padding: 11px 24px !important;
-  }
-
-  .devices {
-    padding-top: 55px !important;
-  }
-}
-/* =========================================
-   FIX FINAL DEFINITIVO CANVA VIDEO EN MÓVIL
-   ========================================= */
-
-@media (max-width: 768px) {
-
-  .hero {
-    display: block !important;
-    min-height: auto !important;
-    height: auto !important;
-    padding: 92px 0 30px !important;
-    overflow: hidden !important;
-    background: #000 !important;
-  }
-
-  .navbar {
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    z-index: 20 !important;
-    padding: 10px 8px !important;
-    background: rgba(0,0,0,.85) !important;
-  }
-
-  .nav-logo {
-    font-size: 22px !important;
-  }
-
-  .nav-links {
-    gap: 7px !important;
-  }
-
-  .nav-links a {
-    font-size: 11px !important;
-  }
-
-  .hero-video {
-    position: relative !important;
-    inset: auto !important;
-    width: 100% !important;
-    height: 210px !important;
-    max-height: 210px !important;
-    min-height: 210px !important;
-    overflow: hidden !important;
-    z-index: 1 !important;
-    margin: 0 !important;
-  }
-
-  .hero-video iframe {
-    position: absolute !important;
-    top: -400px !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 370px !important;
-    min-height: 370px !important;
-    transform: none !important;
-    border: none !important;
-  }
-
-  .hero-content {
-    position: relative !important;
-    z-index: 3 !important;
-    margin: 16px auto 0 !important;
-    padding: 0 16px !important;
-  }
-
-  .hero h1 {
-    font-size: 42px !important;
-    line-height: .95 !important;
-    margin: 0 0 8px !important;
-    letter-spacing: -2px !important;
-  }
-
-  .hero p {
-    font-size: 15px !important;
-    line-height: 1.25 !important;
-    margin: 6px auto !important;
-  }
-
-  .hero h3 {
-    font-size: 17px !important;
-    margin: 6px 0 12px !important;
-  }
-
-  .btn-main {
-    font-size: 15px !important;
-    padding: 10px 22px !important;
-  }
-
-  .devices {
-    padding-top: 50px !important;
   }
 }
