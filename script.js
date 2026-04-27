@@ -21,10 +21,10 @@ const videoModal = document.getElementById("videoModal");
 const modalVideo = videoModal ? videoModal.querySelector("video") : null;
 
 if (openVideo && videoModal) {
-  openVideo.addEventListener("click", () => {
-    videoModal.classList.add("active");
-    if (modalVideo) modalVideo.play().catch(() => {});
-  });
+openVideo.addEventListener("click", () => {
+  videoModal.classList.add("active");
+  document.body.classList.add("modal-open");
+});
 }
 
 if (closeVideo && videoModal) {
