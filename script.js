@@ -18,22 +18,27 @@ if (enterBtn) {
 const openVideo = document.getElementById("openVideo");
 const closeVideo = document.getElementById("closeVideo");
 const videoModal = document.getElementById("videoModal");
-const modalVideo = videoModal ? videoModal.querySelector("video") : null;
+const iframe = videoModal ? videoModal.querySelector("iframe") : null;
 
 if (openVideo && videoModal) {
-openVideo.addEventListener("click", () => {
-  videoModal.classList.add("active");
-  document.body.classList.add("modal-open");
-});
+  openVideo.addEventListener("click", () => {
+    if (boom) {
+      boom.currentTime = 0;
+      boom.play().catch(() => {});
+    }
+
+    videoModal.classList.add("active");
+    document.body.classList.add("modal-open");
+  });
 }
 
 if (closeVideo && videoModal) {
   closeVideo.addEventListener("click", () => {
-   videoModal.classList.remove("active");
-document.body.classList.remove("modal-open");
-    if (modalVideo) {
-      modalVideo.pause();
-      modalVideo.currentTime = 0;
+    videoModal.classList.remove("active");
+    document.body.classList.remove("modal-open");
+
+    if (iframe) {
+      iframe.src = iframe.src;
     }
   });
 }
@@ -42,9 +47,10 @@ if (videoModal) {
   videoModal.addEventListener("click", (e) => {
     if (e.target === videoModal) {
       videoModal.classList.remove("active");
-      if (modalVideo) {
-        modalVideo.pause();
-        modalVideo.currentTime = 0;
+      document.body.classList.remove("modal-open");
+
+      if (iframe) {
+        iframe.src = iframe.src;
       }
     }
   });
