@@ -677,3 +677,167 @@ body.modal-open #siteContent {
     height: 120vh;
   }
 }
+/* =========================
+   OPTIMIZACIÓN RESPONSIVE
+   PC + TABLET + MÓVIL
+========================= */
+
+/* PC grandes */
+@media (min-width: 1200px) {
+  .hero-content {
+    max-width: 1200px;
+  }
+
+  .devices,
+  .plans,
+  .faq {
+    padding-left: 60px;
+    padding-right: 60px;
+  }
+}
+
+/* Tablets */
+@media (max-width: 1024px) {
+  .navbar {
+    padding: 20px 28px;
+  }
+
+  .hero h1 {
+    font-size: clamp(64px, 12vw, 120px);
+  }
+
+  .hero p {
+    font-size: clamp(20px, 3vw, 34px);
+  }
+
+  .device-grid,
+  .plans-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Móvil */
+@media (max-width: 768px) {
+  .navbar {
+    position: absolute;
+    padding: 16px 14px;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .nav-logo {
+    font-size: 24px;
+  }
+
+  .nav-links {
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .nav-links a {
+    font-size: 13px;
+  }
+
+  .hero {
+    min-height: 100vh;
+    padding-top: 110px;
+  }
+
+  .hero-content {
+    padding: 20px;
+  }
+
+  .hero h1 {
+    font-size: clamp(54px, 18vw, 88px);
+    letter-spacing: -3px;
+  }
+
+  .hero p {
+    font-size: 20px;
+    line-height: 1.25;
+  }
+
+  .hero h3 {
+    font-size: 24px;
+  }
+
+  .btn-main,
+  .btn-secondary,
+  .video-btn,
+  .plan-btn {
+    font-size: 18px;
+    padding: 15px 30px;
+    border-radius: 14px;
+  }
+
+  .devices,
+  .plans,
+  .faq,
+  .demo-video {
+    padding: 70px 18px;
+  }
+
+  .device-grid,
+  .plans-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .football-banner {
+    min-height: 560px;
+    padding: 70px 18px;
+  }
+
+  .football-content h1 {
+    font-size: clamp(52px, 15vw, 82px);
+  }
+
+  .football-content h3 {
+    font-size: clamp(28px, 8vw, 44px);
+    padding: 10px 18px;
+  }
+
+  .ranking-track img {
+    width: 145px;
+    height: 220px;
+  }
+
+  .video-box {
+    width: 94%;
+  }
+
+  .close-video {
+    top: -52px;
+    right: 0;
+  }
+
+  .footer {
+    padding: 60px 18px;
+  }
+}
+
+/* Móviles pequeños */
+@media (max-width: 420px) {
+  .hero h1 {
+    font-size: 58px;
+  }
+
+  .hero p {
+    font-size: 18px;
+  }
+
+  .devices h2,
+  .plans h2,
+  .faq h2 {
+    font-size: 34px;
+  }
+
+  .top10 h3 {
+    font-size: 52px;
+  }
+
+  .ranking-track img {
+    width: 130px;
+    height: 200px;
+  }
+}
