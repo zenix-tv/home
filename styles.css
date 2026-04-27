@@ -15,7 +15,6 @@ body {
   justify-content: center;
   align-items: center;
   text-align: center;
-  overflow: hidden;
 }
 
 .hero h1 {
@@ -41,22 +40,29 @@ body {
   color: #000;
   padding: 18px 45px;
   border-radius: 14px;
-  text-decoration: none;
+  border: none;
   font-size: 24px;
   font-weight: 900;
+  cursor: pointer;
   box-shadow: 0 0 35px rgba(255,161,0,.75);
-  transition: .3s ease;
 }
 
-.btn:hover {
-  transform: scale(1.08);
-  box-shadow: 0 0 60px rgba(255,161,0,1);
+.contenido {
+  display: none;
+  background: #000;
+  min-height: 100vh;
+  padding: 50px 0 100px;
+}
+
+.contenido h2 {
+  text-align: center;
+  font-size: 40px;
 }
 
 .slider {
   width: 100%;
   overflow: hidden;
-  margin-top: 60px;
+  margin-top: 50px;
 }
 
 .slider-track {
@@ -70,21 +76,9 @@ body {
   height: 330px;
   object-fit: cover;
   border-radius: 12px;
-  transition: .3s;
-}
-
-.slider img:hover {
-  transform: scale(1.08);
 }
 
 @keyframes scroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-.contenido {
-  display: none;
-  background: #000;
-  min-height: 100vh;
-  padding-bottom: 80px;
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
