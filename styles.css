@@ -1048,3 +1048,97 @@ body.modal-open #siteContent {
     padding-top: 55px !important;
   }
 }
+/* =========================================
+   FIX FINAL DEFINITIVO CANVA VIDEO EN MÓVIL
+   ========================================= */
+
+@media (max-width: 768px) {
+
+  .hero {
+    display: block !important;
+    min-height: auto !important;
+    height: auto !important;
+    padding: 92px 0 30px !important;
+    overflow: hidden !important;
+    background: #000 !important;
+  }
+
+  .navbar {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 20 !important;
+    padding: 10px 8px !important;
+    background: rgba(0,0,0,.85) !important;
+  }
+
+  .nav-logo {
+    font-size: 22px !important;
+  }
+
+  .nav-links {
+    gap: 7px !important;
+  }
+
+  .nav-links a {
+    font-size: 11px !important;
+  }
+
+  .hero-video {
+    position: relative !important;
+    inset: auto !important;
+    width: 100% !important;
+    height: 210px !important;
+    max-height: 210px !important;
+    min-height: 210px !important;
+    overflow: hidden !important;
+    z-index: 1 !important;
+    margin: 0 !important;
+  }
+
+  .hero-video iframe {
+    position: absolute !important;
+    top: -80px !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 370px !important;
+    min-height: 370px !important;
+    transform: none !important;
+    border: none !important;
+  }
+
+  .hero-content {
+    position: relative !important;
+    z-index: 3 !important;
+    margin: 16px auto 0 !important;
+    padding: 0 16px !important;
+  }
+
+  .hero h1 {
+    font-size: 42px !important;
+    line-height: .95 !important;
+    margin: 0 0 8px !important;
+    letter-spacing: -2px !important;
+  }
+
+  .hero p {
+    font-size: 15px !important;
+    line-height: 1.25 !important;
+    margin: 6px auto !important;
+  }
+
+  .hero h3 {
+    font-size: 17px !important;
+    margin: 6px 0 12px !important;
+  }
+
+  .btn-main {
+    font-size: 15px !important;
+    padding: 10px 22px !important;
+  }
+
+  .devices {
+    padding-top: 50px !important;
+  }
+}
