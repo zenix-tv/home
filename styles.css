@@ -81,3 +81,10 @@ body {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
+
+.contenido {
+  display: none;
+  background: #000;
+  min-height: 100vh;
+  padding-bottom: 80px;
+}
