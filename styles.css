@@ -1,84 +1,73 @@
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
+#zenixIntro {
+  position: fixed;
+  inset: 0;
   background: #000;
-  color: #fff;
-}
-
-.hero {
-  height: 100vh;
-  background:
-    radial-gradient(circle at center bottom, rgba(255,161,0,.45), transparent 35%),
-    linear-gradient(to bottom, #050505, #000);
+  z-index: 99999;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  text-align: center;
+  justify-content: center;
+  font-family: Arial, Helvetica, sans-serif;
+
+  animation: introOut 0.8s ease forwards;
+  animation-delay: 1s; /* 👈 dura 1 segundo */
 }
 
-.hero h1 {
-  font-size: 95px;
+.zenix-logo {
+  color: #fff;
+  font-size: clamp(58px, 10vw, 140px);
   font-weight: 900;
-  margin: 0;
-  letter-spacing: -4px;
+  letter-spacing: -5px;
+  transform: scale(0.8);
+  opacity: 0;
+  animation: logoZoom 0.6s ease forwards;
 }
 
-.hero h1 span {
+.zenix-logo span {
   color: #FFA100;
 }
 
-.hero p {
-  font-size: 28px;
-  max-width: 900px;
-  font-weight: 800;
-  margin: 25px 20px;
-}
-
-.btn {
+.zenix-line {
+  width: 0;
+  height: 4px;
   background: #FFA100;
-  color: #000;
-  padding: 18px 45px;
-  border-radius: 14px;
-  border: none;
-  font-size: 24px;
-  font-weight: 900;
-  cursor: pointer;
-  box-shadow: 0 0 35px rgba(255,161,0,.75);
+  margin-top: 15px;
+  border-radius: 20px;
+  box-shadow: 0 0 20px #FFA100;
+  animation: lineLoad 1s ease forwards;
 }
 
-.contenido {
-  display: none;
-  background: #000;
-  min-height: 100vh;
-  padding: 50px 0 100px;
+#zenixIntro p {
+  color: #fff;
+  margin-top: 15px;
+  font-size: 16px;
+  opacity: 0;
+  animation: textFade 0.5s ease forwards;
+  animation-delay: 0.5s;
 }
 
-.contenido h2 {
-  text-align: center;
-  font-size: 40px;
+@keyframes logoZoom {
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
-.slider {
-  width: 100%;
-  overflow: hidden;
-  margin-top: 50px;
+@keyframes lineLoad {
+  to {
+    width: 220px;
+  }
 }
 
-.slider-track {
-  display: flex;
-  gap: 20px;
-  animation: scroll 25s linear infinite;
+@keyframes textFade {
+  to {
+    opacity: 1;
+  }
 }
 
-.slider img {
-  width: 220px;
-  height: 330px;
-  object-fit: cover;
-  border-radius: 12px;
-}
-
-@keyframes scroll {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+@keyframes introOut {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
 }
