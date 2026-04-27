@@ -926,3 +926,25 @@ body.modal-open #siteContent {
     font-size: 20px;
   }
 }
+/* HERO FORMATO WIDE EN MÓVIL */
+@media (max-width: 768px) {
+
+  .hero {
+    min-height: 60vh !important;
+    height: 60vh !important;
+  }
+
+  .hero-video {
+    height: 100%;
+  }
+
+  .hero-video video {
+    object-fit: cover;
+    object-position: center center;
+  }
+
+  .hero-content {
+    padding-top: 90px;
+  }
+
+}
