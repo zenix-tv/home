@@ -1,42 +1,40 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ZENIX TV</title>
-<link rel="stylesheet" href="styles.css">
-</head>
-
 <body>
 
-<section class="hero">
+<!-- PORTADA -->
+<section class="hero" id="hero">
   <h1>ZENIX<span>TV</span></h1>
   <p>MIRA ACÁ TODAS LAS LIGAS MÁS IMPORTANTES DEL MUNDO</p>
 
-  <a href="https://www.zenix.tv" class="btn" target="_blank">
+  <button class="btn" onclick="entrar()">
     ▶ VER AHORA
-  </a>
+  </button>
+</section>
+
+<!-- CONTENIDO OCULTO -->
+<section class="contenido" id="contenido">
+
+  <h2 style="text-align:center; margin-top:40px;">LIGAS DISPONIBLES</h2>
+
+  <div class="slider">
+    <div class="slider-track">
+      <img src="1.png">
+      <img src="2.png">
+      <img src="3.png">
+      <img src="4.png">
+      <img src="5.png">
+      <img src="6.png">
+
+      <!-- duplicado -->
+      <img src="1.png">
+      <img src="2.png">
+      <img src="3.png">
+      <img src="4.png">
+      <img src="5.png">
+      <img src="6.png">
+    </div>
+  </div>
+
 </section>
 
 <script src="script.js"></script>
 </body>
-</html>
-
-<section class="slider">
-  <div class="slider-track">
-    <img src="1.png">
-    <img src="2.png">
-    <img src="3.png">
-    <img src="4.png">
-    <img src="5.png">
-    <img src="6.png">
-
-    <!-- duplicado para efecto infinito -->
-    <img src="1.png">
-    <img src="2.png">
-    <img src="3.png">
-    <img src="4.png">
-    <img src="5.png">
-    <img src="6.png">
-  </div>
-</section>
