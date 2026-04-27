@@ -1,9 +1,16 @@
-console.log("ZENIX funcionando 🚀");
 const track = document.querySelector('.slider-track');
 
 let paused = false;
 
-track.addEventListener('click', () => {
-  paused = !paused;
-  track.style.animationPlayState = paused ? 'paused' : 'running';
-});
+if (track) {
+  track.addEventListener('click', () => {
+    paused = !paused;
+    track.style.animationPlayState = paused ? 'paused' : 'running';
+  });
+}
+
+// FUNCIÓN PARA ENTRAR
+function entrar() {
+  document.getElementById('hero').style.display = 'none';
+  document.getElementById('contenido').style.display = 'block';
+}
