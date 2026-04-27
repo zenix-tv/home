@@ -83,31 +83,26 @@ body {
 .hero-video {
   position: absolute;
   inset: 0;
-  z-index: 0;
+  z-index: 1;
   opacity: 1;
-  filter: brightness(1.05) contrast(1.08);
+  filter: none;
+  background: transparent;
 }
+
 
 .hero-video iframe {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 130vw;
-  height: 130vh;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   border: none;
-  transform: translate(-50%, -50%);
+  transform: none;
+  z-index: 1;
 }
 
-/* CAPA OSCURA SUAVE */
+/* APAGAMOS LA CAPA NEGRA */
 .hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(to bottom, rgba(0,0,0,.08), rgba(0,0,0,.32)),
-    radial-gradient(circle at center bottom, rgba(255,161,0,.18), transparent 55%);
-  z-index: 1;
-  pointer-events: none;
+  display: none;
 }
 
 .navbar {
@@ -148,7 +143,7 @@ body {
 
 .hero-content {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   padding: 30px;
   text-shadow: 0 0 20px rgba(0,0,0,.9);
 }
