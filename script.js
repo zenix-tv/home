@@ -29,7 +29,8 @@ openVideo.addEventListener("click", () => {
 
 if (closeVideo && videoModal) {
   closeVideo.addEventListener("click", () => {
-    videoModal.classList.remove("active");
+   videoModal.classList.remove("active");
+document.body.classList.remove("modal-open");
     if (modalVideo) {
       modalVideo.pause();
       modalVideo.currentTime = 0;
