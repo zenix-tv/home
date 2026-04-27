@@ -52,3 +52,32 @@ body {
   transform: scale(1.08);
   box-shadow: 0 0 60px rgba(255,161,0,1);
 }
+
+.slider {
+  width: 100%;
+  overflow: hidden;
+  margin-top: 60px;
+}
+
+.slider-track {
+  display: flex;
+  gap: 20px;
+  animation: scroll 25s linear infinite;
+}
+
+.slider img {
+  width: 220px;
+  height: 330px;
+  object-fit: cover;
+  border-radius: 12px;
+  transition: .3s;
+}
+
+.slider img:hover {
+  transform: scale(1.08);
+}
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
