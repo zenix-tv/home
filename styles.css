@@ -903,3 +903,54 @@ body.modal-open #siteContent {
     padding-top: 55px;
   }
 }
+/* CORRECCIÓN FINAL CANVA HERO EN CELULAR */
+@media (max-width: 768px) {
+  .hero {
+    min-height: 58vh !important;
+    height: 58vh !important;
+    padding: 0 !important;
+    align-items: flex-start !important;
+  }
+
+  .hero-video {
+    top: 72px !important;
+    height: 260px !important;
+    bottom: auto !important;
+  }
+
+  .hero-video iframe {
+    width: 100% !important;
+    height: 260px !important;
+    top: 0 !important;
+    left: 0 !important;
+    transform: none !important;
+  }
+
+  .hero-content {
+    margin-top: 345px !important;
+    padding: 0 16px !important;
+  }
+
+  .hero h1 {
+    font-size: 42px !important;
+  }
+
+  .hero p {
+    font-size: 15px !important;
+    margin: 6px auto !important;
+  }
+
+  .hero h3 {
+    font-size: 17px !important;
+    margin: 6px 0 12px !important;
+  }
+
+  .btn-main {
+    font-size: 15px !important;
+    padding: 10px 22px !important;
+  }
+
+  .devices {
+    padding-top: 45px !important;
+  }
+}
