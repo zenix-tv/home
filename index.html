@@ -1,50 +1,72 @@
-<div id="zenixIntro">
-  <div class="zenix-logo">ZENIX<span>TV</span></div>
-  <div class="zenix-line"></div>
-  <p>Preparando tu experiencia...</p>
-</div>
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=2.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ZENIX TV</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="./styles.css">
 </head>
 
 <body>
 
-<section class="hero" id="hero">
-  <h1>ZENIX<span>TV</span></h1>
-  <p>MIRA ACÁ TODAS LAS LIGAS MÁS IMPORTANTES DEL MUNDO</p>
+<audio id="boomSound" src="boom.mp3" preload="auto"></audio>
 
-  <button class="btn" onclick="entrar()">
-    ▶ VER AHORA
-  </button>
-</section>
+<div id="zenixIntro">
+  <div class="intro-logo">ZENIX<span>TV</span></div>
+  <div class="intro-line"></div>
+  <p>Preparando tu experiencia...</p>
+</div>
 
-<section class="contenido" id="contenido">
-  <h2>LIGAS DISPONIBLES</h2>
+<main id="siteContent">
 
-  <div class="slider">
-    <div class="slider-track">
-      <img src="1.png">
-      <img src="2.png">
-      <img src="3.png">
-      <img src="4.png">
-      <img src="5.png">
-      <img src="6.png">
+  <section class="hero">
+    <div class="hero-bg"></div>
 
-      <img src="1.png">
-      <img src="2.png">
-      <img src="3.png">
-      <img src="4.png">
-      <img src="5.png">
-      <img src="6.png">
+    <div class="hero-content">
+      <h1>ZENIX<span>TV</span></h1>
+      <p>MIRA ACÁ TODAS LAS LIGAS MÁS IMPORTANTES DEL MUNDO</p>
+
+      <button class="btn" id="enterBtn">
+        ▶ VER AHORA
+      </button>
     </div>
-  </div>
-</section>
+  </section>
 
-<script src="script.js"></script>
+  <section class="ligas">
+    <h2>LIGAS DISPONIBLES</h2>
+
+    <div class="liga-grid">
+      <div>Premier League</div>
+      <div>La Liga</div>
+      <div>Serie A</div>
+      <div>Champions League</div>
+    </div>
+  </section>
+
+  <section class="galeria">
+    <h2>TOP DE LA SEMANA</h2>
+
+    <div class="slider">
+      <div class="slider-track">
+        <img src="1.png">
+        <img src="2.png">
+        <img src="3.png">
+        <img src="4.png">
+        <img src="5.png">
+        <img src="6.png">
+
+        <img src="1.png">
+        <img src="2.png">
+        <img src="3.png">
+        <img src="4.png">
+        <img src="5.png">
+        <img src="6.png">
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script src="./script.js"></script>
 </body>
 </html>
