@@ -973,12 +973,12 @@ body.modal-open #siteContent {
 }
 
 .counter {
-  color: #fff;
+  color: #FFA100;
   display: inline-block;
-  min-width: 110px;
+  min-width: 115px;
   text-shadow:
-    0 0 18px rgba(255,255,255,.45),
-    0 0 35px rgba(255,161,0,.35);
+    0 0 18px rgba(255,161,0,.75),
+    0 0 35px rgba(255,161,0,.45);
 }
 
 .hero h3 {
@@ -991,6 +991,7 @@ body.modal-open #siteContent {
     transform: translateY(35px) scale(.96);
     filter: blur(8px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -1002,13 +1003,14 @@ body.modal-open #siteContent {
   0%, 100% {
     text-shadow: 0 0 14px rgba(255,161,0,.35);
   }
+
   50% {
     text-shadow: 0 0 34px rgba(255,161,0,.95);
   }
 }
-.counter {
-  color: #FFA100;
-  display: inline-block;
-  min-width: 95px;
-  text-shadow: 0 0 25px rgba(255,161,0,.8);
+
+@media (max-width: 768px) {
+  .counter {
+    min-width: 90px;
+  }
 }
