@@ -884,3 +884,68 @@ body.modal-open #siteContent {
     font-size: 20px;
   }
 }
+/* TRUST BAR PRO ZENIX */
+.trust-bar {
+  width: 100%;
+  background: linear-gradient(90deg, #050505, #111827, #050505);
+  color: #fff;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  padding: 26px 35px;
+  border-top: 1px solid rgba(255,161,0,.35);
+  border-bottom: 1px solid rgba(255,161,0,.35);
+  box-shadow: inset 0 0 45px rgba(255,161,0,.08);
+}
+
+.trust-item {
+  background: rgba(255,255,255,.045);
+  border: 1px solid rgba(255,161,0,.22);
+  border-radius: 22px;
+  padding: 20px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+  font-size: 18px;
+  font-weight: 900;
+  text-align: center;
+  transition: .35s ease;
+}
+
+.trust-icon {
+  width: 42px;
+  height: 42px;
+  min-width: 42px;
+  border-radius: 50%;
+  background: #FFA100;
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 26px rgba(255,161,0,.75);
+}
+
+.trust-item:hover {
+  transform: translateY(-6px);
+  border-color: #FFA100;
+  box-shadow: 0 0 38px rgba(255,161,0,.35);
+}
+
+@media (max-width: 900px) {
+  .trust-bar {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 22px 18px;
+  }
+}
+
+@media (max-width: 520px) {
+  .trust-bar {
+    grid-template-columns: 1fr;
+  }
+
+  .trust-item {
+    font-size: 16px;
+    padding: 17px;
+  }
+}
