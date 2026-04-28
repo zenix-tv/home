@@ -298,47 +298,28 @@
 
 </main>
 
-<script src="./script.js?v=3000"></script>
-
 <script>
-(function () {
-  function iniciarContadores() {
-    const counters = document.querySelectorAll(".counter");
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll(".counter").forEach(function (counter) {
+    const target = parseInt(counter.dataset.target, 10);
+    let current = 0;
+    const increment = Math.ceil(target / 80);
 
-    counters.forEach(function (counter) {
-      const target = Number(counter.dataset.target || 0);
-      if (!target || counter.dataset.done === "true") return;
+    const timer = setInterval(function () {
+      current += increment;
 
-      counter.dataset.done = "true";
-      let current = 0;
-      const duration = 1800;
-      const steps = 90;
-      const increment = target / steps;
-      const speed = duration / steps;
-
-      const timer = setInterval(function () {
-        current += increment;
-
-        if (current >= target) {
-          counter.textContent = target.toLocaleString("es-ES");
-          clearInterval(timer);
-        } else {
-          counter.textContent = Math.floor(current).toLocaleString("es-ES");
-        }
-      }, speed);
-    });
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", iniciarContadores);
-  } else {
-    iniciarContadores();
-  }
-
-  window.addEventListener("load", iniciarContadores);
-})();
+      if (current >= target) {
+        counter.textContent = target.toLocaleString("es-ES");
+        clearInterval(timer);
+      } else {
+        counter.textContent = current.toLocaleString("es-ES");
+      }
+    }, 20);
+  });
+});
 </script>
 
 </body>
 </html>
+
   
