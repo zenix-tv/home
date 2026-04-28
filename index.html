@@ -298,33 +298,47 @@
 
 </main>
 
-<script src="./script.js?v=1500"></script>
+<script src="./script.js?v=3000"></script>
 
 <script>
-window.addEventListener("load", function () {
-  const counters = document.querySelectorAll(".counter");
+(function () {
+  function iniciarContadores() {
+    const counters = document.querySelectorAll(".counter");
 
-  counters.forEach(function(counter) {
-    const target = parseInt(counter.getAttribute("data-target"), 10);
-    let current = 0;
-    const duration = 1800;
-    const steps = 80;
-    const increment = target / steps;
-    const speed = duration / steps;
+    counters.forEach(function (counter) {
+      const target = Number(counter.dataset.target || 0);
+      if (!target || counter.dataset.done === "true") return;
 
-    const timer = setInterval(function() {
-      current += increment;
+      counter.dataset.done = "true";
+      let current = 0;
+      const duration = 1800;
+      const steps = 90;
+      const increment = target / steps;
+      const speed = duration / steps;
 
-      if (current >= target) {
-        counter.textContent = target.toLocaleString("es-ES");
-        clearInterval(timer);
-      } else {
-        counter.textContent = Math.floor(current).toLocaleString("es-ES");
-      }
-    }, speed);
-  });
-});
+      const timer = setInterval(function () {
+        current += increment;
+
+        if (current >= target) {
+          counter.textContent = target.toLocaleString("es-ES");
+          clearInterval(timer);
+        } else {
+          counter.textContent = Math.floor(current).toLocaleString("es-ES");
+        }
+      }, speed);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", iniciarContadores);
+  } else {
+    iniciarContadores();
+  }
+
+  window.addEventListener("load", iniciarContadores);
+})();
 </script>
-<script src="./script.js?v=2000"></script>
+
 </body>
 </html>
+  
