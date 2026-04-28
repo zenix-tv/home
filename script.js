@@ -45,22 +45,17 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  if (closeVideo) {
-    closeVideo.addEventListener("click", closeModal);
-  }
+  if (closeVideo) closeVideo.addEventListener("click", closeModal);
 
   if (videoModal) {
     videoModal.addEventListener("click", (e) => {
-      if (e.target === videoModal) {
-        closeModal();
-      }
+      if (e.target === videoModal) closeModal();
     });
   }
 
   /* FAQ */
   document.querySelectorAll(".faq-item").forEach((item) => {
     const button = item.querySelector("button");
-
     if (button) {
       button.addEventListener("click", () => {
         item.classList.toggle("active");
@@ -68,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  /* PAUSAR GALERÍA CON CLICK */
+  /* PAUSAR GALERÍA */
   const rankingTrack = document.querySelector(".ranking-track");
   let paused = false;
 
@@ -97,16 +92,16 @@ document.addEventListener("DOMContentLoaded", () => {
       const elapsed = currentTime - startTime;
       const progress = Math.min(elapsed / duration, 1);
       const ease = 1 - Math.pow(1 - progress, 4);
-      const currentValue = Math.floor(ease * target);
+      const value = Math.floor(ease * target);
 
-      counter.textContent = formatNumber(currentValue);
+      counter.textContent = formatNumber(value);
 
       if (progress < 1) {
         requestAnimationFrame(updateCounter);
       } else {
         counter.textContent = formatNumber(target);
 
-        /* EFECTO REBOTE PRO */
+        /* REBOTE PRO */
         counter.style.transform = "scale(1.22)";
         counter.style.textShadow =
           "0 0 22px rgba(255,161,0,1), 0 0 55px rgba(255,161,0,.9)";
@@ -121,11 +116,29 @@ document.addEventListener("DOMContentLoaded", () => {
     requestAnimationFrame(updateCounter);
   }
 
-  /* Espera a que termine la intro */
   setTimeout(() => {
     counters.forEach((counter) => {
       counter.textContent = "0";
       animateCounter(counter);
     });
   }, 2200);
+
+  /* 🔥 SCROLL REVEAL PRO */
+  const sections = document.querySelectorAll(
+    ".devices, .football-banner, .demo-video, .plans, .trust-bar, .top10, .faq, .footer"
+  );
+
+  sections.forEach((section) => {
+    section.classList.add("reveal");
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("active");
+      }
+    });
+  }, { threshold: 0.18 });
+
+  sections.forEach((section) => observer.observe(section));
 });
