@@ -117,3 +117,27 @@ const counterObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.6 });
 
 counters.forEach((counter) => counterObserver.observe(counter));
+/* CONTADOR HERO ZENIX */
+document.addEventListener("DOMContentLoaded", () => {
+  const counters = document.querySelectorAll(".counter");
+
+  counters.forEach((counter) => {
+    const target = Number(counter.getAttribute("data-target"));
+    let current = 0;
+    const speed = 25;
+    const increment = Math.ceil(target / 80);
+
+    const updateCounter = () => {
+      current += increment;
+
+      if (current >= target) {
+        counter.textContent = target.toLocaleString("es-ES");
+      } else {
+        counter.textContent = current.toLocaleString("es-ES");
+        setTimeout(updateCounter, speed);
+      }
+    };
+
+    updateCounter();
+  });
+});
