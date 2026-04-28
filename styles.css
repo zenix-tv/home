@@ -967,3 +967,42 @@ body.modal-open #siteContent {
     font-size: 34px;
   }
 }
+/* HERO COUNTER PRO */
+.hero-stats {
+  animation: heroTextIn 1.2s ease both;
+}
+
+.counter {
+  color: #fff;
+  display: inline-block;
+  min-width: 110px;
+  text-shadow:
+    0 0 18px rgba(255,255,255,.45),
+    0 0 35px rgba(255,161,0,.35);
+}
+
+.hero h3 {
+  animation: orangePulse 2.4s ease-in-out infinite;
+}
+
+@keyframes heroTextIn {
+  from {
+    opacity: 0;
+    transform: translateY(35px) scale(.96);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes orangePulse {
+  0%, 100% {
+    text-shadow: 0 0 14px rgba(255,161,0,.35);
+  }
+  50% {
+    text-shadow: 0 0 34px rgba(255,161,0,.95);
+  }
+}
