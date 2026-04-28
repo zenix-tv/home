@@ -299,24 +299,38 @@
 </main>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-  document.querySelectorAll(".counter").forEach(function (counter) {
-    const target = parseInt(counter.dataset.target, 10);
-    let current = 0;
-    const increment = Math.ceil(target / 80);
+(function () {
+  function animarContadores() {
+    const counters = document.querySelectorAll(".counter");
 
-    const timer = setInterval(function () {
-      current += increment;
+    counters.forEach(function (counter) {
+      const target = Number(counter.getAttribute("data-target"));
+      if (!target || counter.dataset.done === "true") return;
 
-      if (current >= target) {
-        counter.textContent = target.toLocaleString("es-ES");
-        clearInterval(timer);
-      } else {
-        counter.textContent = current.toLocaleString("es-ES");
-      }
-    }, 20);
-  });
-});
+      counter.dataset.done = "true";
+      let current = 0;
+      const duration = 1800;
+      const steps = 90;
+      const increment = target / steps;
+      const speed = duration / steps;
+
+      const timer = setInterval(function () {
+        current += increment;
+
+        if (current >= target) {
+          counter.textContent = target.toLocaleString("es-ES");
+          clearInterval(timer);
+        } else {
+          counter.textContent = Math.floor(current).toLocaleString("es-ES");
+        }
+      }, speed);
+    });
+  }
+
+  animarContadores();
+  setTimeout(animarContadores, 500);
+  window.addEventListener("load", animarContadores);
+})();
 </script>
 
 </body>
