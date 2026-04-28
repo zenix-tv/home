@@ -11,7 +11,11 @@
 
 <audio id="boomSound" src="boom.mp3" preload="auto"></audio>
 
-<!-- INTRO INICIAL -->
+<!-- BOTÓN FLOTANTE WHATSAPP -->
+<a href="https://wa.me/56964180558?text=Hola%20quiero%20informaci%C3%B3n%20de%20ZENIX%20TV" 
+   class="whatsapp-float" target="_blank">💬</a>
+
+<!-- INTRO -->
 <div id="zenixIntro">
   <div class="intro-logo">ZENIX<span>TV</span></div>
   <div class="intro-line"></div>
@@ -20,286 +24,113 @@
 
 <main id="siteContent">
 
-  <!-- HERO / PORTADA -->
-  <section class="hero" id="inicio">
- <div class="hero-video">
-  <video id="heroVideo" autoplay muted loop playsinline preload="auto">
-    <source src="/hero-video.mp4" type="video/mp4">
-  </video>
-</div>
-
-    <nav class="navbar">
-      <div class="nav-logo">ZENIX<span>TV</span></div>
-      <div class="nav-links">
-        <a href="#inicio">Inicio</a>
-        <a href="#planes">Planes</a>
-        <a href="#top10">Top 10</a>
-        <a href="#faq">FAQ</a>
-        <a href="#contacto">Contacto</a>
-      </div>
-    </nav>
-
-    <div class="hero-content">
-      <h1>ZENIX<span>TV</span></h1>
-<p class="hero-stats">
-<span class="counter" data-target="7500">0</span> Canales en Vivo 
-
-<span class="counter" data-target="25000">0</span> Películas y Series Premium
-
-</p>
-      <h3>Acceso inmediato · Sin contratos </h3>
-      <button class="btn-main" id="enterBtn">▶ VER AHORA</button>
-    </div>
-  </section>
-
-  <!-- DISPOSITIVOS -->
-  <section class="devices" id="dispositivos">
-    <h2>Úsalo en 5 Dispositivos</h2>
-    <p>Reproduce contenido hasta en 5 pantallas simultáneamente en equipos compatibles.</p>
-
-    <div class="device-grid">
-      <div class="device-card">
-        <span>📺</span>
-        <h3>Smart TV</h3>
-        <p>Samsung, LG, Android TV, Google TV</p>
-      </div>
-
-      <div class="device-card">
-        <span>💻</span>
-        <h3>Notebook</h3>
-        <p>Windows, Mac o navegador web</p>
-      </div>
-
-      <div class="device-card">
-        <span>📱</span>
-        <h3>Smartphone</h3>
-        <p>Android y iPhone</p>
-      </div>
-
-      <div class="device-card">
-        <span>📲</span>
-        <h3>Tablet</h3>
-        <p>Compatible con tablets Android/iOS</p>
-      </div>
-
-      <div class="device-card">
-        <span>🔥</span>
-        <h3>Firestick / Roku</h3>
-        <p>Ideal para convertir tu TV en Smart TV</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- BANNER LIGAS -->
-  <section class="football-banner">
-    <div class="football-content">
-      <h2>MIRA ACÁ</h2>
-      <h1>TODAS LAS LIGAS</h1>
-      <h3>MÁS IMPORTANTES DEL MUNDO</h3>
-      <p>Fútbol nacional e internacional, copas, torneos y eventos en vivo.</p>
-      <a href="#planes" class="btn-secondary">VER PLANES</a>
-    </div>
-  </section>
-
-  <!-- VIDEO DEMO -->
-  <section class="demo-video">
-    <h2>Mira nuestro sistema como funciona</h2>
-    <p>Es muy simple y se puede utilizar en todos los dispositivos</p>
-    <button class="video-btn" id="openVideo">▶ Ver Video</button>
-  </section>
-
-  <!-- MODAL VIDEO -->
-  <div class="video-modal" id="videoModal">
-    <div class="video-box">
-      <button class="close-video" id="closeVideo">×</button>
-
-      <!-- CAMBIAR demo.mp4 POR TU VIDEO REAL -->
-      <div class="video-responsive">
-  <iframe 
-    src="https://player.vimeo.com/video/1147809217"
-    frameborder="0"
-    allow="autoplay; fullscreen; picture-in-picture"
-    allowfullscreen>
-  </iframe>
-</div>
-    </div>
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-video">
+    <video autoplay muted loop playsinline>
+      <source src="/hero-video.mp4" type="video/mp4">
+    </video>
   </div>
 
-  <!-- PLANES -->
-  <section class="plans" id="planes">
-    <h2>Elige tu plan</h2>
-    <p class="plans-subtitle">Todos incluyen activación inmediata y soporte.</p>
-
-    <div class="plans-grid">
-
-      <div class="plan-card">
-        <h3>1 Mes</h3>
-        <h4>$12.990</h4>
-        <ul>
-          <li>✓ 25.000 Películas y Series Premium</li>
-          <li>✓ 7.500 Canales en Vivo</li>
-          <li>✓ 995 Full Deportes</li>
-          <li>✓ 4K + FHD + HD</li>
-          <li>✓ 5 dispositivos simultáneos</li>
-          <li>✓ Activación inmediata</li>
-        </ul>
-        <a href="LINK_PAGO_PLAN_1" class="plan-btn">Contratar</a>
-      </div>
-
-      <div class="plan-card featured">
-        <div class="badge">🔥 ¡El más vendido!</div>
-        <h3>2 Meses + 1 Gratis</h3>
-        <h4>$29.990</h4>
-        <ul>
-          <li>✓ 25.000 Películas y Series Premium</li>
-          <li>✓ 7.500 Canales en Vivo</li>
-          <li>✓ 995 Full Deportes</li>
-          <li>✓ 4K + FHD + HD</li>
-          <li>✓ 5 dispositivos simultáneos</li>
-          <li>✓ Activación inmediata</li>
-        </ul>
-        <a href="LINK_PAGO_PLAN_29990" class="plan-btn">Contratar</a>
-      </div>
-
-      <div class="plan-card">
-        <h3>12 Meses</h3>
-        <h4>$99.990</h4>
-        <ul>
-          <li>✓ 25.000 Películas y Series Premium</li>
-          <li>✓ 7.500 Canales en Vivo</li>
-          <li>✓ 995 Full Deportes</li>
-          <li>✓ 4K + FHD + HD</li>
-          <li>✓ 5 dispositivos simultáneos</li>
-          <li>✓ Activación inmediata</li>
-        </ul>
-        <a href="LINK_PAGO_PLAN_12" class="plan-btn">Contratar</a>
-      </div>
-
+  <nav class="navbar">
+    <div class="nav-logo">ZENIX<span>TV</span></div>
+    <div class="nav-links">
+      <a href="#inicio">Inicio</a>
+      <a href="#planes">Planes</a>
+      <a href="#top10">Top 10</a>
+      <a href="#faq">FAQ</a>
     </div>
-  </section>
-  <section class="trust-bar">
-  <div class="trust-item">
-    <span class="trust-icon">🔒</span>
-    <span>Pago 100% seguro</span>
-  </div>
+  </nav>
 
-  <div class="trust-item">
-    <span class="trust-icon">⚡</span>
-    <span>Activación en minutos</span>
-  </div>
+  <div class="hero-content">
+    <p class="hero-stats">
+      <span class="counter" data-target="7500">0</span> Canales en Vivo <br>
+      <span class="counter" data-target="25000">0</span> Películas y Series Premium
+    </p>
 
-  <div class="trust-item">
-    <span class="trust-icon">🎧</span>
-    <span>Soporte 24/7</span>
-  </div>
+    <h3>Acceso inmediato · Sin contratos</h3>
 
-  <div class="trust-item">
-    <span class="trust-icon">🛡️</span>
-    <span>Garantía de devolución</span>
+    <!-- BOTÓN PRINCIPAL A WHATSAPP -->
+    <a href="https://wa.me/56964180558?text=Quiero%20probar%20ZENIX%20TV%20🔥" 
+       class="btn-main" target="_blank">
+       ▶ VER AHORA
+    </a>
   </div>
 </section>
 
- <section class="top10" id="top10">
-  <div class="top10-header">
-    <span></span>
-    <div>
-      <h3>TOP <strong>10</strong> DE LA SEMANA</h3>
-      <p>LAS PELÍCULAS Y SERIES MÁS VISTAS</p>
+<!-- PLANES -->
+<section class="plans" id="planes">
+  <h2>Elige tu plan</h2>
+  <p class="plans-subtitle">Activación inmediata</p>
+
+  <div class="plans-grid">
+
+    <!-- PLAN 1 -->
+    <div class="plan-card">
+      <h3>1 Mes</h3>
+      <h4>$12.990</h4>
+      <ul>
+        <li>✓ 25.000 Películas</li>
+        <li>✓ 7.500 Canales</li>
+        <li>✓ 4K + HD</li>
+      </ul>
+
+      <a href="https://wa.me/56964180558?text=Quiero%20el%20plan%20de%201%20mes%20ZENIX%20TV" 
+         class="plan-btn" target="_blank">
+         Contratar
+      </a>
     </div>
-    <span></span>
-  </div>
 
-  <div class="ranking-slider">
-    <div class="ranking-track">
+    <!-- PLAN DESTACADO -->
+    <div class="plan-card featured">
+      <div class="badge">🔥 Más vendido</div>
+      <h3>2 + 1 Gratis</h3>
+      <h4>$29.990</h4>
 
-      <!-- ORIGINAL -->
-      <div class="rank-card"><div class="rank-number">1</div><img src="1.jpg" alt="PROYECTO"><h4>PROYECTO FIN DEL MUNDO</h4><p>VISTAS<br><strong>3.2 M</strong></p></div>
-      <div class="rank-card"><div class="rank-number">2</div><img src="2.jpg" alt="OUTCOME"><h4>OUTCOME</h4><p>VISTAS<br><strong>2.8 M</strong></p></div>
-      <div class="rank-card"><div class="rank-number">3</div><img src="3.jpg" alt="MALCOLM"><h4>MALCOLM EN MEDIO</h4><p>VISTAS<br><strong>2.4 M</strong></p></div>
-      <div class="rank-card"><div class="rank-number">4</div><img src="4.jpg" alt="LA NOVIA"><h4>LA NOVIA</h4><p>VISTAS<br><strong>2.1 M</strong></p></div>
-      <div class="rank-card"><div class="rank-number">5</div><img src="5.jpg" alt="AVATAR"><h4>AVATAR: FUEGO Y CENIZA</h4><p>VISTAS<br><strong>1.9 M</strong></p></div>
-      <div class="rank-card"><div class="rank-number">6</div><img src="6.jpg" alt="SUPER MARIO"><h4>SUPER MARIO</h4><p>VISTAS<br><strong>1.7 M</strong></p></div>
-      <div class="rank-card"><div class="rank-number">7</div><img src="7.jpg" alt="THE BOYS"><h4>THE BOYS</h4><p>VISTAS<br><strong>1.4 M</strong></p></div>
-      <div class="rank-card"><div class="rank-number">8</div><img src="8.jpg" alt="EMBESTIDA"><h4>EMBESTIDA</h4><p>VISTAS<br><strong>1.2 M</strong></p></div>
-      <div class="rank-card"><div class="rank-number">9</div><img src="9.jpg" alt="ONE PIECE"><h4>ONE PIECE</h4><p>VISTAS<br><strong>980 K</strong></p></div>
-      <div class="rank-card"><div class="rank-number">10</div><img src="10.jpg" alt="RE ZERO"><h4>RE ZERO</h4><p>VISTAS<br><strong>850 K</strong></p></div>
+      <ul>
+        <li>✓ 25.000 Películas</li>
+        <li>✓ 7.500 Canales</li>
+        <li>✓ 4K + HD</li>
+      </ul>
 
-      <!-- DUPLICADO (para scroll infinito real) -->
-      <div class="rank-card"><div class="rank-number">1</div><img src="1.jpg"><h4>PROYECTO</h4><p>VISTAS<br><strong>3.2 M</strong></p></div>
-      <div class="rank-card"><div class="rank-number">2</div><img src="2.jpg"><h4>OUTCOME</h4><p>VISTAS<br><strong>2.8 M</strong></p></div>
-      <div class="rank-card"><div class="rank-number">3</div><img src="3.jpg"><h4>MALCOLM</h4><p>VISTAS<br><strong>2.4 M</strong></p></div>
-      <div class="rank-card"><div class="rank-number">4</div><img src="4.jpg"><h4>LA NOVIA</h4><p>VISTAS<br><strong>2.1 M</strong></p></div>
-      <div class="rank-card"><div class="rank-number">5</div><img src="5.jpg"><h4>AVATAR: FUEGO Y CENIZA</h4><p>VISTAS<br><strong>1.9 M</strong></p></div>
-      <div class="rank-card"><div class="rank-number">6</div><img src="6.jpg"><h4>SUPER MARIO GALAXIAS </h4><p>VISTAS<br><strong>1.7 M</strong></p></div>
-      <div class="rank-card"><div class="rank-number">7</div><img src="7.jpg"><h4>THE BOYS</h4><p>VISTAS<br><strong>1.4 M</strong></p></div>
-      <div class="rank-card"><div class="rank-number">8</div><img src="8.jpg"><h4>EMBESTIDA</h4><p>VISTAS<br><strong>1.2 M</strong></p></div>
-      <div class="rank-card"><div class="rank-number">9</div><img src="9.jpg"><h4>ONE PIECE</h4><p>VISTAS<br><strong>980 K</strong></p></div>
-      <div class="rank-card"><div class="rank-number">10</div><img src="10.jpg"><h4>RE ZERO</h4><p>VISTAS<br><strong>850 K</strong></p></div>
-
+      <a href="https://wa.me/56964180558?text=Quiero%20el%20plan%202x1%20ZENIX%20TV%20🔥" 
+         class="plan-btn" target="_blank">
+         Contratar
+      </a>
     </div>
-  </div>
 
-  <div class="ranking-note">
-    ★ Cifras aproximadas basadas en reproducciones globales
+    <!-- PLAN 12 -->
+    <div class="plan-card">
+      <h3>12 Meses</h3>
+      <h4>$99.990</h4>
+
+      <ul>
+        <li>✓ Todo incluido</li>
+        <li>✓ Mejor precio</li>
+      </ul>
+
+      <a href="https://wa.me/56964180558?text=Quiero%20el%20plan%20anual%20ZENIX%20TV" 
+         class="plan-btn" target="_blank">
+         Contratar
+      </a>
+    </div>
+
   </div>
 </section>
 
+<!-- CTA FINAL (CIERRE) -->
+<section style="text-align:center; padding:80px 20px; background:#000;">
+  <h2 style="font-size:38px;">Empieza hoy mismo 🚀</h2>
 
-
-  <!-- FAQ -->
-  <section class="faq" id="faq">
-    <h2>Preguntas Frecuentes</h2>
-
-    <div class="faq-item">
-      <button>¿En cuántos dispositivos puedo usar el servicio?</button>
-      <div class="faq-answer">
-        <p>Puedes usar el servicio hasta en 5 dispositivos al mismo tiempo.</p>
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <button>¿Necesito internet para ver el contenido?</button>
-      <div class="faq-answer">
-        <p>Sí, necesitas conexión a internet. Recomendamos una velocidad mínima de 10 Mbps.</p>
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <button>¿En qué dispositivos funciona?</button>
-      <div class="faq-answer">
-        <p>Funciona en Smart TV, celulares, tablets, computadores, TV Box, Roku y Firestick.</p>
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <button>¿Necesito instalar alguna aplicación?</button>
-      <div class="faq-answer">
-        <p>Sí, te enviaremos instrucciones paso a paso para instalar una app compatible.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="footer" id="contacto">
-    <h2>Canales de Atención</h2>
-
-    <div class="socials">
-      <a href="LINK_WHATSAPP">WhatsApp</a>
-      <a href="LINK_TELEGRAM">Telegram</a>
-      <a href="LINK_INSTAGRAM">Instagram</a>
-    </div>
-
-    <div class="legal">
-      <a href="LINK_PRIVACIDAD">Política de privacidad</a>
-      <a href="LINK_TERMINOS">Términos legales</a>
-      <a href="LINK_CONTACTO">Contacto</a>
-    </div>
-
-    <p>©2026 ZENIX TV · Sitio web seguro con SSL</p>
-  </footer>
+  <a href="https://wa.me/56964180558?text=Quiero%20activar%20ZENIX%20TV%20ahora" 
+     class="btn-main" target="_blank">
+     ACTIVAR AHORA POR WHATSAPP
+  </a>
+</section>
 
 </main>
 
+<!-- SCRIPT CONTADOR -->
 <script>
 setTimeout(function () {
   const counters = document.querySelectorAll(".counter");
@@ -329,5 +160,3 @@ setTimeout(function () {
 
 </body>
 </html>
-
-  
