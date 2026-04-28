@@ -13,6 +13,13 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("dispositivos").scrollIntoView({
         behavior: "smooth"
       });
+
+      setTimeout(() => {
+        window.open(
+          "https://wa.me/56964180558?text=Hola%20ZENIX%20TV,%20quiero%20probar%20el%20servicio",
+          "_blank"
+        );
+      }, 1200);
     });
   }
 
@@ -36,13 +43,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function closeModal() {
     if (!videoModal) return;
-
     videoModal.classList.remove("active");
     document.body.classList.remove("modal-open");
 
-    if (iframe) {
-      iframe.src = iframe.src;
-    }
+    if (iframe) iframe.src = iframe.src;
   }
 
   if (closeVideo) closeVideo.addEventListener("click", closeModal);
@@ -74,56 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* CONTADOR HERO */
-  const counters = document.querySelectorAll(".counter");
-
-  function formatNumber(num) {
-    return new Intl.NumberFormat("es-ES").format(num);
-  }
-
-  function animateCounter(counter) {
-    const target = Number(counter.dataset.target);
-    const duration = 1800;
-    const startTime = performance.now();
-
-    counter.style.transition = "transform 0.22s ease, text-shadow 0.22s ease";
-
-    function updateCounter(currentTime) {
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const ease = 1 - Math.pow(1 - progress, 4);
-      const value = Math.floor(ease * target);
-
-      counter.textContent = formatNumber(value);
-
-      if (progress < 1) {
-        requestAnimationFrame(updateCounter);
-      } else {
-        counter.textContent = formatNumber(target);
-
-        /* REBOTE PRO */
-        counter.style.transform = "scale(1.22)";
-        counter.style.textShadow =
-          "0 0 22px rgba(255,161,0,1), 0 0 55px rgba(255,161,0,.9)";
-
-        setTimeout(() => {
-          counter.style.transform = "scale(1)";
-          counter.style.textShadow = "";
-        }, 240);
-      }
-    }
-
-    requestAnimationFrame(updateCounter);
-  }
-
-  setTimeout(() => {
-    counters.forEach((counter) => {
-      counter.textContent = "0";
-      animateCounter(counter);
-    });
-  }, 2200);
-
-  /* 🔥 SCROLL REVEAL PRO */
+  /* SCROLL REVEAL PRO */
   const sections = document.querySelectorAll(
     ".devices, .football-banner, .demo-video, .plans, .trust-bar, .top10, .faq, .footer"
   );
