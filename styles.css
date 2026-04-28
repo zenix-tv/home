@@ -1006,3 +1006,9 @@ body.modal-open #siteContent {
     text-shadow: 0 0 34px rgba(255,161,0,.95);
   }
 }
+.counter {
+  color: #FFA100;
+  display: inline-block;
+  min-width: 95px;
+  text-shadow: 0 0 25px rgba(255,161,0,.8);
+}
