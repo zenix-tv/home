@@ -89,30 +89,39 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function animateCounter(counter) {
-    const target = Number(counter.dataset.target);
-    const duration = 1800;
-    const startTime = performance.now();
+  const target = Number(counter.dataset.target);
+  const duration = 1800;
+  const startTime = performance.now();
 
-    function updateCounter(currentTime) {
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const ease = 1 - Math.pow(1 - progress, 4);
-      const currentValue = Math.floor(ease * target);
+  function updateCounter(currentTime) {
+    const elapsed = currentTime - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 4);
+    const currentValue = Math.floor(ease * target);
 
-      counter.textContent = formatNumber(currentValue);
+    counter.textContent = formatNumber(currentValue);
 
-      if (progress < 1) {
-        requestAnimationFrame(updateCounter);
-      } else {
-        counter.textContent = formatNumber(target);
-      }
+    if (progress < 1) {
+      requestAnimationFrame(updateCounter);
+    } else {
+      // VALOR FINAL
+      counter.textContent = formatNumber(target);
+
+      // 🔥 EFECTO REBOTE PRO
+      counter.style.transform = "scale(1.2)";
+      counter.style.transition = "transform 0.2s ease";
+
+      setTimeout(() => {
+        counter.style.transform = "scale(1)";
+      }, 200);
     }
-
-    requestAnimationFrame(updateCounter);
   }
 
+  requestAnimationFrame(updateCounter);
+}
+setTimeout(() => {
   counters.forEach((counter) => {
     counter.textContent = "0";
     animateCounter(counter);
   });
-});
+}, 2200);
