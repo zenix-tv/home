@@ -312,6 +312,10 @@ setTimeout(function () {
 
       if (current >= target) {
         counter.textContent = target.toLocaleString("es-ES");
+        counter.style.transform = "scale(1.18)";
+        setTimeout(() => {
+          counter.style.transform = "scale(1)";
+        }, 220);
         clearInterval(timer);
       } else {
         counter.textContent = current.toLocaleString("es-ES");
