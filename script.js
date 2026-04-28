@@ -58,9 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* FAQ */
-  const faqItems = document.querySelectorAll(".faq-item");
-
-  faqItems.forEach((item) => {
+  document.querySelectorAll(".faq-item").forEach((item) => {
     const button = item.querySelector("button");
 
     if (button) {
@@ -89,39 +87,45 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function animateCounter(counter) {
-  const target = Number(counter.dataset.target);
-  const duration = 1800;
-  const startTime = performance.now();
+    const target = Number(counter.dataset.target);
+    const duration = 1800;
+    const startTime = performance.now();
 
-  function updateCounter(currentTime) {
-    const elapsed = currentTime - startTime;
-    const progress = Math.min(elapsed / duration, 1);
-    const ease = 1 - Math.pow(1 - progress, 4);
-    const currentValue = Math.floor(ease * target);
+    counter.style.transition = "transform 0.22s ease, text-shadow 0.22s ease";
 
-    counter.textContent = formatNumber(currentValue);
+    function updateCounter(currentTime) {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const ease = 1 - Math.pow(1 - progress, 4);
+      const currentValue = Math.floor(ease * target);
 
-    if (progress < 1) {
-      requestAnimationFrame(updateCounter);
-    } else {
-      // VALOR FINAL
-      counter.textContent = formatNumber(target);
+      counter.textContent = formatNumber(currentValue);
 
-      // 🔥 EFECTO REBOTE PRO
-      counter.style.transform = "scale(1.2)";
-      counter.style.transition = "transform 0.2s ease";
+      if (progress < 1) {
+        requestAnimationFrame(updateCounter);
+      } else {
+        counter.textContent = formatNumber(target);
 
-      setTimeout(() => {
-        counter.style.transform = "scale(1)";
-      }, 200);
+        /* EFECTO REBOTE PRO */
+        counter.style.transform = "scale(1.22)";
+        counter.style.textShadow =
+          "0 0 22px rgba(255,161,0,1), 0 0 55px rgba(255,161,0,.9)";
+
+        setTimeout(() => {
+          counter.style.transform = "scale(1)";
+          counter.style.textShadow = "";
+        }, 240);
+      }
     }
+
+    requestAnimationFrame(updateCounter);
   }
 
-  requestAnimationFrame(updateCounter);
-}
-setTimeout(() => {
-  counters.forEach((counter) => {
-    counter.textContent = "0";
-    animateCounter(counter);
-  });
-}, 2200);
+  /* Espera a que termine la intro */
+  setTimeout(() => {
+    counters.forEach((counter) => {
+      counter.textContent = "0";
+      animateCounter(counter);
+    });
+  }, 2200);
+});
