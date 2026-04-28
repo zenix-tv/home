@@ -77,3 +77,43 @@ if (rankingTrack) {
     rankingTrack.style.animationPlayState = paused ? "paused" : "running";
   });
 }
+/* CONTADOR HERO PRO */
+const counters = document.querySelectorAll(".counter");
+
+function formatNumber(num) {
+  return new Intl.NumberFormat("es-ES").format(num);
+}
+
+function runCounter(counter) {
+  const target = Number(counter.dataset.target);
+  const duration = 1600;
+  const startTime = performance.now();
+
+  function update(currentTime) {
+    const elapsed = currentTime - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 4);
+    const value = Math.floor(ease * target);
+
+    counter.textContent = formatNumber(value);
+
+    if (progress < 1) {
+      requestAnimationFrame(update);
+    } else {
+      counter.textContent = formatNumber(target);
+    }
+  }
+
+  requestAnimationFrame(update);
+}
+
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting && !entry.target.classList.contains("counted")) {
+      entry.target.classList.add("counted");
+      runCounter(entry.target);
+    }
+  });
+}, { threshold: 0.6 });
+
+counters.forEach((counter) => counterObserver.observe(counter));
