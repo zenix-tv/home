@@ -298,6 +298,33 @@
 
 </main>
 
-<script src="./script.js?v=1300"></script>
+<script src="./script.js?v=1500"></script>
+
+<script>
+window.addEventListener("load", function () {
+  const counters = document.querySelectorAll(".counter");
+
+  counters.forEach(function(counter) {
+    const target = parseInt(counter.getAttribute("data-target"), 10);
+    let current = 0;
+    const duration = 1800;
+    const steps = 80;
+    const increment = target / steps;
+    const speed = duration / steps;
+
+    const timer = setInterval(function() {
+      current += increment;
+
+      if (current >= target) {
+        counter.textContent = target.toLocaleString("es-ES");
+        clearInterval(timer);
+      } else {
+        counter.textContent = Math.floor(current).toLocaleString("es-ES");
+      }
+    }, speed);
+  });
+});
+</script>
+
 </body>
 </html>
