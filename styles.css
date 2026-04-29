@@ -1935,3 +1935,30 @@ body.modal-open #siteContent {
     font-size: 30px !important;
   }
 }
+/* NAVBAR MÓVIL CENTRADO PRO */
+@media (max-width: 768px) {
+
+  .navbar {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 8px;
+  }
+
+  .nav-links {
+    width: 100%;
+    display: flex;
+    justify-content: center !important;
+    align-items: center;
+    gap: 16px;
+    overflow-x: auto;
+    padding: 6px 10px;
+  }
+
+  .nav-links a {
+    text-align: center;
+    font-size: 14px;
+    white-space: nowrap;
+    flex: 0 0 auto;
+  }
+
+}
