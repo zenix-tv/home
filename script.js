@@ -45,7 +45,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!videoModal) return;
     videoModal.classList.remove("active");
     document.body.classList.remove("modal-open");
-
     if (iframe) iframe.src = iframe.src;
   }
 
@@ -96,28 +95,28 @@ document.addEventListener("DOMContentLoaded", () => {
   }, { threshold: 0.18 });
 
   sections.forEach((section) => observer.observe(section));
+
+  /* NAVBAR APPLE */
+  const navbar = document.querySelector(".navbar");
+  let lastScrollY = window.scrollY;
+
+  if (navbar) {
+    window.addEventListener("scroll", () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > 60) {
+        navbar.classList.add("nav-scrolled");
+      } else {
+        navbar.classList.remove("nav-scrolled");
+      }
+
+      if (currentScrollY > lastScrollY && currentScrollY > 140) {
+        navbar.classList.add("nav-hidden");
+      } else {
+        navbar.classList.remove("nav-hidden");
+      }
+
+      lastScrollY = currentScrollY;
+    });
+  }
 });
-
-/* NAVBAR APPLE: OCULTA AL BAJAR, APARECE AL SUBIR */
-const navbar = document.querySelector(".navbar");
-let lastScrollY = window.scrollY;
-
-if (navbar) {
-  window.addEventListener("scroll", () => {
-    const currentScrollY = window.scrollY;
-
-    if (currentScrollY > 60) {
-      navbar.classList.add("nav-scrolled");
-    } else {
-      navbar.classList.remove("nav-scrolled");
-    }
-
-    if (currentScrollY > lastScrollY && currentScrollY > 140) {
-      navbar.classList.add("nav-hidden");
-    } else {
-      navbar.classList.remove("nav-hidden");
-    }
-
-    lastScrollY = currentScrollY;
-  });
-}
