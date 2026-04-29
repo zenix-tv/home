@@ -1686,3 +1686,252 @@ body.modal-open #siteContent {
   box-shadow: 0 12px 35px rgba(0,0,0,.55) !important;
   border-bottom: 1px solid rgba(255,161,0,.22) !important;
 }
+
+/* =========================
+   OPTIMIZACIÓN MÓVIL FINAL
+========================= */
+
+@media (max-width: 768px) {
+
+  body {
+    overflow-x: hidden;
+  }
+
+  /* MENÚ MÓVIL */
+  .navbar {
+    padding: 12px 10px !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+
+  .nav-logo {
+    font-size: 26px !important;
+  }
+
+  .nav-links {
+    width: 100%;
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding: 4px 6px 8px;
+    scrollbar-width: none;
+  }
+
+  .nav-links::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-links a {
+    font-size: 13px !important;
+    white-space: nowrap;
+  }
+
+  .nav-cta {
+    padding: 8px 14px !important;
+    font-size: 12px !important;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 82vh !important;
+    padding-top: 95px !important;
+  }
+
+  .hero-video video {
+    object-position: center top !important;
+  }
+
+  .hero-content {
+    padding: 95px 18px 20px !important;
+    max-width: 100% !important;
+  }
+
+  .hero-stats {
+    font-size: 25px !important;
+    line-height: 1.2 !important;
+  }
+
+  .counter {
+    min-width: auto !important;
+    display: inline-block;
+    font-size: 34px !important;
+  }
+
+  .hero h3 {
+    font-size: 19px !important;
+    margin: 14px 0 22px !important;
+  }
+
+  .btn-main {
+    font-size: 16px !important;
+    padding: 13px 26px !important;
+    border-radius: 16px !important;
+  }
+
+  /* SECCIONES */
+  .devices,
+  .devices-ultra,
+  .plans,
+  .faq,
+  .demo-video {
+    padding: 70px 18px !important;
+  }
+
+  .devices-ultra-header h2,
+  .plans h2,
+  .faq h2 {
+    font-size: 36px !important;
+    line-height: 1.05 !important;
+  }
+
+  .devices-ultra-header p {
+    font-size: 16px !important;
+    line-height: 1.45 !important;
+  }
+
+  .ultra-device-grid,
+  .plans-grid,
+  .trust-bar {
+    grid-template-columns: 1fr !important;
+  }
+
+  .ultra-device-card {
+    min-height: 260px !important;
+  }
+
+  .ultra-featured {
+    transform: scale(1) !important;
+  }
+
+  /* BANNER LIGAS */
+  .football-banner {
+    min-height: 500px !important;
+    padding: 65px 18px !important;
+  }
+
+  .football-content h1 {
+    font-size: 52px !important;
+    line-height: .95 !important;
+  }
+
+  .football-content h2 {
+    font-size: 34px !important;
+  }
+
+  .football-content h3 {
+    font-size: 28px !important;
+    padding: 10px 18px !important;
+  }
+
+  /* PLANES */
+  .plan-card {
+    padding: 38px 22px !important;
+  }
+
+  .plan-card.featured {
+    transform: scale(1) !important;
+  }
+
+  .plan-card h3 {
+    font-size: 30px !important;
+  }
+
+  .plan-card h4 {
+    font-size: 38px !important;
+  }
+
+  .plan-card ul {
+    font-size: 16px !important;
+    line-height: 2 !important;
+  }
+
+  /* TRUST BAR */
+  .trust-bar {
+    padding: 22px 18px !important;
+  }
+
+  .trust-item {
+    font-size: 16px !important;
+    padding: 18px !important;
+  }
+
+  /* TOP 10 */
+  .top10 {
+    padding: 70px 0 !important;
+  }
+
+  .top10-header {
+    gap: 8px !important;
+    padding: 0 12px;
+  }
+
+  .top10-header span {
+    width: 35px !important;
+  }
+
+  .top10-header h3 {
+    font-size: 36px !important;
+  }
+
+  .top10-header p {
+    font-size: 11px !important;
+    letter-spacing: 2px !important;
+  }
+
+  .ranking-track {
+    animation-duration: 28s !important;
+  }
+
+  .rank-card {
+    width: 145px !important;
+    min-width: 145px !important;
+    height: 480px !important;
+  }
+
+  .rank-card img {
+    height: 290px !important;
+  }
+
+  .rank-card h4 {
+    font-size: 16px !important;
+    min-height: 65px !important;
+  }
+
+  .rank-card p strong {
+    font-size: 23px !important;
+  }
+
+  /* FAQ */
+  .faq-item button {
+    font-size: 18px !important;
+    padding: 20px 12px !important;
+  }
+
+  .faq-answer {
+    padding: 0 12px !important;
+  }
+
+  .faq-item.active .faq-answer {
+    max-height: 360px !important;
+  }
+
+  /* FOOTER */
+  .footer {
+    padding: 55px 18px !important;
+  }
+
+  .socials,
+  .legal {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .whatsapp-float {
+    width: 58px !important;
+    height: 58px !important;
+    right: 16px !important;
+    bottom: 16px !important;
+    font-size: 30px !important;
+  }
+}
