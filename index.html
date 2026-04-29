@@ -447,5 +447,38 @@ setTimeout(function () {
 
 <script src="./script.js"></script>
 
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const navbar = document.querySelector(".navbar");
+  let lastScrollY = window.scrollY;
+
+  if (!navbar) return;
+
+  navbar.style.position = "fixed";
+  navbar.style.top = "0";
+  navbar.style.left = "0";
+  navbar.style.width = "100%";
+  navbar.style.zIndex = "999999";
+
+  window.addEventListener("scroll", function () {
+    const currentScrollY = window.scrollY;
+
+    if (currentScrollY > 60) {
+      navbar.classList.add("nav-scrolled");
+    } else {
+      navbar.classList.remove("nav-scrolled");
+    }
+
+    if (currentScrollY > lastScrollY && currentScrollY > 140) {
+      navbar.classList.add("nav-hidden");
+    } else {
+      navbar.classList.remove("nav-hidden");
+    }
+
+    lastScrollY = currentScrollY;
+  });
+});
+</script>  
+  
 </body>
 </html>
