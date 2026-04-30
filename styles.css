@@ -2231,7 +2231,7 @@ body.modal-open #siteContent {
 .football-trailer-bg {
   position: absolute;
   inset: 0;
-  background: url("/football-hero.jpeg") center/cover no-repeat;
+  background: url("/football-hero.jpg") center/cover no-repeat;
   transform: scale(1.08);
   animation: trailerZoom 16s ease-in-out infinite alternate;
   z-index: 1;
