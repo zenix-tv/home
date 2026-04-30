@@ -3074,3 +3074,192 @@ body.modal-open #siteContent {
   from { transform: scale(1); }
   to { transform: scale(1.025); }
 }
+/* GALERÍA DEPORTIVA PREMIUM */
+.sports-gallery {
+  background:
+    radial-gradient(circle at top, rgba(255,161,0,.16), transparent 35%),
+    linear-gradient(180deg, #020202, #07111d);
+  padding: 95px 0 105px;
+  overflow: hidden;
+  text-align: center;
+}
+
+.sports-gallery-header {
+  max-width: 950px;
+  margin: 0 auto 45px;
+  padding: 0 20px;
+}
+
+.sports-gallery-header span {
+  color: #FFA100;
+  font-weight: 900;
+  letter-spacing: 4px;
+  font-size: 14px;
+}
+
+.sports-gallery-header h2 {
+  font-size: clamp(38px, 6vw, 82px);
+  margin: 14px 0;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.sports-gallery-header p {
+  color: rgba(255,255,255,.75);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.sports-slider {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  padding: 25px 0;
+}
+
+.sports-slider::before,
+.sports-slider::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 110px;
+  height: 100%;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.sports-slider::before {
+  left: 0;
+  background: linear-gradient(to right, #020202, transparent);
+}
+
+.sports-slider::after {
+  right: 0;
+  background: linear-gradient(to left, #020202, transparent);
+}
+
+.sports-track {
+  display: flex;
+  gap: 22px;
+  width: max-content;
+  animation: sportsMove 42s linear infinite;
+}
+
+.sports-slider:hover .sports-track {
+  animation-play-state: paused;
+}
+
+.league-card {
+  position: relative;
+  width: 260px;
+  min-width: 260px;
+  height: 390px;
+  border-radius: 26px;
+  overflow: hidden;
+  background: #111827;
+  border: 1px solid rgba(255,161,0,.28);
+  box-shadow: 0 0 35px rgba(255,161,0,.16);
+  transition: .4s ease;
+}
+
+.league-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(1.02);
+  transition: .5s ease;
+}
+
+.league-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to top, rgba(0,0,0,.95), transparent 55%),
+    radial-gradient(circle at center, rgba(255,161,0,.12), transparent 45%);
+  z-index: 2;
+}
+
+.league-info {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  padding: 24px 18px;
+  text-align: left;
+}
+
+.league-info h3 {
+  margin: 0;
+  color: #fff;
+  font-size: 25px;
+  font-weight: 900;
+}
+
+.league-info p {
+  margin: 6px 0 0;
+  color: #FFA100;
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.league-card:hover {
+  transform: translateY(-14px) scale(1.06);
+  border-color: #FFA100;
+  box-shadow: 0 0 65px rgba(255,161,0,.65);
+  z-index: 10;
+}
+
+.league-card:hover img {
+  transform: scale(1.12);
+}
+
+@keyframes sportsMove {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 768px) {
+  .sports-gallery {
+    padding: 70px 0 80px;
+  }
+
+  .sports-gallery-header h2 {
+    font-size: 36px;
+  }
+
+  .sports-gallery-header p {
+    font-size: 16px;
+  }
+
+  .sports-track {
+    gap: 14px;
+    animation-duration: 30s;
+  }
+
+  .league-card {
+    width: 190px;
+    min-width: 190px;
+    height: 295px;
+    border-radius: 20px;
+  }
+
+  .league-info h3 {
+    font-size: 19px;
+  }
+
+  .league-info p {
+    font-size: 13px;
+  }
+
+  .sports-slider::before,
+  .sports-slider::after {
+    width: 45px;
+  }
+}
