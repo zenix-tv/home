@@ -2801,3 +2801,175 @@ body.modal-open #siteContent {
     padding: 12px 24px !important;
   }
 }
+/* ==============================
+   FOTO FÚTBOL ZENIX PRO FINAL
+   Imagen fija + efectos en código
+============================== */
+
+.football-photo-section,
+.football-photo-section.reveal {
+  position: relative !important;
+  background: #000 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  opacity: 1 !important;
+  transform: none !important;
+  filter: none !important;
+}
+
+.football-photo-wrap {
+  position: relative !important;
+  width: 100% !important;
+  max-width: 1920px !important;
+  margin: 0 auto !important;
+  overflow: hidden !important;
+  background: #000 !important;
+}
+
+/* IMAGEN CON MOVIMIENTO CINEMÁTICO */
+.football-photo-wrap img {
+  width: 100% !important;
+  height: auto !important;
+  display: block !important;
+  object-fit: contain !important;
+  transform: scale(1.01) !important;
+  animation: footballImageZoom 14s ease-in-out infinite alternate !important;
+}
+
+/* CAPA DE LUZ CINEMÁTICA */
+.football-photo-wrap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 45%, rgba(255,161,0,.20), transparent 38%),
+    linear-gradient(to bottom, rgba(0,0,0,.05), rgba(0,0,0,.38));
+}
+
+/* BRILLO MOVIÉNDOSE SOBRE LA FOTO */
+.football-photo-wrap::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -35%;
+  width: 35%;
+  height: 100%;
+  z-index: 3;
+  pointer-events: none;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,.16),
+    rgba(255,161,0,.22),
+    transparent
+  );
+  filter: blur(12px);
+  animation: footballLightSweep 5.5s ease-in-out infinite;
+}
+
+/* BOTÓN SOBRE FOTO */
+.football-live-btn {
+  position: absolute !important;
+  left: 50% !important;
+  bottom: 7% !important;
+  transform: translateX(-50%) !important;
+  z-index: 5 !important;
+
+  background: #FFA100 !important;
+  color: #000 !important;
+  padding: 18px 44px !important;
+  border-radius: 18px !important;
+  font-size: 24px !important;
+  font-weight: 900 !important;
+  text-decoration: none !important;
+  white-space: nowrap !important;
+
+  box-shadow:
+    0 0 35px rgba(255,161,0,.75),
+    0 0 80px rgba(255,161,0,.35) !important;
+
+  animation: footballBtnPulse 1.8s ease-in-out infinite !important;
+  transition: .35s ease !important;
+}
+
+.football-live-btn:hover {
+  transform: translateX(-50%) scale(1.08) !important;
+  box-shadow:
+    0 0 50px rgba(255,161,0,1),
+    0 0 100px rgba(255,161,0,.75) !important;
+}
+
+/* ANIMACIONES */
+@keyframes footballImageZoom {
+  from {
+    transform: scale(1.01);
+  }
+  to {
+    transform: scale(1.055);
+  }
+}
+
+@keyframes footballLightSweep {
+  0% {
+    left: -40%;
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  55% {
+    left: 110%;
+    opacity: .8;
+  }
+  100% {
+    left: 120%;
+    opacity: 0;
+  }
+}
+
+@keyframes footballBtnPulse {
+  0%, 100% {
+    box-shadow:
+      0 0 30px rgba(255,161,0,.65),
+      0 0 70px rgba(255,161,0,.30);
+  }
+  50% {
+    box-shadow:
+      0 0 50px rgba(255,161,0,1),
+      0 0 110px rgba(255,161,0,.65);
+  }
+}
+
+/* MÓVIL */
+@media (max-width: 768px) {
+  .football-photo-wrap img {
+    width: 100% !important;
+    height: auto !important;
+    object-fit: contain !important;
+    animation: footballImageZoomMobile 12s ease-in-out infinite alternate !important;
+  }
+
+  .football-live-btn {
+    bottom: 5% !important;
+    font-size: 14px !important;
+    padding: 12px 22px !important;
+    border-radius: 14px !important;
+  }
+
+  .football-photo-wrap::after {
+    width: 55%;
+    animation-duration: 6.5s;
+  }
+}
+
+@keyframes footballImageZoomMobile {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.035);
+  }
+}
