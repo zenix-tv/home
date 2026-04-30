@@ -2749,3 +2749,55 @@ body.modal-open #siteContent {
     border-radius: 14px;
   }
 }
+/* FOTO FÚTBOL ZENIX - FIX FINAL */
+.football-photo-section,
+.football-photo-section.reveal {
+  background: #000 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  position: relative !important;
+  overflow: hidden !important;
+  opacity: 1 !important;
+  transform: none !important;
+  filter: none !important;
+}
+
+.football-photo-wrap {
+  position: relative !important;
+  width: 100% !important;
+  max-width: 1920px !important;
+  margin: 0 auto !important;
+  background: #000 !important;
+}
+
+.football-photo-wrap img {
+  width: 100% !important;
+  height: auto !important;
+  display: block !important;
+  object-fit: contain !important;
+}
+
+.football-live-btn {
+  position: absolute !important;
+  left: 50% !important;
+  bottom: 7% !important;
+  transform: translateX(-50%) !important;
+  background: #FFA100 !important;
+  color: #000 !important;
+  padding: 18px 44px !important;
+  border-radius: 18px !important;
+  font-size: 24px !important;
+  font-weight: 900 !important;
+  text-decoration: none !important;
+  box-shadow: 0 0 45px rgba(255,161,0,.85) !important;
+  z-index: 5 !important;
+  white-space: nowrap !important;
+}
+
+@media (max-width: 768px) {
+  .football-live-btn {
+    bottom: 5% !important;
+    font-size: 15px !important;
+    padding: 12px 24px !important;
+  }
+}
