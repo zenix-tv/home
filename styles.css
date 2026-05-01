@@ -3142,7 +3142,7 @@ body.modal-open #siteContent {
   display: flex;
   gap: 22px;
   width: max-content;
-  animation: sportsMove 42s linear infinite;
+  animation: sportsMove 60s linear infinite;
 }
 
 .sports-slider:hover .sports-track {
@@ -3238,8 +3238,9 @@ body.modal-open #siteContent {
     font-size: 16px;
   }
 
-  .sports-track {
-    gap: 14px;
+  ..sports-track {
+  min-width: 200%;
+  }
     animation-duration: 30s;
   }
 
