@@ -3584,3 +3584,4 @@ body.modal-open #siteContent {
   from { transform: scale(1); }
   to { transform: scale(1.025); }
       }
+.pro-devices .device-card:nth-child(4) {
