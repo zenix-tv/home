@@ -1072,18 +1072,39 @@ body.modal-open #siteContent {
   right: 22px;
   bottom: 22px;
   z-index: 999999;
-  background: #25D366;
-  color: #fff;
+
+  background: #fff; /* fondo blanco */
+  color: #FFA100; /* icono naranja */
+
   width: 64px;
   height: 64px;
   border-radius: 50%;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   text-decoration: none;
-  font-size: 34px;
-  box-shadow: 0 0 35px rgba(37,211,102,.75);
-  animation: whatsappPulse 1.8s infinite;
+
+  font-size: 30px;
+
+  box-shadow:
+    0 0 25px rgba(255,161,0,.5),
+    0 10px 25px rgba(0,0,0,.6);
+
+  transition: all .3s ease;
+
+  border: 2px solid rgba(255,161,0,.4);
+}
+
+/* HOVER PRO */
+.whatsapp-float:hover {
+  transform: scale(1.1);
+  background: #FFA100;
+  color: #fff;
+  box-shadow:
+    0 0 45px rgba(255,161,0,.9),
+    0 15px 40px rgba(0,0,0,.7);
 }
 
 @keyframes whatsappPulse {
