@@ -122,27 +122,24 @@ document.addEventListener("DOMContentLoaded", () => {
       track.style.animationPlayState = "running";
     });
   });
-});
 
-   /* CONTADOR ZENIX */
-  document.querySelectorAll(".counter").forEach(counter => {
-    const target = +counter.getAttribute("data-target");
+  /* CONTADOR ZENIX */
+  document.querySelectorAll(".counter").forEach((counter) => {
+    const target = Number(counter.getAttribute("data-target"));
     let current = 0;
-
     const increment = target / 120;
 
-    const updateCounter = () => {
+    function updateCounter() {
       current += increment;
 
       if (current < target) {
-        counter.innerText = Math.floor(current).toLocaleString("es-ES");
+        counter.textContent = Math.floor(current).toLocaleString("es-ES");
         requestAnimationFrame(updateCounter);
       } else {
-        counter.innerText = target.toLocaleString("es-ES");
+        counter.textContent = target.toLocaleString("es-ES");
       }
-    };
+    }
 
     updateCounter();
   });
-
 });
