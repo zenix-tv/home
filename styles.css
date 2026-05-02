@@ -3949,3 +3949,188 @@ body.modal-open #siteContent {
   width: 100% !important;
   text-align: center !important;
 }
+/* =========================
+   LIGAS ZENIX PRO LIMPIO
+========================= */
+
+.sports-gallery,
+.sports-gallery.reveal {
+  position: relative !important;
+  background:
+    radial-gradient(circle at top, rgba(255,161,0,.18), transparent 36%),
+    linear-gradient(180deg, #020202 0%, #07111d 100%) !important;
+  padding: 95px 0 105px !important;
+  overflow: hidden !important;
+  text-align: center !important;
+  opacity: 1 !important;
+  transform: none !important;
+  filter: none !important;
+}
+
+.sports-gallery-header {
+  width: 100% !important;
+  max-width: 1180px !important;
+  margin: 0 auto 48px !important;
+  padding: 0 22px !important;
+  text-align: center !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+}
+
+.sports-gallery-header span {
+  color: #FFA100 !important;
+  font-weight: 900 !important;
+  letter-spacing: 5px !important;
+  font-size: 15px !important;
+  margin-bottom: 16px !important;
+  text-shadow: 0 0 22px rgba(255,161,0,.8);
+}
+
+.sports-gallery-header h2 {
+  width: 100% !important;
+  max-width: 1050px !important;
+  margin: 0 auto 18px !important;
+  text-align: center !important;
+  font-size: clamp(42px, 7vw, 96px) !important;
+  line-height: .92 !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+  letter-spacing: -2px !important;
+  color: #fff !important;
+  text-shadow:
+    0 0 30px rgba(0,0,0,.9),
+    0 0 42px rgba(255,161,0,.28);
+}
+
+.sports-gallery-header h2::after {
+  content: "";
+  display: block;
+  width: min(420px, 70%);
+  height: 5px;
+  margin: 24px auto 0;
+  border-radius: 50px;
+  background: linear-gradient(90deg, transparent, #FFA100, transparent);
+  box-shadow: 0 0 28px rgba(255,161,0,.9);
+}
+
+.sports-gallery-header p {
+  width: 100% !important;
+  max-width: 760px !important;
+  margin: 0 auto !important;
+  text-align: center !important;
+  color: rgba(255,255,255,.78) !important;
+  font-size: clamp(17px, 2vw, 23px) !important;
+  font-weight: 700 !important;
+  line-height: 1.45 !important;
+}
+
+.sports-slider {
+  width: 100% !important;
+  overflow: hidden !important;
+  position: relative !important;
+  padding: 28px 0 !important;
+}
+
+.sports-track {
+  display: flex !important;
+  gap: 24px !important;
+  width: max-content !important;
+  animation: sportsMove 58s linear infinite !important;
+}
+
+.sports-slider:hover .sports-track {
+  animation-play-state: paused !important;
+}
+
+.league-card {
+  position: relative !important;
+  width: 270px !important;
+  min-width: 270px !important;
+  height: 400px !important;
+  border-radius: 28px !important;
+  overflow: hidden !important;
+  background: #111827 !important;
+  border: 1px solid rgba(255,161,0,.32) !important;
+  box-shadow: 0 0 34px rgba(255,161,0,.16) !important;
+  transition: .4s ease !important;
+}
+
+.league-card img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
+  transition: .5s ease !important;
+}
+
+.league-card:hover {
+  transform: translateY(-14px) scale(1.055) !important;
+  border-color: #FFA100 !important;
+  box-shadow: 0 0 65px rgba(255,161,0,.65) !important;
+  z-index: 10 !important;
+}
+
+.league-card:hover img {
+  transform: scale(1.12) !important;
+}
+
+.league-info {
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  z-index: 3 !important;
+  padding: 26px 20px !important;
+  text-align: left !important;
+}
+
+.league-info h3 {
+  margin: 0 !important;
+  color: #fff !important;
+  font-size: 25px !important;
+  font-weight: 900 !important;
+}
+
+.league-info p {
+  margin: 6px 0 0 !important;
+  color: #FFA100 !important;
+  font-size: 15px !important;
+  font-weight: 900 !important;
+}
+
+@media (max-width: 768px) {
+  .sports-gallery,
+  .sports-gallery.reveal {
+    padding: 75px 0 85px !important;
+  }
+
+  .sports-gallery-header h2 {
+    font-size: 40px !important;
+    letter-spacing: -1px !important;
+  }
+
+  .sports-gallery-header p {
+    font-size: 16px !important;
+  }
+
+  .sports-track {
+    gap: 15px !important;
+    animation-duration: 34s !important;
+  }
+
+  .league-card {
+    width: 195px !important;
+    min-width: 195px !important;
+    height: 305px !important;
+    border-radius: 20px !important;
+  }
+
+  .league-info h3 {
+    font-size: 19px !important;
+  }
+
+  .league-info p {
+    font-size: 13px !important;
+  }
+}
