@@ -3924,3 +3924,28 @@ body.modal-open #siteContent {
     padding: 0 10px !important;
   }
 }
+/* FIX REAL CENTRADO LIGAS */
+.sports-gallery-header {
+  max-width: 100% !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  padding: 0 20px !important;
+
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  text-align: center !important;
+}
+
+.sports-gallery-header h2 {
+  width: 100% !important;
+  text-align: center !important;
+  margin: 0 auto !important;
+}
+
+.sports-gallery-header p {
+  width: 100% !important;
+  text-align: center !important;
+}
