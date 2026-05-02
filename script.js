@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const boom = document.getElementById("boomSound");
   const enterBtn = document.getElementById("enterBtn");
 
-  /* BOTÓN VER AHORA */
   if (enterBtn) {
     enterBtn.addEventListener("click", () => {
       if (boom) {
@@ -10,9 +9,10 @@ document.addEventListener("DOMContentLoaded", () => {
         boom.play().catch(() => {});
       }
 
-      document.getElementById("dispositivos").scrollIntoView({
-        behavior: "smooth"
-      });
+      const dispositivos = document.getElementById("dispositivos");
+      if (dispositivos) {
+        dispositivos.scrollIntoView({ behavior: "smooth" });
+      }
 
       setTimeout(() => {
         window.open(
@@ -23,7 +23,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* MODAL VIDEO */
   const openVideo = document.getElementById("openVideo");
   const closeVideo = document.getElementById("closeVideo");
   const videoModal = document.getElementById("videoModal");
@@ -56,7 +55,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* FAQ */
   document.querySelectorAll(".faq-item").forEach((item) => {
     const button = item.querySelector("button");
     if (button) {
@@ -66,59 +64,62 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  /* PAUSAR GALERÍA */
-  const rankingTrack = document.querySelector(".ranking-track");
-  let paused = false;
+  const revealElements = document.querySelectorAll(".reveal");
 
-  if (rankingTrack) {
-    rankingTrack.addEventListener("click", () => {
-      paused = !paused;
-      rankingTrack.style.animationPlayState = paused ? "paused" : "running";
+  function revealOnScroll() {
+    revealElements.forEach((el) => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight - 80) {
+        el.classList.add("active");
+      }
     });
   }
 
-  /* SCROLL REVEAL PRO */
-document.querySelectorAll(".draggable-slider").forEach((slider) => {
-  const track = slider.querySelector(".ranking-track, .sports-track");
-  if (!track) return;
+  revealOnScroll();
+  window.addEventListener("scroll", revealOnScroll);
 
-  let isDown = false;
-  let startX;
-  let scrollLeft;
+  document.querySelectorAll(".draggable-slider").forEach((slider) => {
+    const track = slider.querySelector(".ranking-track, .sports-track");
+    if (!track) return;
 
-  slider.addEventListener("mousedown", (e) => {
-    isDown = true;
-    slider.classList.add("dragging");
-    startX = e.pageX - slider.offsetLeft;
-    scrollLeft = slider.scrollLeft;
-    track.style.animationPlayState = "paused";
-  });
+    let isDown = false;
+    let startX = 0;
+    let scrollLeft = 0;
 
-  slider.addEventListener("mouseleave", () => {
-    isDown = false;
-    slider.classList.remove("dragging");
-    track.style.animationPlayState = "running";
-  });
+    slider.addEventListener("mousedown", (e) => {
+      isDown = true;
+      slider.classList.add("dragging");
+      startX = e.pageX - slider.offsetLeft;
+      scrollLeft = slider.scrollLeft;
+      track.style.animationPlayState = "paused";
+    });
 
-  slider.addEventListener("mouseup", () => {
-    isDown = false;
-    slider.classList.remove("dragging");
-    track.style.animationPlayState = "running";
-  });
+    slider.addEventListener("mouseleave", () => {
+      isDown = false;
+      slider.classList.remove("dragging");
+      track.style.animationPlayState = "running";
+    });
 
-  slider.addEventListener("mousemove", (e) => {
-    if (!isDown) return;
-    e.preventDefault();
-    const x = e.pageX - slider.offsetLeft;
-    const walk = (x - startX) * 1.4;
-    slider.scrollLeft = scrollLeft - walk;
-  });
+    slider.addEventListener("mouseup", () => {
+      isDown = false;
+      slider.classList.remove("dragging");
+      track.style.animationPlayState = "running";
+    });
 
-  slider.addEventListener("touchstart", () => {
-    track.style.animationPlayState = "paused";
-  });
+    slider.addEventListener("mousemove", (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - slider.offsetLeft;
+      const walk = (x - startX) * 1.4;
+      slider.scrollLeft = scrollLeft - walk;
+    });
 
-  slider.addEventListener("touchend", () => {
-    track.style.animationPlayState = "running";
+    slider.addEventListener("touchstart", () => {
+      track.style.animationPlayState = "paused";
+    });
+
+    slider.addEventListener("touchend", () => {
+      track.style.animationPlayState = "running";
+    });
   });
 });
