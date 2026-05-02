@@ -3916,3 +3916,55 @@ body.modal-open #siteContent {
   }
 
 }
+/* =========================
+   MUNDIAL 2026 ZENIX FINAL
+========================= */
+
+.worldcup-banner,
+.worldcup-banner.reveal {
+  position: relative !important;
+  background:
+    radial-gradient(circle at 20% 25%, rgba(255,161,0,.16), transparent 30%),
+    radial-gradient(circle at 80% 25%, rgba(255,161,0,.14), transparent 30%),
+    linear-gradient(180deg, #020202, #000) !important;
+  padding: 85px 18px 95px !important;
+  text-align: center !important;
+  overflow: hidden !important;
+  opacity: 1 !important;
+  transform: none !important;
+  filter: none !important;
+}
+
+.worldcup-top {
+  position: relative !important;
+  z-index: 4 !important;
+  margin-bottom: 42px !important;
+}
+
+.worldcup-top h2 {
+  color: #FFA100 !important;
+  font-size: clamp(28px, 4vw, 56px) !important;
+  letter-spacing: 8px !important;
+  margin: 0 0 16px !important;
+  font-weight: 900 !important;
+}
+
+.worldcup-top h1 {
+  color: #fff !important;
+  font-size: clamp(56px, 9vw, 150px) !important;
+  line-height: .9 !important;
+  margin: 0 !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+  text-shadow: 0 0 45px rgba(255,161,0,.25);
+}
+
+.worldcup-image-wrap {
+  position: relative !important;
+  z-index: 3 !important;
+  width: min(1280px, 96%) !important;
+  margin: 0 auto !important;
+  border-radius: 30px !important;
+  overflow: hidden !important;
+  background: #000 !important;
+  box-shadow:
