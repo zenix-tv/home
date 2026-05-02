@@ -155,7 +155,7 @@ body {
 }
 
 .hero-content h1 {
-  display: none;
+  display: block;
 }
 
 .hero p {
