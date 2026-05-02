@@ -4204,3 +4204,18 @@ body.modal-open #siteContent {
   text-align: center;
   margin-top: 18px;
 }
+/* CONTROL TÁCTIL / CLICK GALERÍAS */
+.draggable-slider {
+  cursor: grab;
+  touch-action: pan-y;
+}
+
+.draggable-slider:active {
+  cursor: grabbing;
+}
+
+.draggable-slider .sports-track,
+.draggable-slider .ranking-track {
+  user-select: none;
+  will-change: transform;
+}
