@@ -3606,421 +3606,9 @@ body.modal-open #siteContent {
   from { transform: scale(1); }
   to { transform: scale(1.025); }
       }
-/* =========================
-   BANNER MUNDIAL 2026 FINAL
-========================= */
-
-.worldcup-banner,
-.worldcup-banner.reveal {
-  position: relative !important;
-  min-height: 560px !important;
-  width: 100% !important;
-  overflow: hidden !important;
-  background: #000 !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  text-align: center !important;
-  padding: 90px 24px !important;
-  opacity: 1 !important;
-  transform: none !important;
-  filter: none !important;
-}
-
-.worldcup-bg {
-  position: absolute !important;
-  inset: 0 !important;
-  z-index: 1 !important;
-  background:
-    radial-gradient(circle at 20% 30%, rgba(255, 0, 0, .24), transparent 34%),
-    radial-gradient(circle at 80% 35%, rgba(0, 80, 255, .28), transparent 34%),
-    radial-gradient(circle at 50% 75%, rgba(255, 161, 0, .26), transparent 38%),
-    linear-gradient(135deg, #020617, #000 55%, #080808) !important;
-  animation: worldcupMove 12s ease-in-out infinite alternate !important;
-}
-
-.worldcup-bg::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image:
-    radial-gradient(rgba(255,255,255,.35) 1px, transparent 1px),
-    radial-gradient(rgba(255,161,0,.55) 1px, transparent 1px);
-  background-size: 90px 90px, 140px 140px;
-  opacity: .28;
-  animation: worldcupParticles 14s linear infinite;
-}
-
-.worldcup-content {
-  position: relative !important;
-  z-index: 5 !important;
-  max-width: 1050px !important;
-  margin: 0 auto !important;
-}
-
-.worldcup-content h2 {
-  margin: 0 0 16px !important;
-  color: #fff !important;
-  font-size: clamp(42px, 7vw, 110px) !important;
-  line-height: .92 !important;
-  font-weight: 900 !important;
-  text-transform: uppercase !important;
-  text-shadow: 0 0 45px rgba(0,0,0,.95) !important;
-}
-
-.worldcup-content p {
-  max-width: 780px !important;
-  margin: 0 auto 18px !important;
-  color: rgba(255,255,255,.92) !important;
-  font-size: clamp(18px, 2.2vw, 28px) !important;
-  font-weight: 800 !important;
-  line-height: 1.35 !important;
-}
-
-.worldcup-content h3 {
-  color: #FFA100 !important;
-  font-size: clamp(18px, 2vw, 30px) !important;
-  margin: 0 0 34px !important;
-  font-weight: 900 !important;
-}
-
-.worldcup-content span {
-  color: #FFA100 !important;
-}
-
-.worldcup-banner .btn-main {
-  position: relative !important;
-  z-index: 6 !important;
-}
-
-/* JUGADORES Y LUCES MUNDIAL */
-.wc-player {
-  display: block !important;
-  position: absolute !important;
-  bottom: 0 !important;
-  width: clamp(150px, 18vw, 300px) !important;
-  z-index: 4 !important;
-  opacity: .95 !important;
-  filter: drop-shadow(0 0 35px rgba(255,161,0,.65));
-  animation: wcPlayerFloat 4.5s ease-in-out infinite;
-}
-
-.wc-player.left {
-  left: 5% !important;
-}
-
-.wc-player.right {
-  right: 5% !important;
-  animation-delay: 1s;
-}
-
-.worldcup-banner::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  pointer-events: none;
-  background:
-    radial-gradient(circle at 15% 25%, rgba(255,161,0,.45), transparent 18%),
-    radial-gradient(circle at 85% 25%, rgba(255,161,0,.38), transparent 18%),
-    linear-gradient(120deg, transparent 35%, rgba(255,255,255,.13), transparent 52%);
-  animation: wcLights 5s ease-in-out infinite alternate;
-}
-
-.worldcup-banner::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  background-image:
-    radial-gradient(#FFA100 1px, transparent 1px),
-    radial-gradient(rgba(255,255,255,.6) 1px, transparent 1px);
-  background-size: 80px 80px, 130px 130px;
-  opacity: .28;
-  animation: wcParticles 12s linear infinite;
-}
-
-@keyframes wcPlayerFloat {
-  0%, 100% { transform: translateY(0) scale(1); }
-  50% { transform: translateY(-18px) scale(1.03); }
-}
-
-@keyframes wcLights {
-  from { opacity: .35; transform: scale(1); }
-  to { opacity: .95; transform: scale(1.04); }
-}
-
-@keyframes wcParticles {
-  from { background-position: 0 0, 0 0; }
-  to { background-position: 220px -220px, -180px -260px; }
-}
-
-@media (max-width: 768px) {
-  .wc-player {
-    width: 115px !important;
-    opacity: .45 !important;
-  }
-
-  .wc-player.left {
-    left: -18px !important;
-  }
-
-  .wc-player.right {
-    right: -18px !important;
-  }
-
-@keyframes worldcupMove {
-  from { transform: scale(1); }
-  to { transform: scale(1.05); }
-}
-
-@keyframes worldcupParticles {
-  from { background-position: 0 0, 0 0; }
-  to { background-position: 220px -220px, -180px -260px; }
-}
-
-@media (max-width: 768px) {
-  .worldcup-banner,
-  .worldcup-banner.reveal {
-    min-height: 470px !important;
-    padding: 80px 18px !important;
-  }
-
-  .worldcup-content h2 {
-    font-size: 42px !important;
-  }
-
-  .worldcup-content p {
-    font-size: 17px !important;
-  }
-}
-/* =========================
-   MUNDIAL PRO FINAL ZENIX
-========================= */
-
-.worldcup-banner {
-  background: #000;
-  padding: 100px 20px;
-  text-align: center;
-}
-
-/* TEXTO ARRIBA */
-.worldcup-top {
-  margin-bottom: 50px;
-}
-
-.worldcup-top h2 {
-  color: #FFA100;
-  font-size: clamp(22px, 3vw, 36px);
-  letter-spacing: 4px;
-  margin: 0;
-  font-weight: 900;
-}
-
-.worldcup-top h1 {
-  font-size: clamp(42px, 7vw, 110px);
-  margin: 10px 0 0;
-  font-weight: 900;
-  color: #fff;
-  text-shadow: 0 0 40px rgba(0,0,0,.9);
-}
-
-/* CONTENEDOR IMAGEN */
-.worldcup-image-wrap {
-  position: relative !important;
-  width: min(1280px, 96%) !important;
-  margin: 0 auto !important;
-  border-radius: 28px !important;
-  overflow: hidden !important;
-  background: #000 !important;
-  box-shadow: 0 0 60px rgba(255,161,0,.35) !important;
-}
-
-/* IMAGEN */
-.worldcup-image {
-  width: 100%;
-  display: block;
-}
-
-/* CAPA DE LUCES */
-.worldcup-image-wrap::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  background:
-    radial-gradient(circle at 20% 30%, rgba(255,161,0,.25), transparent 35%),
-    radial-gradient(circle at 80% 30%, rgba(255,161,0,.25), transparent 35%),
-    linear-gradient(to bottom, rgba(0,0,0,.2), rgba(0,0,0,.5));
-}
-
-/* BARRIDO DE LUZ PRO */
-.worldcup-image-wrap::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -40%;
-  width: 40%;
-  height: 100%;
-  z-index: 3;
-  background: linear-gradient(
-    120deg,
-    transparent,
-    rgba(255,255,255,.15),
-    rgba(255,161,0,.25),
-    transparent
-  );
-  filter: blur(10px);
-  animation: wcLightMove 6s ease-in-out infinite;
-}
-
-/* PARTÍCULAS */
-.worldcup-banner::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image:
-    radial-gradient(#FFA100 1px, transparent 1px),
-    radial-gradient(rgba(255,255,255,.6) 1px, transparent 1px);
-  background-size: 90px 90px, 140px 140px;
-  opacity: .2;
-  animation: wcParticles 12s linear infinite;
-}
-
-/* ANIMACIONES */
-@keyframes wcLightMove {
-  0% { left: -40%; opacity: 0; }
-  20% { opacity: 1; }
-  60% { left: 120%; opacity: .8; }
-  100% { opacity: 0; }
-}
-
-@keyframes wcParticles {
-  from { background-position: 0 0, 0 0; }
-  to { background-position: 200px -200px, -150px -250px; }
-}
-
-/* MÓVIL */
-@media (max-width: 768px) {
-
-  .worldcup-banner {
-    padding: 70px 15px;
-  }
-
-  .worldcup-top h1 {
-    font-size: 42px;
-  }
 
 /* =========================
-   MUNDIAL 2026 ZENIX FINAL
-========================= */
-
-.worldcup-banner,
-.worldcup-banner.reveal {
-  position: relative !important;
-  background:
-    radial-gradient(circle at 20% 25%, rgba(255,161,0,.16), transparent 30%),
-    radial-gradient(circle at 80% 25%, rgba(255,161,0,.14), transparent 30%),
-    linear-gradient(180deg, #020202, #000) !important;
-  padding: 85px 18px 95px !important;
-  text-align: center !important;
-  overflow: hidden !important;
-  opacity: 1 !important;
-  transform: none !important;
-  filter: none !important;
-}
-
-.worldcup-top {
-  position: relative !important;
-  z-index: 4 !important;
-  margin-bottom: 42px !important;
-}
-
-.worldcup-top h2 {
-  color: #FFA100 !important;
-  font-size: clamp(28px, 4vw, 56px) !important;
-  letter-spacing: 8px !important;
-  margin: 0 0 16px !important;
-  font-weight: 900 !important;
-}
-
-.worldcup-top h1 {
-  color: #fff !important;
-  font-size: clamp(56px, 9vw, 150px) !important;
-  line-height: .9 !important;
-  margin: 0 !important;
-  font-weight: 900 !important;
-  text-transform: uppercase !important;
-  text-shadow: 0 0 45px rgba(255,161,0,.25);
-}
-
-.worldcup-image-wrap {
-  position: relative !important;
-  z-index: 3 !important;
-  width: min(1280px, 96%) !important;
-  margin: 0 auto !important;
-  border-radius: 30px !important;
-  overflow: hidden !important;
-  background: #000 !important;
-  box-shadow:
-
-
-/* =========================
-   MUNDIAL 2026 LIMPIO FINAL
-========================= */
-
-.worldcup-banner {
-  background: #000;
-  padding: 80px 18px 90px;
-  text-align: center;
-}
-
-.worldcup-top {
-  margin-bottom: 35px;
-}
-
-.worldcup-top h2 {
-  color: #FFA100;
-  font-size: clamp(24px, 4vw, 46px);
-  letter-spacing: 6px;
-  font-weight: 900;
-}
-
-.worldcup-top h1 {
-  color: #fff;
-  font-size: clamp(46px, 8vw, 120px);
-  font-weight: 900;
-}
-
-.worldcup-image-wrap {
-  position: relative;
-  width: min(1280px, 96%);
-  margin: 0 auto;
-  border-radius: 28px;
-  overflow: hidden;
-  background: #000;
-  box-shadow: 0 0 60px rgba(255,161,0,.35);
-}
-
-.worldcup-image {
-  width: 100%;
-  display: block;
-  object-fit: contain;
-}
-
-@media (max-width: 768px) {
-  .worldcup-top h1 {
-    font-size: 48px;
-  }
-
-  .worldcup-image-wrap {
-    border-radius: 16px;
-  }
-}
-/* =========================
-   FIX DEFINITIVO MUNDIAL 2026
+   MUNDIAL 2026 ZENIX FINAL LIMPIO
 ========================= */
 
 .worldcup-banner,
@@ -4031,22 +3619,38 @@ body.modal-open #siteContent {
     radial-gradient(circle at 20% 25%, rgba(255,161,0,.18), transparent 32%),
     radial-gradient(circle at 80% 25%, rgba(255,161,0,.16), transparent 32%),
     linear-gradient(180deg, #030303 0%, #000 100%) !important;
-  padding: 85px 18px 95px !important;
+  padding: 90px 18px 100px !important;
   text-align: center !important;
   overflow: hidden !important;
   opacity: 1 !important;
   transform: none !important;
   filter: none !important;
-  display: block !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.worldcup-banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(#FFA100 1px, transparent 1px),
+    radial-gradient(rgba(255,255,255,.55) 1px, transparent 1px);
+  background-size: 90px 90px, 140px 140px;
+  opacity: .22;
+  animation: mundialParticles 14s linear infinite;
 }
 
 .worldcup-top {
-  width: 100% !important;
-  max-width: 1200px !important;
-  margin: 0 auto 38px !important;
-  text-align: center !important;
   position: relative !important;
   z-index: 5 !important;
+  width: 100% !important;
+  max-width: 1100px !important;
+  margin: 0 auto 38px !important;
+  text-align: center !important;
 }
 
 .worldcup-top h2 {
@@ -4066,17 +3670,19 @@ body.modal-open #siteContent {
   font-weight: 900 !important;
   text-align: center !important;
   text-transform: uppercase !important;
+  text-shadow: 0 0 38px rgba(255,161,0,.35);
 }
 
 .worldcup-image-wrap {
   position: relative !important;
-  width: min(1180px, 94%) !important;
+  z-index: 4 !important;
+  width: min(1120px, 94%) !important;
   margin: 0 auto !important;
   border-radius: 28px !important;
   overflow: hidden !important;
   background: #000 !important;
   box-shadow:
-    0 0 55px rgba(255,161,0,.35),
+    0 0 55px rgba(255,161,0,.38),
     0 25px 80px rgba(0,0,0,.85) !important;
 }
 
@@ -4085,7 +3691,7 @@ body.modal-open #siteContent {
   height: auto !important;
   display: block !important;
   object-fit: contain !important;
-  object-position: center !important;
+  object-position: center center !important;
   animation: mundialZoom 14s ease-in-out infinite alternate !important;
 }
 
@@ -4096,9 +3702,9 @@ body.modal-open #siteContent {
   z-index: 2;
   pointer-events: none;
   background:
-    radial-gradient(circle at 20% 35%, rgba(255,161,0,.22), transparent 34%),
-    radial-gradient(circle at 80% 35%, rgba(255,161,0,.20), transparent 34%),
-    linear-gradient(to bottom, rgba(0,0,0,.02), rgba(0,0,0,.30));
+    radial-gradient(circle at 20% 35%, rgba(255,161,0,.25), transparent 34%),
+    radial-gradient(circle at 80% 35%, rgba(255,161,0,.22), transparent 34%),
+    linear-gradient(to bottom, rgba(0,0,0,.02), rgba(0,0,0,.32));
 }
 
 .worldcup-image-wrap::after {
@@ -4113,8 +3719,8 @@ body.modal-open #siteContent {
   background: linear-gradient(
     120deg,
     transparent,
-    rgba(255,255,255,.15),
-    rgba(255,161,0,.30),
+    rgba(255,255,255,.16),
+    rgba(255,161,0,.35),
     transparent
   );
   filter: blur(12px);
@@ -4129,112 +3735,43 @@ body.modal-open #siteContent {
 @keyframes mundialLight {
   0% { left: -45%; opacity: 0; }
   20% { opacity: 1; }
-  60% { left: 115%; opacity: .85; }
+  60% { left: 115%; opacity: .9; }
   100% { left: 125%; opacity: 0; }
+}
+
+@keyframes mundialParticles {
+  from { background-position: 0 0, 0 0; }
+  to { background-position: 220px -220px, -180px -260px; }
 }
 
 @media (max-width: 768px) {
   .worldcup-banner,
   .worldcup-banner.reveal {
-    padding: 62px 12px 72px !important;
+    padding: 68px 12px 78px !important;
   }
 
   .worldcup-top {
-    margin-bottom: 24px !important;
+    margin-bottom: 26px !important;
   }
 
   .worldcup-top h2 {
-    font-size: 24px !important;
+    font-size: 23px !important;
     letter-spacing: 4px !important;
   }
 
   .worldcup-top h1 {
-    font-size: 48px !important;
+    font-size: 46px !important;
   }
 
   .worldcup-image-wrap {
     width: 100% !important;
-    height: 245px !important;
+    height: auto !important;
     border-radius: 18px !important;
   }
 
   .worldcup-image {
     width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-    object-position: center center !important;
-  }
-}
-/* =========================
-   FIX REAL MUNDIAL 2026
-   (override total)
-========================= */
-
-section.worldcup-banner {
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
-  text-align: center !important;
-}
-
-/* TEXTO CENTRADO */
-section.worldcup-banner .worldcup-top {
-  width: 100% !important;
-  max-width: 1100px !important;
-  margin: 0 auto 30px !important;
-  text-align: center !important;
-}
-
-section.worldcup-banner .worldcup-top h2,
-section.worldcup-banner .worldcup-top h1 {
-  width: 100% !important;
-  text-align: center !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-}
-
-/* CONTENEDOR IMAGEN CENTRADO */
-section.worldcup-banner .worldcup-image-wrap {
-  width: 100% !important;
-  max-width: 1100px !important;
-  margin: 0 auto !important;
-  display: flex !important;
-  justify-content: center !important;
-}
-
-/* IMAGEN RESPONSIVE CORRECTA */
-section.worldcup-banner .worldcup-image {
-  width: 100% !important;
-  height: auto !important;
-  object-fit: contain !important;
-}
-
-/* =========================
-   FIX MÓVIL REAL
-========================= */
-
-@media (max-width: 768px) {
-
-  section.worldcup-banner {
-    padding: 60px 14px !important;
-  }
-
-  section.worldcup-banner .worldcup-top h2 {
-    font-size: 22px !important;
-    letter-spacing: 3px !important;
-  }
-
-  section.worldcup-banner .worldcup-top h1 {
-    font-size: 42px !important;
-  }
-
-  section.worldcup-banner .worldcup-image-wrap {
-    height: 240px !important;
-  }
-
-  section.worldcup-banner .worldcup-image {
-    height: 100% !important;
-    object-fit: cover !important;
+    height: auto !important;
+    object-fit: contain !important;
   }
 }
