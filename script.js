@@ -120,3 +120,84 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+function makeSliderDraggable(sliderSelector, trackSelector) {
+  const slider = document.querySelector(sliderSelector);
+  const track = document.querySelector(trackSelector);
+
+  if (!slider || !track) return;
+
+  let isDown = false;
+  let startX = 0;
+  let currentTranslate = 0;
+  let prevTranslate = 0;
+  let animationId;
+  let autoMove = true;
+
+  function getX(e) {
+    return e.type.includes("mouse") ? e.pageX : e.touches[0].clientX;
+  }
+
+  function setPosition() {
+    track.style.transform = `translateX(${currentTranslate}px)`;
+  }
+
+  function autoScroll() {
+    if (autoMove && !isDown) {
+      currentTranslate -= 0.5;
+
+      const trackWidth = track.scrollWidth / 2;
+
+      if (Math.abs(currentTranslate) >= trackWidth) {
+        currentTranslate = 0;
+      }
+
+      prevTranslate = currentTranslate;
+      setPosition();
+    }
+
+    animationId = requestAnimationFrame(autoScroll);
+  }
+
+  function start(e) {
+    isDown = true;
+    autoMove = false;
+    startX = getX(e);
+    track.style.animation = "none";
+  }
+
+  function move(e) {
+    if (!isDown) return;
+
+    const currentX = getX(e);
+    const diff = currentX - startX;
+
+    currentTranslate = prevTranslate + diff;
+    setPosition();
+  }
+
+  function end() {
+    if (!isDown) return;
+
+    isDown = false;
+    prevTranslate = currentTranslate;
+
+    setTimeout(() => {
+      autoMove = true;
+    }, 1800);
+  }
+
+  slider.addEventListener("mousedown", start);
+  slider.addEventListener("mousemove", move);
+  slider.addEventListener("mouseup", end);
+  slider.addEventListener("mouseleave", end);
+
+  slider.addEventListener("touchstart", start, { passive: true });
+  slider.addEventListener("touchmove", move, { passive: true });
+  slider.addEventListener("touchend", end);
+
+  cancelAnimationFrame(animationId);
+  autoScroll();
+}
+
+makeSliderDraggable(".sports-slider", ".sports-track");
+makeSliderDraggable(".ranking-slider", ".ranking-track");
