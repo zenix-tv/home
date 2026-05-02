@@ -3850,3 +3850,12 @@ body.modal-open #siteContent {
     transform: translateY(0);
   }
 }
+/* FIX CENTRADO HERO */
+.hero-content {
+  text-align: center !important;
+  margin: 0 auto !important;
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
