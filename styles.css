@@ -3859,3 +3859,68 @@ body.modal-open #siteContent {
   align-items: center;
   justify-content: center;
 }
+/* FIX DEFINITIVO TITULO LIGAS CENTRADO */
+.sports-gallery-header {
+  width: 100% !important;
+  max-width: 1100px !important;
+  margin: 0 auto 45px !important;
+  padding: 0 20px !important;
+  text-align: center !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.sports-gallery-header span {
+  display: block !important;
+  width: 100% !important;
+  text-align: center !important;
+  color: #FFA100 !important;
+  font-size: 15px !important;
+  letter-spacing: 6px !important;
+  font-weight: 900 !important;
+  margin-bottom: 18px !important;
+}
+
+.sports-gallery-header h2 {
+  width: 100% !important;
+  max-width: 950px !important;
+  margin: 0 auto 18px !important;
+  text-align: center !important;
+  font-size: clamp(44px, 6vw, 90px) !important;
+  line-height: .95 !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+  color: #fff !important;
+  text-shadow:
+    0 0 25px rgba(0,0,0,.95),
+    0 0 45px rgba(255,161,0,.35) !important;
+}
+
+.sports-gallery-header p {
+  width: 100% !important;
+  max-width: 850px !important;
+  margin: 0 auto !important;
+  text-align: center !important;
+  font-size: clamp(17px, 2vw, 24px) !important;
+  color: rgba(255,255,255,.82) !important;
+  font-weight: 800 !important;
+}
+
+@media (max-width: 768px) {
+  .sports-gallery-header h2 {
+    font-size: 38px !important;
+    line-height: 1 !important;
+  }
+
+  .sports-gallery-header span {
+    font-size: 12px !important;
+    letter-spacing: 4px !important;
+  }
+
+  .sports-gallery-header p {
+    font-size: 15px !important;
+    padding: 0 10px !important;
+  }
+}
