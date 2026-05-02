@@ -123,3 +123,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+  document.querySelectorAll(".counter, .fake-counter").forEach(el => {
+    const numero = parseInt(el.innerText.replace(/\D/g, ""));
+    if (!isNaN(numero)) {
+      el.innerText = numero.toLocaleString("es-ES");
+    }
+  });
+
+});
