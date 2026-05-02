@@ -3260,7 +3260,7 @@ body.modal-open #siteContent {
     font-size: 16px;
   }
 
-  ..sports-track {
+  .sports-track {
   min-width: 200%;
   }
     animation-duration: 30s;
@@ -3769,8 +3769,6 @@ body.modal-open #siteContent {
   .wc-player.right {
     right: -18px !important;
   }
-}
-}
 
 @keyframes worldcupMove {
   from { transform: scale(1); }
@@ -3830,14 +3828,13 @@ body.modal-open #siteContent {
 
 /* CONTENEDOR IMAGEN */
 .worldcup-image-wrap {
-  position: relative;
-  max-width: 1200px;
-  margin: 0 auto;
-  border-radius: 25px;
-  overflow: hidden;
-  box-shadow:
-    0 0 50px rgba(255,161,0,.25),
-    0 25px 80px rgba(0,0,0,.8);
+  position: relative !important;
+  width: min(1280px, 96%) !important;
+  margin: 0 auto !important;
+  border-radius: 28px !important;
+  overflow: hidden !important;
+  background: #000 !important;
+  box-shadow: 0 0 60px rgba(255,161,0,.35) !important;
 }
 
 /* IMAGEN */
@@ -3916,7 +3913,6 @@ body.modal-open #siteContent {
     font-size: 42px;
   }
 
-}
 /* =========================
    MUNDIAL 2026 ZENIX FINAL
 ========================= */
