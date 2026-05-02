@@ -78,126 +78,47 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* SCROLL REVEAL PRO */
-  const sections = document.querySelectorAll(
-    ".devices, .football-banner, .demo-video, .plans, .trust-bar, .top10, .faq, .footer"
-  );
-
-  sections.forEach((section) => {
-    section.classList.add("reveal");
-  });
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("active");
-      }
-    });
-  }, { threshold: 0.18 });
-
-  sections.forEach((section) => observer.observe(section));
-
-  /* NAVBAR APPLE */
-  const navbar = document.querySelector(".navbar");
-  let lastScrollY = window.scrollY;
-
-  if (navbar) {
-    window.addEventListener("scroll", () => {
-      const currentScrollY = window.scrollY;
-
-      if (currentScrollY > 60) {
-        navbar.classList.add("nav-scrolled");
-      } else {
-        navbar.classList.remove("nav-scrolled");
-      }
-
-      if (currentScrollY > lastScrollY && currentScrollY > 140) {
-        navbar.classList.add("nav-hidden");
-      } else {
-        navbar.classList.remove("nav-hidden");
-      }
-
-      lastScrollY = currentScrollY;
-    });
-  }
-});
-function makeSliderDraggable(sliderSelector, trackSelector) {
-  const slider = document.querySelector(sliderSelector);
-  const track = document.querySelector(trackSelector);
-
-  if (!slider || !track) return;
+document.querySelectorAll(".draggable-slider").forEach((slider) => {
+  const track = slider.querySelector(".ranking-track, .sports-track");
+  if (!track) return;
 
   let isDown = false;
-  let startX = 0;
-  let currentTranslate = 0;
-  let prevTranslate = 0;
-  let animationId;
-  let autoMove = true;
+  let startX;
+  let scrollLeft;
 
-  function getX(e) {
-    return e.type.includes("mouse") ? e.pageX : e.touches[0].clientX;
-  }
-
-  function setPosition() {
-    track.style.transform = `translateX(${currentTranslate}px)`;
-  }
-
-  function autoScroll() {
-    if (autoMove && !isDown) {
-      currentTranslate -= 0.5;
-
-      const trackWidth = track.scrollWidth / 2;
-
-      if (Math.abs(currentTranslate) >= trackWidth) {
-        currentTranslate = 0;
-      }
-
-      prevTranslate = currentTranslate;
-      setPosition();
-    }
-
-    animationId = requestAnimationFrame(autoScroll);
-  }
-
-  function start(e) {
+  slider.addEventListener("mousedown", (e) => {
     isDown = true;
-    autoMove = false;
-    startX = getX(e);
-    track.style.animation = "none";
-  }
+    slider.classList.add("dragging");
+    startX = e.pageX - slider.offsetLeft;
+    scrollLeft = slider.scrollLeft;
+    track.style.animationPlayState = "paused";
+  });
 
-  function move(e) {
-    if (!isDown) return;
-
-    const currentX = getX(e);
-    const diff = currentX - startX;
-
-    currentTranslate = prevTranslate + diff;
-    setPosition();
-  }
-
-  function end() {
-    if (!isDown) return;
-
+  slider.addEventListener("mouseleave", () => {
     isDown = false;
-    prevTranslate = currentTranslate;
+    slider.classList.remove("dragging");
+    track.style.animationPlayState = "running";
+  });
 
-    setTimeout(() => {
-      autoMove = true;
-    }, 1800);
-  }
+  slider.addEventListener("mouseup", () => {
+    isDown = false;
+    slider.classList.remove("dragging");
+    track.style.animationPlayState = "running";
+  });
 
-  slider.addEventListener("mousedown", start);
-  slider.addEventListener("mousemove", move);
-  slider.addEventListener("mouseup", end);
-  slider.addEventListener("mouseleave", end);
+  slider.addEventListener("mousemove", (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - slider.offsetLeft;
+    const walk = (x - startX) * 1.4;
+    slider.scrollLeft = scrollLeft - walk;
+  });
 
-  slider.addEventListener("touchstart", start, { passive: true });
-  slider.addEventListener("touchmove", move, { passive: true });
-  slider.addEventListener("touchend", end);
+  slider.addEventListener("touchstart", () => {
+    track.style.animationPlayState = "paused";
+  });
 
-  cancelAnimationFrame(animationId);
-  autoScroll();
-}
-
-makeSliderDraggable(".sports-slider", ".sports-track");
-makeSliderDraggable(".ranking-slider", ".ranking-track");
+  slider.addEventListener("touchend", () => {
+    track.style.animationPlayState = "running";
+  });
+});
