@@ -124,11 +124,25 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-  document.querySelectorAll(".counter, .fake-counter").forEach(el => {
-    const numero = parseInt(el.innerText.replace(/\D/g, ""));
-    if (!isNaN(numero)) {
-      el.innerText = numero.toLocaleString("es-ES");
-    }
+   /* CONTADOR ZENIX */
+  document.querySelectorAll(".counter").forEach(counter => {
+    const target = +counter.getAttribute("data-target");
+    let current = 0;
+
+    const increment = target / 120;
+
+    const updateCounter = () => {
+      current += increment;
+
+      if (current < target) {
+        counter.innerText = Math.floor(current).toLocaleString("es-ES");
+        requestAnimationFrame(updateCounter);
+      } else {
+        counter.innerText = target.toLocaleString("es-ES");
+      }
+    };
+
+    updateCounter();
   });
 
 });
