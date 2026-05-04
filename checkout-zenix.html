@@ -59,26 +59,43 @@ button{
 </div>
 
 <script>
-function pagar(){
+const linksPago = {
+  "1mes": {
+    nombre: "1 Mes",
+    link: "https://mpago.la/2EGd2SF"
+  },
+  "3meses": {
+    nombre: "3 Meses",
+    link: "https://mpago.li/1smZcyZ"
+  },
+  "12meses": {
+    nombre: "12 Meses",
+    link: "https://mpago.li/1smZcyZ"
+  }
+};
 
-  const nombre = document.getElementById("nombre").value;
-  const correo = document.getElementById("correo").value;
-  const telefono = document.getElementById("telefono").value;
+const params = new URLSearchParams(window.location.search);
+const planElegido = params.get("plan") || "1mes";
+const planData = linksPago[planElegido];
 
-  if(!nombre || !correo || !telefono){
-    alert("Completa todos los campos");
+function pagar() {
+  const nombre = document.getElementById("nombre").value.trim();
+  const correo = document.getElementById("correo").value.trim();
+  const telefono = document.getElementById("telefono").value.trim();
+
+  if (!nombre || !correo || !telefono) {
+    alert("Completa nombre, correo y teléfono antes de continuar.");
     return;
   }
 
-  // Guardar datos temporalmente
   localStorage.setItem("zenix_cliente", JSON.stringify({
     nombre,
     correo,
-    telefono
+    telefono,
+    plan: planData.nombre
   }));
 
-  // Redirigir a MercadoPago
-  window.location.href = "https://mpago.la/2EGd2SF";
+  window.location.href = planData.link;
 }
 </script>
 
