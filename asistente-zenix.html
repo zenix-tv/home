@@ -191,7 +191,6 @@ function extraerM3U() {
 }
 </script>
 
-  </body>
   <main class="zenix-box">
     <h1>Asistente <span>ZENIX TV</span></h1>
     <p class="sub">Sistema semi-automático para preparar activaciones, usuario, plan y mensaje final para cliente.</p><div class="grid">
@@ -286,16 +285,23 @@ function extraerM3U() {
       const usuario = usuarioInput.value.trim();
       const planCorto = nombrePlanCorto(plan);
 
+let password = "";
+
+try {
+  const url = new URL(m3u);
+  password = url.searchParams.get("password") || "";
+} catch (e) {}
+
 const mensaje = `
-Hola Miguel Tobar 👋
+Hola ${cliente} 👋
 
 Tu acceso ZENIX TV ya está listo ✅
 
-📺 Plan contratado: 12 Meses
+📺 Plan contratado: ${planCorto}
 👤 Usuario: ${usuario}
 🔑 Password: ${password}
 🔗 Link M3U:
-${input}
+${m3u}
 
 Recomendación:
 Usa una conexión estable de internet y abre el servicio desde tu app compatible.
@@ -303,7 +309,7 @@ Usa una conexión estable de internet y abre el servicio desde tu app compatible
 Soporte ZENIX TV disponible para ayudarte.
 `;
 
-document.getElementById("resultado").value = mensaje;
+document.getElementById("mensaje").value = mensaje;
 
       const waBtn = document.getElementById("waBtn");
       const phone = whatsapp.replace(/[^0-9]/g, "");
