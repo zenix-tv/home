@@ -70,7 +70,7 @@ const linksPago = {
   },
   "12meses": {
     nombre: "12 Meses",
-    link: "https://mpago.li/1smZcyZ"
+    link: "https://mpago.la/1m6HBAU"
   }
 };
 
@@ -78,13 +78,14 @@ const params = new URLSearchParams(window.location.search);
 const planElegido = params.get("plan") || "1mes";
 const planData = linksPago[planElegido];
 
-function pagar() {
+function pagar(){
+
   const nombre = document.getElementById("nombre").value.trim();
   const correo = document.getElementById("correo").value.trim();
   const telefono = document.getElementById("telefono").value.trim();
 
-  if (!nombre || !correo || !telefono) {
-    alert("Completa nombre, correo y teléfono antes de continuar.");
+  if(!nombre || !correo || !telefono){
+    alert("Completa todos los campos");
     return;
   }
 
@@ -98,6 +99,5 @@ function pagar() {
   window.location.href = planData.link;
 }
 </script>
-
 </body>
 </html>
