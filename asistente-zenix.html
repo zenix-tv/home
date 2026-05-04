@@ -152,6 +152,50 @@
   </style>
 </head>
 <body>
+
+<div class="box">
+  <h2>Generador Datos ZENIX</h2>
+
+  <textarea id="m3uInput" placeholder="Pega aquí la URL M3U completa"></textarea>
+
+  <button onclick="extraerM3U()">Extraer datos</button>
+
+  <label>URL SERVER</label>
+  <input id="server" readonly>
+
+  <label>Usuario</label>
+  <input id="usuario" readonly>
+
+  <label>Password</label>
+  <input id="password" readonly>
+
+  <label>URL Completa</label>
+  <textarea id="urlCompleta" readonly></textarea>
+</div>
+
+<script>
+function extraerM3U() {
+  const input = document.getElementById("m3uInput").value.trim();
+
+  try {
+    const url = new URL(input);
+
+    const server = url.origin;
+    const usuario = url.searchParams.get("username") || "";
+    const password = url.searchParams.get("password") || "";
+
+    document.getElementById("server").value = server;
+    document.getElementById("usuario").value = usuario;
+    document.getElementById("password").value = password;
+    document.getElementById("urlCompleta").value = input;
+
+  } catch (e) {
+    alert("La URL M3U no es válida. Revisa que esté completa.");
+  }
+}
+</script>
+
+  </body>
   <main class="zenix-box">
     <h1>Asistente <span>ZENIX TV</span></h1>
     <p class="sub">Sistema semi-automático para preparar activaciones, usuario, plan y mensaje final para cliente.</p><div class="grid">
@@ -284,48 +328,4 @@
     generarTodo();
   </script></body>
 </html><html>
-
-</html><html>
-
-  <div class="box">
-  <h2>Generador Datos ZENIX</h2>
-
-  <textarea id="m3uInput" placeholder="Pega aquí la URL M3U completa"></textarea>
-
-  <button onclick="extraerM3U()">Extraer datos</button>
-
-  <label>URL SERVER</label>
-  <input id="server" readonly>
-
-  <label>Usuario</label>
-  <input id="usuario" readonly>
-
-  <label>Password</label>
-  <input id="password" readonly>
-
-  <label>URL Completa</label>
-  <textarea id="urlCompleta" readonly></textarea>
-</div>
-
-<script>
-function extraerM3U() {
-  const input = document.getElementById("m3uInput").value.trim();
-
-  try {
-    const url = new URL(input);
-
-    const server = url.origin;
-    const usuario = url.searchParams.get("username") || "";
-    const password = url.searchParams.get("password") || "";
-
-    document.getElementById("server").value = server;
-    document.getElementById("usuario").value = usuario;
-    document.getElementById("password").value = password;
-    document.getElementById("urlCompleta").value = input;
-
-  } catch (e) {
-    alert("La URL M3U no es válida. Revisa que esté completa.");
-  }
-}
-</script>
 </html>
