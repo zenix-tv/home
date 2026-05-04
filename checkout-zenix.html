@@ -66,7 +66,7 @@ const linksPago = {
   },
   "3meses": {
     nombre: "3 Meses",
-    link: "https://mpago.li/1smZcyZ"
+    link: "https://mpago.la/1smZcyZ"
   },
   "12meses": {
     nombre: "12 Meses",
@@ -110,11 +110,11 @@ function pagar(){
   const miWhatsApp = "56994410220";
   const waURL = `https://wa.me/${miWhatsApp}?text=${encodeURIComponent(mensaje)}`;
 
-  window.open(waURL, "_blank");
+window.open(waURL, "_blank");
 
-  setTimeout(() => {
-    window.location.href = planData.link;
-  }, 800);
+setTimeout(() => {
+  window.location.assign(planData.link);
+}, 1500);
 }
 
   localStorage.setItem("zenix_cliente", JSON.stringify({
