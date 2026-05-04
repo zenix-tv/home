@@ -286,9 +286,24 @@ function extraerM3U() {
       const usuario = usuarioInput.value.trim();
       const planCorto = nombrePlanCorto(plan);
 
-      const mensaje = `Hola ${cliente} 👋\n\nTu acceso ZENIX TV ya está listo ✅\n\n📺 Plan contratado: ${planCorto}\n👤 Usuario: ${usuario}\n🔗 Link M3U:\n${m3u || "PENDIENTE DE PEGAR LINK M3U"}\n\nRecomendación:\nUsa una conexión estable de internet y abre el servicio desde tu app compatible.\n\nSoporte ZENIX TV disponible para ayudarte.`;
+const mensaje = `
+Hola Miguel Tobar 👋
 
-      document.getElementById("mensaje").value = mensaje;
+Tu acceso ZENIX TV ya está listo ✅
+
+📺 Plan contratado: 12 Meses
+👤 Usuario: ${usuario}
+🔑 Password: ${password}
+🔗 Link M3U:
+${input}
+
+Recomendación:
+Usa una conexión estable de internet y abre el servicio desde tu app compatible.
+
+Soporte ZENIX TV disponible para ayudarte.
+`;
+
+document.getElementById("resultado").value = mensaje;
 
       const waBtn = document.getElementById("waBtn");
       const phone = whatsapp.replace(/[^0-9]/g, "");
