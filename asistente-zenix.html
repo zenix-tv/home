@@ -160,7 +160,7 @@
   <input id="server" readonly>
 
   <label>Usuario</label>
-  <input id="usuario" readonly>
+  <input id="usuarioExtraido" readonly>
 
   <label>Password</label>
   <input id="password" readonly>
@@ -181,7 +181,7 @@ function extraerM3U() {
     const password = url.searchParams.get("password") || "";
 
     document.getElementById("server").value = server;
-    document.getElementById("usuario").value = usuario;
+    document.getElementById("usuarioExtraido").value = usuario;
     document.getElementById("password").value = password;
     document.getElementById("urlCompleta").value = input;
 
