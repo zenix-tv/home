@@ -710,7 +710,7 @@ body.modal-open #siteContent {
 }
 
 .faq-item.active .faq-answer {
-  max-height: 160px;
+  max-height: 500px;
   padding-bottom: 20px;
 }
 
