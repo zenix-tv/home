@@ -127,8 +127,8 @@ const params = new URLSearchParams(window.location.search);
 
 const nombre = params.get("nombre") || "Cliente";
 const plan = params.get("plan") || "Plan ZENIX TV";
-const usuario = params.get("usuario") || "";
-const password = params.get("password") || "";
+const usuario = params.get("usuario") || params.get("user") || "";
+const password = params.get("password") || params.get("pass") || "";
 const m3u = params.get("m3u") || "";
 
 document.getElementById("nombre").textContent = nombre;
@@ -144,15 +144,7 @@ function copiarM3U(){
 
 document.getElementById("soporte").href =
   "https://wa.me/56964180558?text=Hola%20ZENIX%20TV,%20necesito%20ayuda%20con%20mi%20acceso";
-  
-<script>
-const params = new URLSearchParams(window.location.search);
-
-document.getElementById("clienteNombre").textContent = params.get("nombre") || "Cliente";
-document.getElementById("clientePlan").textContent = params.get("plan") || "";
-document.getElementById("clienteUsuario").textContent = params.get("user") || "";
-document.getElementById("clientePassword").textContent = params.get("pass") || "";
-document.getElementById("clienteM3U").textContent = params.get("m3u") || "";
 </script>
+
 </body>
 </html>
