@@ -249,29 +249,30 @@ function extraerM3U() {
   </ol>
 </section>
 
-  </main>  <script>
-    function limpiarTexto(texto) {
-      return texto
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .replace(/[^a-z0-9]/g, "")
-        .slice(0, 12);
-    }
-
-    function generarUsuario(nombre) {
-      const base = limpiarTexto(nombre || "cliente");
-      const numero = Math.floor(100 + Math.random() * 900);
-      return `zenix${base}${numero}`;
-    }
-
-    function nombrePlanCorto(plan) {
-      if (plan.includes("12")) return "12 Meses";
-      if (plan.includes("3 MESES")) return "3 Meses";
-      return "1 Mes";
-    }
+  </main>
 
 <script>
+function limpiarTexto(texto) {
+  return texto
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]/g, "")
+    .slice(0, 12);
+}
+
+function generarUsuario(nombre) {
+  const base = limpiarTexto(nombre || "cliente");
+  const numero = Math.floor(100 + Math.random() * 900);
+  return `zenix${base}${numero}`;
+}
+
+function nombrePlanCorto(plan) {
+  if (plan.includes("12")) return "12 Meses";
+  if (plan.includes("3")) return "3 Meses";
+  return "1 Mes";
+}
+
 function generarTodo() {
   const cliente = document.getElementById("cliente").value.trim() || "Cliente";
   const whatsapp = document.getElementById("whatsapp").value.trim();
@@ -282,16 +283,18 @@ function generarTodo() {
   let usuario = usuarioInput.value.trim();
   let password = "";
 
-  try {
-    const url = new URL(m3u);
-    usuario = url.searchParams.get("username") || usuario;
-    password = url.searchParams.get("password") || "";
-    usuarioInput.value = usuario;
-  } catch (e) {}
+  if (m3u) {
+    try {
+      const url = new URL(m3u);
+      usuario = url.searchParams.get("username") || usuario;
+      password = url.searchParams.get("password") || "";
+      usuarioInput.value = usuario;
+    } catch (e) {}
+  }
 
-  if (!usuarioInput.value.trim()) {
-    usuarioInput.value = generarUsuario(cliente);
-    usuario = usuarioInput.value.trim();
+  if (!usuario) {
+    usuario = generarUsuario(cliente);
+    usuarioInput.value = usuario;
   }
 
   const planCorto = nombrePlanCorto(plan);
@@ -315,14 +318,13 @@ ${m3u}
 ━━━━━━━━━━━━━━━━━━
 
 ⚡ *RECOMENDADO:*
-• App: IPTV Smarters / TiviMate
+• IPTV Smarters / TiviMate
 • Internet estable
 • No compartir acceso
 
 ━━━━━━━━━━━━━━━━━━
 
 🚀 *SOPORTE ZENIX 24/7*
-Escríbenos ante cualquier duda
 
 🔥 Disfruta el mejor contenido en vivo`;
 
@@ -335,7 +337,15 @@ Escríbenos ante cualquier duda
     ? `https://wa.me/${phone}?text=${encodeURIComponent(mensaje)}`
     : `https://wa.me/?text=${encodeURIComponent(mensaje)}`;
 }
+
+/* AUTO EJECUCIÓN */
+document.querySelectorAll("input, select").forEach(el => {
+  el.addEventListener("input", generarTodo);
+  el.addEventListener("change", generarTodo);
+});
+
+generarTodo();
 </script>
-  </script></body>
-</html><html>
+
+</body>
 </html>
