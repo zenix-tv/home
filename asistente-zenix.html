@@ -234,6 +234,7 @@ function extraerM3U() {
   <button class="ghost" onclick="copiarUsuario()">Copiar usuario</button>
   <button class="ghost" onclick="copiarMensaje()">Copiar mensaje</button>
   <a id="waBtn" class="btn" target="_blank">Enviar por WhatsApp</a>
+  <a id="clienteBtn" class="btn ghost" target="_blank">Abrir página cliente</a>
   <span id="copyOk" class="copy-ok">Copiado ✅</span>
 </div>
 
@@ -336,6 +337,11 @@ ${m3u}
   waBtn.href = phone
     ? `https://wa.me/${phone}?text=${encodeURIComponent(mensaje)}`
     : `https://wa.me/?text=${encodeURIComponent(mensaje)}`;
+  const clienteBtn = document.getElementById("clienteBtn");
+
+const clienteURL = `cliente.html?nombre=${encodeURIComponent(cliente)}&plan=${encodeURIComponent(planCorto)}&user=${encodeURIComponent(usuario)}&pass=${encodeURIComponent(password)}&m3u=${encodeURIComponent(m3u)}`;
+
+clienteBtn.href = clienteURL;
 }
 
 /* AUTO EJECUCIÓN */
