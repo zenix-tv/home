@@ -271,29 +271,31 @@ function extraerM3U() {
       return "1 Mes";
     }
 
-    function generarTodo() {
-      const cliente = document.getElementById("cliente").value.trim() || "Cliente";
-      const whatsapp = document.getElementById("whatsapp").value.trim();
-      const plan = document.getElementById("plan").value;
-      const m3u = document.getElementById("m3u").value.trim();
-      const usuarioInput = document.getElementById("usuario");
+function generarTodo() {
+  const cliente = document.getElementById("cliente").value.trim() || "Cliente";
+  const whatsapp = document.getElementById("whatsapp").value.trim();
+  const plan = document.getElementById("plan").value;
+  const m3u = document.getElementById("m3u").value.trim();
+  const usuarioInput = document.getElementById("usuario");
 
-      if (!usuarioInput.value.trim()) {
-        usuarioInput.value = generarUsuario(cliente);
-      }
+  let usuario = usuarioInput.value.trim();
+  let password = "";
 
-      const usuario = usuarioInput.value.trim();
-      const planCorto = nombrePlanCorto(plan);
+  try {
+    const url = new URL(m3u);
+    usuario = url.searchParams.get("username") || usuario;
+    password = url.searchParams.get("password") || "";
+    usuarioInput.value = usuario;
+  } catch (e) {}
 
-let password = "";
+  if (!usuarioInput.value.trim()) {
+    usuarioInput.value = generarUsuario(cliente);
+    usuario = usuarioInput.value.trim();
+  }
 
-try {
-  const url = new URL(m3u);
-  password = url.searchParams.get("password") || "";
-} catch (e) {}
+  const planCorto = nombrePlanCorto(plan);
 
-const mensaje = `
-Hola ${cliente} 👋
+  const mensaje = `Hola ${cliente} 👋
 
 Tu acceso ZENIX TV ya está listo ✅
 
@@ -306,17 +308,17 @@ ${m3u}
 Recomendación:
 Usa una conexión estable de internet y abre el servicio desde tu app compatible.
 
-Soporte ZENIX TV disponible para ayudarte.
-`;
+Soporte ZENIX TV disponible para ayudarte.`;
 
-document.getElementById("mensaje").value = mensaje;
+  document.getElementById("mensaje").value = mensaje;
 
-      const waBtn = document.getElementById("waBtn");
-      const phone = whatsapp.replace(/[^0-9]/g, "");
-      waBtn.href = phone
-        ? `https://wa.me/${phone}?text=${encodeURIComponent(mensaje)}`
-        : `https://wa.me/?text=${encodeURIComponent(mensaje)}`;
-    }
+  const waBtn = document.getElementById("waBtn");
+  const phone = whatsapp.replace(/[^0-9]/g, "");
+
+  waBtn.href = phone
+    ? `https://wa.me/${phone}?text=${encodeURIComponent(mensaje)}`
+    : `https://wa.me/?text=${encodeURIComponent(mensaje)}`;
+}
 
     function mostrarCopiado() {
       const ok = document.getElementById("copyOk");
