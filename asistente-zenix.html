@@ -271,6 +271,7 @@ function extraerM3U() {
       return "1 Mes";
     }
 
+<script>
 function generarTodo() {
   const cliente = document.getElementById("cliente").value.trim() || "Cliente";
   const whatsapp = document.getElementById("whatsapp").value.trim();
@@ -295,17 +296,16 @@ function generarTodo() {
 
   const planCorto = nombrePlanCorto(plan);
 
-  const mensaje = `Hola ${cliente} 👋
-const mensaje = `🔥 *ZENIX TV ACTIVADO* 🔥
+  const mensaje = `🔥 *ZENIX TV ACTIVADO* 🔥
 
 ━━━━━━━━━━━━━━━━━━
 
-Hola *${cliente}* 👋  
-Tu acceso ya está listo ✅  
+Hola *${cliente}* 👋
+Tu acceso ya está listo ✅
 
-📦 *PLAN:* ${planCorto}  
-👤 *USUARIO:* ${usuario}  
-🔑 *PASSWORD:* ${password}  
+📦 *PLAN:* ${planCorto}
+👤 *USUARIO:* ${usuario}
+🔑 *PASSWORD:* ${password}
 
 ━━━━━━━━━━━━━━━━━━
 
@@ -315,14 +315,14 @@ ${m3u}
 ━━━━━━━━━━━━━━━━━━
 
 ⚡ *RECOMENDADO:*
-• App: IPTV Smarters / TiviMate  
-• Internet estable  
-• No compartir acceso  
+• App: IPTV Smarters / TiviMate
+• Internet estable
+• No compartir acceso
 
 ━━━━━━━━━━━━━━━━━━
 
 🚀 *SOPORTE ZENIX 24/7*
-Escríbenos ante cualquier duda  
+Escríbenos ante cualquier duda
 
 🔥 Disfruta el mejor contenido en vivo`;
 
@@ -335,32 +335,7 @@ Escríbenos ante cualquier duda
     ? `https://wa.me/${phone}?text=${encodeURIComponent(mensaje)}`
     : `https://wa.me/?text=${encodeURIComponent(mensaje)}`;
 }
-
-    function mostrarCopiado() {
-      const ok = document.getElementById("copyOk");
-      ok.style.display = "inline";
-      setTimeout(() => ok.style.display = "none", 1600);
-    }
-
-    function copiarUsuario() {
-      const usuario = document.getElementById("usuario").value;
-      navigator.clipboard.writeText(usuario);
-      mostrarCopiado();
-    }
-
-    function copiarMensaje() {
-      generarTodo();
-      const mensaje = document.getElementById("mensaje").value;
-      navigator.clipboard.writeText(mensaje);
-      mostrarCopiado();
-    }
-
-    document.querySelectorAll("input, select").forEach(el => {
-      el.addEventListener("input", generarTodo);
-      el.addEventListener("change", generarTodo);
-    });
-
-    generarTodo();
+</script>
   </script></body>
 </html><html>
 </html>
