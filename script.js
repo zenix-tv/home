@@ -55,14 +55,20 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  document.querySelectorAll(".faq-item").forEach((item) => {
-    const button = item.querySelector("button");
-    if (button) {
-      button.addEventListener("click", () => {
-        item.classList.toggle("active");
-      });
-    }
+/* FAQ ABRIR / CERRAR */
+document.querySelectorAll(".faq-item button").forEach((button) => {
+  button.addEventListener("click", () => {
+    const item = button.closest(".faq-item");
+
+    document.querySelectorAll(".faq-item").forEach((faq) => {
+      if (faq !== item) {
+        faq.classList.remove("active");
+      }
+    });
+
+    item.classList.toggle("active");
   });
+});
 
   const revealElements = document.querySelectorAll(".reveal");
 
