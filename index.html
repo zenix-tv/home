@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ZENIX TV</title>
  <link rel="stylesheet" href="./styles.css?v=10002" />
-<script src="./script.js?v=9001"></script>
+<script src="./script.js?v=10000"></script>
 </head>
 
 <body>
@@ -437,7 +437,7 @@
     <div class="faq-item">
       <button>¿En cuántos dispositivos puedo usar el servicio?</button>
       <div class="faq-answer">
-        <p>Puedes usar el servicio hasta en 5 dispositivos al mismo tiempo.</p>
+        <p>Puedes usar el servicio hasta en 3 dispositivos al mismo tiempo.</p>
       </div>
     </div>
 
@@ -548,7 +548,27 @@ setTimeout(function () {
 }, 2200);
 </script>
 
-<script src="./script.js?v=6000"></script>
+
+<script src="./script.js?v=9001"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll(".faq-item button").forEach(function (button) {
+    button.addEventListener("click", function () {
+      const item = button.closest(".faq-item");
+
+      document.querySelectorAll(".faq-item").forEach(function (faq) {
+        if (faq !== item) {
+          faq.classList.remove("active");
+        }
+      });
+
+      item.classList.toggle("active");
+    });
+  });
+});
+</script>
+
 
 </body>
 </html>
