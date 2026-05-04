@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contratar ZENIX TV</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:#000;
+  color:#fff;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+}
+.box{
+  width:100%;
+  max-width:500px;
+  background:#111;
+  padding:30px;
+  border-radius:20px;
+  border:1px solid #FFA100;
+}
+h1{
+  text-align:center;
+}
+input{
+  width:100%;
+  margin-top:10px;
+  padding:15px;
+  border-radius:10px;
+  border:none;
+}
+button{
+  width:100%;
+  margin-top:20px;
+  padding:15px;
+  background:#FFA100;
+  border:none;
+  font-weight:bold;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+  <h1>Contratar ZENIX TV</h1>
+
+  <input id="nombre" placeholder="Nombre completo">
+  <input id="correo" placeholder="Correo electrónico">
+  <input id="telefono" placeholder="Teléfono">
+
+  <button onclick="pagar()">Continuar al pago</button>
+</div>
+
+<script>
+function pagar(){
+
+  const nombre = document.getElementById("nombre").value;
+  const correo = document.getElementById("correo").value;
+  const telefono = document.getElementById("telefono").value;
+
+  if(!nombre || !correo || !telefono){
+    alert("Completa todos los campos");
+    return;
+  }
+
+  // Guardar datos temporalmente
+  localStorage.setItem("zenix_cliente", JSON.stringify({
+    nombre,
+    correo,
+    telefono
+  }));
+
+  // Redirigir a MercadoPago
+  window.location.href = "https://mpago.la/2EGd2SF";
+}
+</script>
+
+</body>
+</html>
