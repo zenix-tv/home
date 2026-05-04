@@ -1,0 +1,238 @@
+<!DOCTYPE html><html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Asistente Activación ZENIX TV</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: radial-gradient(circle at top, rgba(255,161,0,.18), #000 42%);
+      color: #fff;
+      min-height: 100vh;
+      padding: 28px;
+    }
+    .zenix-box {
+      max-width: 980px;
+      margin: 0 auto;
+      background: rgba(10, 15, 25, .92);
+      border: 1px solid rgba(255,161,0,.32);
+      border-radius: 28px;
+      padding: 28px;
+      box-shadow: 0 0 55px rgba(255,161,0,.22);
+    }
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(34px, 6vw, 64px);
+      font-weight: 900;
+      text-align: center;
+    }
+    h1 span { color: #FFA100; }
+    .sub {
+      text-align: center;
+      color: rgba(255,255,255,.75);
+      font-weight: 700;
+      margin-bottom: 30px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+    label {
+      display: block;
+      font-weight: 900;
+      color: #FFA100;
+      margin-bottom: 8px;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 15px 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,161,0,.35);
+      background: #07111d;
+      color: #fff;
+      font-size: 16px;
+      outline: none;
+    }
+    textarea { min-height: 210px; resize: vertical; }
+    .full { grid-column: 1 / -1; }
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 22px;
+    }
+    button, a.btn {
+      border: none;
+      background: #FFA100;
+      color: #000;
+      padding: 15px 22px;
+      border-radius: 16px;
+      font-weight: 900;
+      font-size: 16px;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 0 28px rgba(255,161,0,.55);
+    }
+    .ghost {
+      background: transparent;
+      color: #FFA100;
+      border: 1px solid rgba(255,161,0,.5);
+      box-shadow: none;
+    }
+    .steps {
+      margin-top: 26px;
+      padding: 20px;
+      border-radius: 22px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .steps h3 { margin-top: 0; color: #FFA100; }
+    .steps ol { line-height: 1.8; }
+    .copy-ok { color: #22c55e; font-weight: 900; margin-left: 8px; display: none; }
+    @media (max-width: 720px) {
+      body { padding: 14px; }
+      .zenix-box { padding: 20px; }
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main class="zenix-box">
+    <h1>Asistente <span>ZENIX TV</span></h1>
+    <p class="sub">Sistema semi-automático para preparar activaciones, usuario, plan y mensaje final para cliente.</p><div class="grid">
+  <div>
+    <label>Nombre del cliente</label>
+    <input id="cliente" placeholder="Ej: Miguel Tobar" />
+  </div>
+
+  <div>
+    <label>WhatsApp del cliente</label>
+    <input id="whatsapp" placeholder="Ej: 56912345678" />
+  </div>
+
+  <div>
+    <label>Plan contratado</label>
+    <select id="plan">
+      <option value="1 MES CANALES, PELIS Y SERIES + XXX 1 CONEX">1 Mes</option>
+      <option value="3 MESES CANALES, PELIS Y SERIES + XXX 1 CONEX">3 Meses</option>
+      <option value="12 MESES CANALES, PELIS Y SERIES + XXX 1 CONEX">12 Meses</option>
+    </select>
+  </div>
+
+  <div>
+    <label>Usuario sugerido para XUI</label>
+    <input id="usuario" placeholder="Se genera automático" />
+  </div>
+
+  <div class="full">
+    <label>Link M3U generado en el panel</label>
+    <input id="m3u" placeholder="Pega aquí el link M3U generado en XUI" />
+  </div>
+
+  <div class="full">
+    <label>Mensaje listo para enviar al cliente</label>
+    <textarea id="mensaje" readonly></textarea>
+  </div>
+</div>
+
+<div class="buttons">
+  <button onclick="generarTodo()">Generar activación</button>
+  <button class="ghost" onclick="copiarUsuario()">Copiar usuario</button>
+  <button class="ghost" onclick="copiarMensaje()">Copiar mensaje</button>
+  <a id="waBtn" class="btn" target="_blank">Enviar por WhatsApp</a>
+  <span id="copyOk" class="copy-ok">Copiado ✅</span>
+</div>
+
+<section class="steps">
+  <h3>Flujo de trabajo</h3>
+  <ol>
+    <li>Ingresa nombre del cliente y plan contratado.</li>
+    <li>Copia el usuario sugerido.</li>
+    <li>Entra al panel XUI → Lines → Add Line.</li>
+    <li>Pega el usuario, elige el paquete correcto y pulsa Next.</li>
+    <li>Copia el link M3U generado y pégalo aquí.</li>
+    <li>Copia o envía el mensaje final al cliente.</li>
+  </ol>
+</section>
+
+  </main>  <script>
+    function limpiarTexto(texto) {
+      return texto
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]/g, "")
+        .slice(0, 12);
+    }
+
+    function generarUsuario(nombre) {
+      const base = limpiarTexto(nombre || "cliente");
+      const numero = Math.floor(100 + Math.random() * 900);
+      return `zenix${base}${numero}`;
+    }
+
+    function nombrePlanCorto(plan) {
+      if (plan.includes("12")) return "12 Meses";
+      if (plan.includes("3 MESES")) return "3 Meses";
+      return "1 Mes";
+    }
+
+    function generarTodo() {
+      const cliente = document.getElementById("cliente").value.trim() || "Cliente";
+      const whatsapp = document.getElementById("whatsapp").value.trim();
+      const plan = document.getElementById("plan").value;
+      const m3u = document.getElementById("m3u").value.trim();
+      const usuarioInput = document.getElementById("usuario");
+
+      if (!usuarioInput.value.trim()) {
+        usuarioInput.value = generarUsuario(cliente);
+      }
+
+      const usuario = usuarioInput.value.trim();
+      const planCorto = nombrePlanCorto(plan);
+
+      const mensaje = `Hola ${cliente} 👋\n\nTu acceso ZENIX TV ya está listo ✅\n\n📺 Plan contratado: ${planCorto}\n👤 Usuario: ${usuario}\n🔗 Link M3U:\n${m3u || "PENDIENTE DE PEGAR LINK M3U"}\n\nRecomendación:\nUsa una conexión estable de internet y abre el servicio desde tu app compatible.\n\nSoporte ZENIX TV disponible para ayudarte.`;
+
+      document.getElementById("mensaje").value = mensaje;
+
+      const waBtn = document.getElementById("waBtn");
+      const phone = whatsapp.replace(/[^0-9]/g, "");
+      waBtn.href = phone
+        ? `https://wa.me/${phone}?text=${encodeURIComponent(mensaje)}`
+        : `https://wa.me/?text=${encodeURIComponent(mensaje)}`;
+    }
+
+    function mostrarCopiado() {
+      const ok = document.getElementById("copyOk");
+      ok.style.display = "inline";
+      setTimeout(() => ok.style.display = "none", 1600);
+    }
+
+    function copiarUsuario() {
+      const usuario = document.getElementById("usuario").value;
+      navigator.clipboard.writeText(usuario);
+      mostrarCopiado();
+    }
+
+    function copiarMensaje() {
+      generarTodo();
+      const mensaje = document.getElementById("mensaje").value;
+      navigator.clipboard.writeText(mensaje);
+      mostrarCopiado();
+    }
+
+    document.querySelectorAll("input, select").forEach(el => {
+      el.addEventListener("input", generarTodo);
+      el.addEventListener("change", generarTodo);
+    });
+
+    generarTodo();
+  </script></body>
+</html><html>
+
+</html><html>
+
+</html>
