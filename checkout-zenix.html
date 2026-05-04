@@ -55,7 +55,7 @@ button{
   <input id="correo" placeholder="Correo electrónico">
   <input id="telefono" placeholder="Teléfono">
 
-  <button onclick="pagar()">Continuar al pago</button>
+ <button onclick="pagar()">Guardar mis datos y pagar</button>
 </div>
 
 <script>
@@ -88,6 +88,34 @@ function pagar(){
     alert("Completa todos los campos");
     return;
   }
+
+  localStorage.setItem("zenix_cliente", JSON.stringify({
+    nombre,
+    correo,
+    telefono,
+    plan: planData.nombre
+  }));
+
+  const mensaje = `🔥 NUEVA COMPRA ZENIX TV 🔥
+
+👤 Cliente: ${nombre}
+📧 Correo: ${correo}
+📱 Teléfono: ${telefono}
+📦 Plan: ${planData.nombre}
+
+💰 Estado: Pendiente de pago
+
+👉 Cuando confirme pago, generar acceso.`;
+
+  const miWhatsApp = "56964180558";
+  const waURL = `https://wa.me/${miWhatsApp}?text=${encodeURIComponent(mensaje)}`;
+
+  window.open(waURL, "_blank");
+
+  setTimeout(() => {
+    window.location.href = planData.link;
+  }, 800);
+}
 
   localStorage.setItem("zenix_cliente", JSON.stringify({
     nombre,
