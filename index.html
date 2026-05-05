@@ -571,6 +571,15 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
+ <script>
+setTimeout(()=>{
+  const intro = document.getElementById("patanIntro");
+  if(intro){
+    intro.style.opacity = "0";
+    setTimeout(()=> intro.remove(), 500);
+  }
+},3000);
+</script> 
 
 </body>
 </html>
