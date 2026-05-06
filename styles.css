@@ -4247,9 +4247,13 @@ body.modal-open #siteContent {
 }
 
 .intro-logo{
-  font-size:64px;
+  font-size:clamp(46px, 10vw, 86px);
   font-weight:900;
   letter-spacing:2px;
+  margin-top:8px;
+  max-width:92vw;
+  line-height:.95;
+  white-space:nowrap;
 }
 
 .intro-logo span{
@@ -4265,10 +4269,17 @@ body.modal-open #siteContent {
 }
 
 .intro-slogan{
+  margin-top:14px;
+  font-size:clamp(16px, 3.4vw, 22px);
+  font-weight:800;
   color:#fff;
-  font-size:18px;
-  opacity:0.8;
-  max-width:280px;
+  opacity:0;
+  letter-spacing:1.5px;
+  text-align:center;
+  max-width:82vw;
+  line-height:1.25;
+  animation:fadeText .9s ease forwards;
+  animation-delay:.45s;
 }
 
 /* Animaciones */
@@ -4389,4 +4400,20 @@ body.modal-open #siteContent {
 .logo{
   display:flex;
   align-items:center;
+}
+@media (max-width: 480px){
+  .intro-logo{
+    font-size:44px;
+    letter-spacing:1px;
+  }
+
+  .intro-slogan{
+    font-size:15px;
+    max-width:260px;
+  }
+
+  #patanIntro .intro-dog video{
+    width:115px !important;
+    max-width:115px !important;
+  }
 }
