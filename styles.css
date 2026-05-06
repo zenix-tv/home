@@ -4371,3 +4371,6 @@ body.modal-open #siteContent {
   min-width:120px;
   height:auto !important;
 }
+#patanIntro video{
+  width:120px !important;
+}
