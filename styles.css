@@ -4297,20 +4297,25 @@ body.modal-open #siteContent {
   text-align:center;
 }
 
-.intro-dog img{
-  width:180px;
-  margin-bottom:20px;
-  animation:popIn 1s ease;
-}
-
 .intro-logo{
-  font-size:64px;
+  font-size:72px;
   font-weight:900;
-  letter-spacing:2px;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  color:#fff;
+  text-shadow:
+    0 0 10px rgba(255,255,255,0.2),
+    0 0 20px rgba(255,161,0,0.4),
+    0 0 40px rgba(255,161,0,0.8);
+  animation:fadeUp 1s ease;
 }
 
 .intro-logo span{
   color:#FFA100;
+  text-shadow:
+    0 0 10px rgba(255,161,0,0.6),
+    0 0 25px rgba(255,161,0,1),
+    0 0 50px rgba(255,161,0,1);
 }
 
 .intro-line{
@@ -4322,10 +4327,21 @@ body.modal-open #siteContent {
 }
 
 .intro-slogan{
+  margin-top:10px;
+  font-size:20px;
+  font-weight:700;
   color:#fff;
-  font-size:18px;
-  opacity:0.8;
-  max-width:280px;
+  opacity:0.9;
+  letter-spacing:1px;
+  text-shadow:0 0 10px rgba(255,255,255,0.2);
+  animation:fadeUp 1.4s ease;
+}
+.intro-dog video{
+  width:240px;
+  max-width:85%;
+  border-radius:14px;
+  box-shadow:0 0 40px rgba(255,161,0,0.4);
+  animation:popIn 1s ease;
 }
 
 /* Animaciones */
@@ -4337,4 +4353,14 @@ body.modal-open #siteContent {
 @keyframes lineGrow{
   from{width:0;}
   to{width:120px;}
+}
+@keyframes fadeUp{
+  from{
+    opacity:0;
+    transform:translateY(20px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
 }
