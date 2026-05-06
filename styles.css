@@ -4442,17 +4442,17 @@ body.modal-open #siteContent {
 .plan-dog{
   position:absolute;
   top:-95px;
-  left:-42px;
-  width:115px;
+  left:-18px;
+  width:82px;
   z-index:20;
   pointer-events:none;
-  filter:drop-shadow(0 0 16px rgba(255,161,0,.75));
+  filter:drop-shadow(0 0 12px rgba(255,161,0,.55));
 }
 
 .plan-card.featured .plan-dog{
-  top:-100px;
-  left:-38px;
-  width:120px;
+  top:-30px;
+  left:-16px;
+  width:88px;
 }
 
 @media (max-width:768px){
