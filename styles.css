@@ -4281,3 +4281,60 @@ body.modal-open #siteContent {
   from{width:0;}
   to{width:120px;}
 }
+/* INTRO PATAN */
+#patanIntro{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:#000;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+  text-align:center;
+}
+
+.intro-dog img{
+  width:180px;
+  margin-bottom:20px;
+  animation:popIn 1s ease;
+}
+
+.intro-logo{
+  font-size:64px;
+  font-weight:900;
+  letter-spacing:2px;
+}
+
+.intro-logo span{
+  color:#FFA100;
+}
+
+.intro-line{
+  width:120px;
+  height:4px;
+  background:#FFA100;
+  margin:20px 0;
+  animation:lineGrow 1s ease;
+}
+
+.intro-slogan{
+  color:#fff;
+  font-size:18px;
+  opacity:0.8;
+  max-width:280px;
+}
+
+/* Animaciones */
+@keyframes popIn{
+  from{transform:scale(0.5); opacity:0;}
+  to{transform:scale(1); opacity:1;}
+}
+
+@keyframes lineGrow{
+  from{width:0;}
+  to{width:120px;}
+}
