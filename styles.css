@@ -4298,15 +4298,16 @@ body.modal-open #siteContent {
 }
 
 .intro-logo{
-  font-size:72px;
+  font-size:84px; /* más grande */
   font-weight:900;
-  letter-spacing:4px;
+  letter-spacing:5px;
   text-transform:uppercase;
   color:#fff;
   text-shadow:
-    0 0 10px rgba(255,255,255,0.2),
-    0 0 20px rgba(255,161,0,0.4),
-    0 0 40px rgba(255,161,0,0.8);
+    0 0 15px rgba(255,255,255,0.25),
+    0 0 30px rgba(255,161,0,0.6),
+    0 0 60px rgba(255,161,0,1);
+  margin-top:10px;
   animation:fadeUp 1s ease;
 }
 
@@ -4327,20 +4328,20 @@ body.modal-open #siteContent {
 }
 
 .intro-slogan{
-  margin-top:10px;
-  font-size:20px;
-  font-weight:700;
-  color:#fff;
-  opacity:0.9;
+  margin-top:8px;
+  font-size:18px;
+  font-weight:600;
+  opacity:0.85;
   letter-spacing:1px;
-  text-shadow:0 0 10px rgba(255,255,255,0.2);
-  animation:fadeUp 1.4s ease;
+  text-align:center;
 }
+
 .intro-dog video{
-  width:240px;
-  max-width:85%;
-  border-radius:14px;
-  box-shadow:0 0 40px rgba(255,161,0,0.4);
+  width:140px; /* antes 240px */
+  max-width:60%;
+  border-radius:12px;
+  box-shadow:0 0 25px rgba(255,161,0,0.25);
+  margin-bottom:10px;
   animation:popIn 1s ease;
 }
 
