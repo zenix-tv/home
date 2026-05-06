@@ -4417,3 +4417,35 @@ body.modal-open #siteContent {
     max-width:115px !important;
   }
 }
+.plan-card{
+  position:relative;
+  overflow:visible;
+}
+
+.plan-dog{
+  position:absolute;
+  top:-78px;
+  left:50%;
+  transform:translateX(-50%);
+  width:105px;
+  z-index:5;
+  filter:drop-shadow(0 0 18px rgba(255,161,0,.65));
+  pointer-events:none;
+}
+
+.plan-card.featured .plan-dog{
+  width:125px;
+  top:-92px;
+}
+
+@media (max-width:768px){
+  .plan-dog{
+    width:90px;
+    top:-65px;
+  }
+
+  .plan-card.featured .plan-dog{
+    width:100px;
+    top:-72px;
+  }
+}
