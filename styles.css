@@ -4240,10 +4240,10 @@ body.modal-open #siteContent {
   text-align:center;
 }
 
-.intro-dog img{
-  width:180px;
-  margin-bottom:20px;
-  animation:popIn 1s ease;
+.intro-dog video{
+  width:220px;
+  max-width:80%;
+  border-radius:12px;
 }
 
 .intro-logo{
