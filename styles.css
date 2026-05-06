@@ -4374,3 +4374,19 @@ body.modal-open #siteContent {
 #patanIntro video{
   width:120px !important;
 }
+/* LOGO HEADER PATAN TV */
+.logo img{
+  height:45px;
+  width:auto;
+  object-fit:contain;
+}
+/* HEADER */
+.logo img{
+  height:45px;
+  width:auto;
+  object-fit:contain;
+}
+.logo{
+  display:flex;
+  align-items:center;
+}
