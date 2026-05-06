@@ -4422,21 +4422,6 @@ body.modal-open #siteContent {
   overflow:visible;
 }
 
-.plan-dog{
-  position:absolute;
-  top:-78px;
-  left:50%;
-  transform:translateX(-50%);
-  width:105px;
-  z-index:5;
-  filter:drop-shadow(0 0 18px rgba(255,161,0,.65));
-  pointer-events:none;
-}
-
-.plan-card.featured .plan-dog{
-  width:125px;
-  top:-92px;
-}
 
 @media (max-width:768px){
   .plan-dog{
@@ -4447,5 +4432,39 @@ body.modal-open #siteContent {
   .plan-card.featured .plan-dog{
     width:100px;
     top:-72px;
+  }
+}
+.plan-card{
+  position:relative;
+  overflow:visible;
+}
+
+.plan-dog{
+  position:absolute;
+  top:-95px;
+  left:-42px;
+  width:115px;
+  z-index:20;
+  pointer-events:none;
+  filter:drop-shadow(0 0 16px rgba(255,161,0,.75));
+}
+
+.plan-card.featured .plan-dog{
+  top:-100px;
+  left:-38px;
+  width:120px;
+}
+
+@media (max-width:768px){
+  .plan-dog{
+    top:-72px;
+    left:-18px;
+    width:82px;
+  }
+
+  .plan-card.featured .plan-dog{
+    top:-76px;
+    left:-16px;
+    width:88px;
   }
 }
