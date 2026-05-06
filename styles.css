@@ -4457,3 +4457,10 @@ body.modal-open #siteContent {
     max-width:115px !important;
   }
 }
+body{
+  overflow:hidden;
+}
+
+#patanIntro{
+  z-index:9999999 !important;
+}
