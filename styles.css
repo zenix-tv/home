@@ -4411,7 +4411,7 @@ body.modal-open #siteContent {
 
 .plan-dog{
   position:absolute !important;
-  top:-40px !important;
+  top:-42px !important;
   left:-18px !important;
   width:78px !important;
   z-index:20 !important;
@@ -4420,7 +4420,7 @@ body.modal-open #siteContent {
 }
 
 .plan-card.featured .plan-dog{
-  top:-44px !important;
+  top:-46px !important;
   left:-16px !important;
   width:82px !important;
 }
