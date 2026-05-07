@@ -4497,3 +4497,11 @@ body{
     font-size:17px !important;
   }
 }
+/* ANIMACIÓN NAVBAR */
+.navbar{
+  transition:transform .35s ease;
+}
+
+.navbar.nav-hidden{
+  transform:translateY(-120%);
+}
