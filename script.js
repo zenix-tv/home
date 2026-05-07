@@ -149,3 +149,27 @@ document.querySelectorAll(".faq-item button").forEach((button) => {
     updateCounter();
   });
 });
+/* OCULTAR NAVBAR AL BAJAR */
+let lastScroll = 0;
+
+const navbar = document.querySelector(".navbar");
+
+window.addEventListener("scroll", () => {
+
+  const currentScroll = window.pageYOffset;
+
+  if (!navbar) return;
+
+  /* BAJANDO */
+  if (currentScroll > lastScroll && currentScroll > 120) {
+    navbar.classList.add("nav-hidden");
+  } 
+  
+  /* SUBIENDO */
+  else {
+    navbar.classList.remove("nav-hidden");
+  }
+
+  lastScroll = currentScroll;
+
+});
