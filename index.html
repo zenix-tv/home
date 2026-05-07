@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PATAN TV</title>
  <link rel="stylesheet" href="./styles.css?v=10002" />
-<script src="./script.js?v=10000"></script>
+<script src="./script.js?v=10001" defer></script>
 </head>
 
 <body>
@@ -14,9 +14,7 @@
 
 <!-- INTRO PATAN TV -->
 <div id="patanIntro">
-  <div class="intro-logo">
-    PATAN<span>TV</span>
-  </div>
+  <div class="intro-logo">PATAN<span>TV</span></div>
 
   <video id="introVideo" autoplay muted playsinline>
     <source src="patan-mascota.mp4" type="video/mp4">
@@ -24,21 +22,10 @@
 
   <div class="intro-line"></div>
 
-  <p class="intro-slogan">
-    Disfrutarás como un Patán de este contenido...
-  </p>
+  <p class="intro-slogan">Disfrutarás como un Patán de este contenido...</p>
 </div>
 
-<div id="mainContent" style="display:none;">p>
-  
-</div>
-
-  <div class="intro-line"></div>
-
-  <p class="intro-slogan">
-    El streaming que hasta un Patán elegiría.
-  </p>
-
+<div id="mainContent" style="display:none;">
 </div>
 
 <nav class="navbar">
@@ -627,5 +614,25 @@ window.addEventListener("load", () => {
   }, 4500);
 });
  </script> 
+
+<script>
+window.addEventListener("load", () => {
+  const intro = document.getElementById("patanIntro");
+  const main = document.getElementById("mainContent");
+
+  setTimeout(() => {
+    intro.style.transition = "opacity 1s ease";
+    intro.style.opacity = "0";
+
+    setTimeout(() => {
+      intro.style.display = "none";
+      main.style.display = "block";
+      document.body.style.overflow = "auto";
+    }, 1000);
+  }, 4500);
+});
+</script>
+
+</div>
 </body>
 </html>
