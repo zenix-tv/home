@@ -4505,3 +4505,37 @@ body{
 .navbar.nav-hidden{
   transform:translateY(-120%);
 }
+/* NAVBAR MÁS PEQUEÑA */
+.navbar{
+  padding:10px 40px !important;
+  min-height:70px !important;
+}
+
+.logo img{
+  height:48px !important;
+}
+
+.nav-links{
+  gap:32px !important;
+}
+
+.nav-links a{
+  font-size:22px !important;
+}
+
+/* MOBILE */
+@media (max-width:768px){
+
+  .navbar{
+    padding:8px 12px !important;
+  }
+
+  .logo img{
+    height:52px !important;
+  }
+
+  .nav-links a{
+    font-size:17px !important;
+  }
+
+}
