@@ -4428,13 +4428,13 @@ body.modal-open #siteContent {
 /* MÓVIL */
 @media (max-width:768px){
   .plan-dog{
-    top:-42px !important;
+    top:-44px !important;
     left:-12px !important;
     width:72px !important;
   }
 
   .plan-card.featured .plan-dog{
-    top:-46px !important;
+    top:-48px !important;
     left:-12px !important;
     width:76px !important;
   }
