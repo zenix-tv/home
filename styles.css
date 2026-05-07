@@ -4539,3 +4539,95 @@ body{
   }
 
 }
+.patan-whatsapp {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  width: 92px;
+  height: 110px;
+  z-index: 9999;
+  text-decoration: none;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.whatsapp-circle {
+  width: 72px;
+  height: 72px;
+  background: #25d366;
+  border-radius: 50%;
+  box-shadow: 0 0 18px #ffa100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid #ffa100;
+}
+
+.whatsapp-circle span {
+  color: white;
+  font-size: 34px;
+  font-weight: bold;
+}
+
+.patan-dog {
+  position: absolute;
+  top: 0;
+  width: 82px;
+  z-index: 2;
+  transform: translateY(-8px);
+  animation: patanBounce 3s infinite ease-in-out;
+}
+
+.patan-message {
+  position: absolute;
+  right: 88px;
+  bottom: 35px;
+  background: #111;
+  color: #fff;
+  border: 1px solid #ffa100;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 14px;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(10px);
+  transition: 0.3s;
+  box-shadow: 0 0 14px rgba(255, 161, 0, 0.45);
+}
+
+.patan-whatsapp:hover .patan-message {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+@keyframes patanBounce {
+  0%, 100% {
+    transform: translateY(-8px);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+@media (max-width: 768px) {
+  .patan-whatsapp {
+    right: 14px;
+    bottom: 16px;
+    width: 78px;
+    height: 94px;
+  }
+
+  .whatsapp-circle {
+    width: 62px;
+    height: 62px;
+  }
+
+  .patan-dog {
+    width: 70px;
+  }
+
+  .patan-message {
+    display: none;
+  }
+}
