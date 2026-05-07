@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Acceso Cliente ZENIX TV</title>
+<title>Acceso Cliente PATAN TV</title>
 
 <style>
 *{box-sizing:border-box}
@@ -85,7 +85,7 @@ button,a{
 <body>
 
 <div class="card">
-  <div class="logo">ZENIX<span>TV</span></div>
+  <div class="logo">PATAN<span>TV</span></div>
   <div class="badge">ACCESO PREMIUM ACTIVADO ✅</div>
 
   <div class="item">
@@ -114,11 +114,11 @@ button,a{
   </div>
 
   <button onclick="copiarM3U()">Copiar Link M3U</button>
-  <a id="soporte" target="_blank">Contactar Soporte ZENIX</a>
+  <a id="soporte" target="_blank">Contactar Soporte PATAN TV</a>
 
   <p class="note">
     Usa una conexión estable de internet y abre tu acceso desde una app compatible.
-    Si necesitas ayuda, contacta a soporte ZENIX TV.
+    Si necesitas ayuda, contacta a soporte PATAN TV.
   </p>
 </div>
 
@@ -126,7 +126,7 @@ button,a{
 const params = new URLSearchParams(window.location.search);
 
 const nombre = params.get("nombre") || "Cliente";
-const plan = params.get("plan") || "Plan ZENIX TV";
+const plan = params.get("plan") || "Plan PATAN TV";
 const usuario = params.get("usuario") || params.get("user") || "";
 const password = params.get("password") || params.get("pass") || "";
 const m3u = params.get("m3u") || "";
@@ -143,7 +143,7 @@ function copiarM3U(){
 }
 
 document.getElementById("soporte").href =
-  "https://wa.me/56964180558?text=Hola%20ZENIX%20TV,%20necesito%20ayuda%20con%20mi%20acceso";
+  "https://wa.me/56964180558?text=Hola%20PATAN%20TV,%20necesito%20ayuda%20con%20mi%20acceso";
 </script>
 
 </body>
