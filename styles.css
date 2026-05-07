@@ -4464,3 +4464,36 @@ body{
 #patanIntro{
   z-index:9999999 !important;
 }
+/* NAVBAR PATAN MÁS DELGADA */
+.navbar{
+  padding:10px 42px !important;
+  min-height:72px !important;
+}
+
+.logo img{
+  height:48px !important;
+}
+
+.nav-links{
+  gap:34px !important;
+}
+
+.nav-links a{
+  font-size:22px !important;
+}
+
+/* MÓVIL */
+@media (max-width:768px){
+  .navbar{
+    padding:8px 10px !important;
+    min-height:auto !important;
+  }
+
+  .logo img{
+    height:58px !important;
+  }
+
+  .nav-links a{
+    font-size:17px !important;
+  }
+}
