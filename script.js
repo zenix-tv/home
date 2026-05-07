@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       setTimeout(() => {
         window.open(
-          "https://wa.me/56964180558?text=Hola%20ZENIX%20TV,%20quiero%20probar%20el%20servicio",
+          "https://wa.me/56964180558?text=Hola%20PATAN%20TV,%20quiero%20probar%20el%20servicio",
           "_blank"
         );
       }, 1200);
