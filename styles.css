@@ -4614,8 +4614,8 @@ body{
   .patan-whatsapp {
     right: 14px;
     bottom: 16px;
-    width: 78px;
-    height: 94px;
+    width: 100px;
+    height: 110px;
   }
 
   .whatsapp-circle {
@@ -4624,7 +4624,7 @@ body{
   }
 
   .patan-dog {
-    width: 70px;
+    width: 100px;
   }
 
   .patan-message {
