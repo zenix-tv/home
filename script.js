@@ -196,3 +196,28 @@ window.addEventListener("load", () => {
     }
   }, 4500);
 });
+window.addEventListener("load", () => {
+
+  document.body.style.overflow = "hidden";
+
+  setTimeout(() => {
+
+    const intro = document.getElementById("patanIntro");
+
+    if(intro){
+
+      intro.style.opacity = "0";
+
+      setTimeout(() => {
+
+        intro.style.display = "none";
+
+        document.body.style.overflowY = "auto";
+        document.documentElement.style.overflowY = "auto";
+
+      }, 800);
+    }
+
+  }, 4500);
+
+});
