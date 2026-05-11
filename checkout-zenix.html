@@ -65,23 +65,19 @@ button{
   <h1>Contratar PATAN TV</h1>
   <div class="plan-text" id="planTexto"></div>
 
-<form id="checkoutForm">
-  
-  <input type="text" id="nombre" placeholder="Nombre completo" required>
+  <form id="checkoutForm">
+    <input type="text" id="nombre" placeholder="Nombre completo" required>
+    <input type="email" id="correo" placeholder="Correo electrónico" required>
+    <input type="tel" id="telefono" placeholder="Teléfono / WhatsApp" required>
 
-  <input type="email" id="correo" placeholder="Correo electrónico" required>
-
-  <input type="tel" id="telefono" placeholder="Teléfono / WhatsApp" required>
-
-  <button type="submit" class="pay-btn">
-    Guardar mis datos y pagar
-  </button>
-
-</form>
+    <button type="submit">
+      Guardar mis datos y pagar
+    </button>
+  </form>
 </div>
 
 <script>
-const linksPago = {
+const planes = {
   "1mes": {
     nombre: "1 Mes",
     link: "https://mpago.la/2EGd2SF"
@@ -98,11 +94,14 @@ const linksPago = {
 
 const params = new URLSearchParams(window.location.search);
 const planElegido = params.get("plan") || "1mes";
-const planData = linksPago[planElegido] || linksPago["1mes"];
+const planData = planes[planElegido] || planes["1mes"];
 
-document.getElementById("planTexto").textContent = "Plan seleccionado: " + planData.nombre;
+document.getElementById("planTexto").textContent =
+  "Plan seleccionado: " + planData.nombre;
 
-function pagar(){
+document.getElementById("checkoutForm").addEventListener("submit", function(e){
+  e.preventDefault();
+
   const nombre = document.getElementById("nombre").value.trim();
   const correo = document.getElementById("correo").value.trim();
   const telefono = document.getElementById("telefono").value.trim();
@@ -112,7 +111,7 @@ function pagar(){
     return;
   }
 
-  const mensaje = 😎 Ya falta poco para convertirte en Patán Premium
+  const mensaje = `😎 Ya falta poco para convertirte en Patán Premium
 
 👤 Cliente: ${nombre}
 📧 Correo: ${correo}
@@ -123,6 +122,13 @@ function pagar(){
 
 👉 Cuando confirme pago, generar acceso.`;
 
+  localStorage.setItem("patan_cliente", JSON.stringify({
+    nombre,
+    correo,
+    telefono,
+    plan: planData.nombre
+  }));
+
   const miWhatsApp = "56964180558";
   const waURL = "https://wa.me/" + miWhatsApp + "?text=" + encodeURIComponent(mensaje);
 
@@ -131,42 +137,8 @@ function pagar(){
   setTimeout(function(){
     window.location.href = planData.link;
   }, 1200);
-}
-
-<script>
-const linksPago = {
-  "1mes": "https://mpago.la/2EGd2SF",
-  "3meses": "https://mpago.la/1smZcyZ",
-  "12meses": "https://mpago.la/1m6HBAU"
-};
-
-const params = new URLSearchParams(window.location.search);
-const planElegido = params.get("plan") || "1mes";
-
-document.getElementById("checkoutForm").addEventListener("submit", function(e){
-  e.preventDefault();
-
-  const nombre = document.getElementById("nombre").value.trim();
-  const correo = document.getElementById("correo").value.trim();
-  const telefono = document.getElementById("telefono").value.trim();
-
-  if(!nombre || !correo || !telefono){
-    alert("Completa todos los datos");
-    return;
-  }
-
-  localStorage.setItem("patan_cliente", JSON.stringify({
-    nombre,
-    correo,
-    telefono,
-    plan: planElegido
-  }));
-
-  const linkPago = linksPago[planElegido] || linksPago["1mes"];
-  window.location.href = linkPago;
 });
-
 </script>
-  
+
 </body>
 </html>
