@@ -4631,3 +4631,11 @@ body{
     display: none;
   }
 }
+html,
+body{
+  overflow-y:auto !important;
+  overflow-x:hidden;
+}
+#patanIntro{
+  transition:opacity .8s ease;
+}
