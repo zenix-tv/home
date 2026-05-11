@@ -4639,3 +4639,20 @@ body{
 #patanIntro{
   transition:opacity .8s ease;
 }
+.faq-item{
+  cursor:pointer;
+}
+
+.faq-answer{
+  max-height:0;
+  overflow:hidden;
+  transition:max-height .35s ease;
+}
+
+.faq-item.active .faq-answer{
+  max-height:500px !important;
+}
+
+.faq-item.active button::after{
+  content:"-" !important;
+}
