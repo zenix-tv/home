@@ -65,11 +65,19 @@ button{
   <h1>Contratar PATAN TV</h1>
   <div class="plan-text" id="planTexto"></div>
 
-  <input id="nombre" placeholder="Nombre completo">
-  <input id="correo" placeholder="Correo electrónico">
-  <input id="telefono" placeholder="Teléfono / WhatsApp">
+<form id="checkoutForm">
+  
+  <input type="text" id="nombre" placeholder="Nombre completo" required>
 
-  <button onclick="pagar()">Guardar mis datos y pagar</button>
+  <input type="email" id="correo" placeholder="Correo electrónico" required>
+
+  <input type="tel" id="telefono" placeholder="Teléfono / WhatsApp" required>
+
+  <button type="submit" class="pay-btn">
+    Guardar mis datos y pagar
+  </button>
+
+</form>
 </div>
 
 <script>
@@ -124,7 +132,41 @@ function pagar(){
     window.location.href = planData.link;
   }, 1200);
 }
-</script>
 
+<script>
+const linksPago = {
+  "1mes": "https://mpago.la/2EGd2SF",
+  "3meses": "https://mpago.la/1smZcyZ",
+  "12meses": "https://mpago.la/1m6HBAU"
+};
+
+const params = new URLSearchParams(window.location.search);
+const planElegido = params.get("plan") || "1mes";
+
+document.getElementById("checkoutForm").addEventListener("submit", function(e){
+  e.preventDefault();
+
+  const nombre = document.getElementById("nombre").value.trim();
+  const correo = document.getElementById("correo").value.trim();
+  const telefono = document.getElementById("telefono").value.trim();
+
+  if(!nombre || !correo || !telefono){
+    alert("Completa todos los datos");
+    return;
+  }
+
+  localStorage.setItem("patan_cliente", JSON.stringify({
+    nombre,
+    correo,
+    telefono,
+    plan: planElegido
+  }));
+
+  const linkPago = linksPago[planElegido] || linksPago["1mes"];
+  window.location.href = linkPago;
+});
+
+</script>
+  
 </body>
 </html>
