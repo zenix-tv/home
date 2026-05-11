@@ -173,3 +173,26 @@ window.addEventListener("scroll", () => {
   lastScroll = currentScroll;
 
 });
+
+/* INTRO PATAN - DESBLOQUEAR SCROLL */
+window.addEventListener("load", () => {
+  const intro = document.getElementById("patanIntro");
+
+  document.body.style.overflowY = "hidden";
+
+  setTimeout(() => {
+    if (intro) {
+      intro.style.transition = "opacity .8s ease";
+      intro.style.opacity = "0";
+
+      setTimeout(() => {
+        intro.style.display = "none";
+        document.body.style.overflowY = "auto";
+        document.documentElement.style.overflowY = "auto";
+      }, 800);
+    } else {
+      document.body.style.overflowY = "auto";
+      document.documentElement.style.overflowY = "auto";
+    }
+  }, 4500);
+});
