@@ -13,15 +13,15 @@
     body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
-      background: radial-gradient(circle at top, #2a1a00 0%, #000 45%, #000 100%);
+      background: radial-gradient(circle at top, #2b1a00 0%, #000 48%, #000 100%);
       color: #fff;
       text-align: center;
     }
 
     .container {
-      max-width: 760px;
+      max-width: 980px;
       margin: auto;
-      padding: 35px 18px;
+      padding: 34px 18px;
     }
 
     .badge {
@@ -29,35 +29,57 @@
       background: #ffa100;
       color: #000;
       font-weight: 900;
-      padding: 8px 16px;
+      padding: 8px 18px;
       border-radius: 50px;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
       font-size: 14px;
       letter-spacing: 1px;
     }
 
     h1 {
-      font-size: 44px;
-      margin: 10px 0;
+      font-size: 48px;
+      margin: 8px 0;
       color: #ffa100;
       font-weight: 900;
+      letter-spacing: 1px;
     }
 
     .subtitle {
       font-size: 19px;
       color: #ddd;
-      max-width: 620px;
+      max-width: 680px;
       margin: 0 auto 28px;
       line-height: 1.5;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 22px;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+
+    .mascot-box {
+      background: rgba(10,10,10,0.7);
+      border-radius: 26px;
+      padding: 10px;
+    }
+
+    .mascot {
+      width: 100%;
+      max-width: 420px;
+      display: block;
+      margin: auto;
+      filter: drop-shadow(0 0 22px rgba(255,161,0,0.35));
     }
 
     .card {
       background: rgba(17,17,17,0.96);
       border: 2px solid #ffa100;
       border-radius: 26px;
-      padding: 30px 22px;
+      padding: 28px 22px;
       box-shadow: 0 0 35px rgba(255,161,0,0.25);
-      margin-bottom: 25px;
     }
 
     .code-label {
@@ -109,10 +131,10 @@
 
     .steps {
       text-align: left;
-      max-width: 620px;
+      max-width: 850px;
       margin: 28px auto 0;
       background: #080808;
-      border-radius: 18px;
+      border-radius: 20px;
       padding: 24px;
       border: 1px solid rgba(255,161,0,0.35);
     }
@@ -121,6 +143,7 @@
       color: #ffa100;
       margin-top: 0;
       text-align: center;
+      font-size: 28px;
     }
 
     .steps ol {
@@ -133,6 +156,26 @@
       font-size: 16px;
     }
 
+    .step-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 22px;
+    }
+
+    .mini-card {
+      background: #111;
+      border: 1px solid rgba(255,161,0,0.25);
+      border-radius: 16px;
+      padding: 16px;
+      text-align: left;
+      line-height: 1.4;
+    }
+
+    .mini-card strong {
+      color: #ffa100;
+    }
+
     .warning {
       background: rgba(255,161,0,0.12);
       border: 1px solid #ffa100;
@@ -143,21 +186,25 @@
       line-height: 1.5;
     }
 
-    .footer {
-      margin-top: 35px;
-      color: #aaa;
-      font-size: 14px;
-    }
-
     .patancito {
       font-size: 20px;
       color: #ffa100;
       font-weight: 900;
     }
 
-    @media (max-width: 600px) {
+    .footer {
+      margin-top: 35px;
+      color: #aaa;
+      font-size: 14px;
+    }
+
+    @media (max-width: 760px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
       h1 {
-        font-size: 34px;
+        font-size: 36px;
       }
 
       .code {
@@ -166,6 +213,14 @@
 
       .subtitle {
         font-size: 16px;
+      }
+
+      .step-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .mascot {
+        max-width: 300px;
       }
     }
   </style>
@@ -184,58 +239,74 @@
       Aquí tienes la forma oficial para descargar nuestra app desde Downloader.
     </p>
 
-    <div class="card">
+    <div class="hero">
 
-      <p class="code-label">Código para Downloader</p>
+      <div class="mascot-box">
+        <img src="file_000000008e887246b87d531e45f2a2fa.png" alt="Patán mostrando el código de descarga" class="mascot">
+      </div>
 
-      <div class="code">6289857</div>
+      <div class="card">
 
-      <a class="btn primary" href="https://aftv.news/6289857" target="_blank">
-        DESCARGAR APP
-      </a>
+        <p class="code-label">Código para Downloader</p>
 
-      <a class="btn secondary" href="https://t.me/+DFUyW3RLlDYyZjQx" target="_blank">
-        SOPORTE / CANAL TELEGRAM
-      </a>
+        <div class="code">6289857</div>
 
-      <div class="steps">
-        <h2>Cómo instalar Patán TV</h2>
+        <a class="btn primary" href="https://aftv.news/6289857" target="_blank">
+          DESCARGAR APP
+        </a>
 
-        <ol>
-          <li>
-            Abre la aplicación <strong>Downloader</strong> en tu Fire Stick, Android TV, TV Box o dispositivo Android.
-          </li>
+        <a class="btn secondary" href="https://t.me/+DFUyW3RLlDYyZjQx" target="_blank">
+          SOPORTE / CANAL TELEGRAM
+        </a>
 
-          <li>
-            Escribe el siguiente código:
-            <strong>6289857</strong>
-          </li>
+        <div class="warning">
+          <span class="patancito">Dato Patán:</span><br>
+          Si no descarga, no culpes al perro. Revisa que escribiste bien el código.
+        </div>
 
-          <li>
-            Presiona <strong>Go</strong> o <strong>Ir</strong>.
-          </li>
+      </div>
 
-          <li>
-            Espera que se descargue la APK de Patán TV.
-          </li>
+    </div>
 
-          <li>
-            Si el dispositivo lo pide, activa:
-            <strong>Permitir instalar apps desconocidas</strong>.
-          </li>
+    <div class="steps">
+      <h2>¿Cómo instalar Patán TV?</h2>
 
-          <li>
-            Instala la app, ábrela e ingresa tus datos de acceso.
-          </li>
-        </ol>
+      <ol>
+        <li>Abre la aplicación <strong>Downloader</strong> en tu Fire Stick, Android TV, TV Box o dispositivo Android.</li>
+        <li>Escribe el código <strong>6289857</strong> en la barra principal.</li>
+        <li>Presiona <strong>Go</strong> o <strong>Ir</strong>.</li>
+        <li>Espera que se descargue la APK de Patán TV.</li>
+        <li>Si el dispositivo lo pide, activa <strong>Permitir instalar apps desconocidas</strong>.</li>
+        <li>Instala la app, ábrela e ingresa tus datos de acceso.</li>
+      </ol>
+
+      <div class="step-grid">
+        <div class="mini-card">
+          <strong>1. Abre Downloader</strong><br>
+          Busca la app naranja llamada Downloader en tu dispositivo.
+        </div>
+
+        <div class="mini-card">
+          <strong>2. Ingresa el código</strong><br>
+          Escribe: <strong>6289857</strong>
+        </div>
+
+        <div class="mini-card">
+          <strong>3. Instala la APK</strong><br>
+          Acepta la descarga e instala la aplicación.
+        </div>
+
+        <div class="mini-card">
+          <strong>4. Disfruta</strong><br>
+          Abre Patán TV e inicia sesión con tus datos.
+        </div>
       </div>
 
       <div class="warning">
         <span class="patancito">Consejo Patán:</span><br>
         Si no te deja instalar, no golpees el control remoto.
-        Primero revisa que tengas activada la opción de apps desconocidas.
+        Primero activa la opción de <strong>apps desconocidas</strong>.
       </div>
-
     </div>
 
     <div class="footer">
