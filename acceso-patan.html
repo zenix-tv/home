@@ -6,224 +6,222 @@
 <title>Acceso PATAN TV</title>
 
 <style>
-
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
   margin:0;
   font-family:Arial,Helvetica,sans-serif;
-  background:
-  radial-gradient(circle at top,
-  rgba(255,161,0,.22),
-  #000 55%);
+  background:radial-gradient(circle at top,rgba(255,161,0,.22),#000 55%);
   color:#fff;
-  padding:25px;
+  padding:22px;
 }
 
 .card{
-
-  max-width:850px;
+  max-width:920px;
   margin:auto;
-
   background:#071229;
-
-  border-radius:28px;
-
-  border:1px solid rgba(255,161,0,.35);
-
-  box-shadow:
-  0 0 60px rgba(255,161,0,.18);
-
+  border:1px solid rgba(255,161,0,.38);
+  border-radius:30px;
   overflow:hidden;
+  box-shadow:0 0 65px rgba(255,161,0,.20);
 }
 
 .header{
-
   position:relative;
-
-  padding:42px 30px 28px;
-
+  padding:42px 30px 34px;
   text-align:center;
-
-  border-bottom:
-  1px solid rgba(255,161,0,.18);
+  background:linear-gradient(180deg,#101827,#071229);
+  border-bottom:1px solid rgba(255,161,0,.22);
 }
 
-.header h1{
-  margin:0;
-  font-size:48px;
-  line-height:1.1;
+.logo{
+  font-size:42px;
+  font-weight:900;
+  letter-spacing:1px;
 }
 
-.orange{
-  color:#FFA100;
-}
-
-.sub{
-  margin-top:18px;
-  color:rgba(255,255,255,.82);
-  font-size:20px;
-  line-height:1.5;
-}
+.logo span{color:#FFA100}
 
 .dog{
   position:absolute;
-  top:12px;
-  right:18px;
-  width:90px;
+  top:18px;
+  right:24px;
+  width:82px;
+  filter:drop-shadow(0 0 18px rgba(255,161,0,.8));
+}
 
-  filter:
-  drop-shadow(0 0 15px rgba(255,161,0,.75));
+h1{
+  font-size:38px;
+  margin:18px 0 10px;
+}
+
+.orange{color:#FFA100}
+
+.sub{
+  color:rgba(255,255,255,.78);
+  font-size:18px;
+  line-height:1.45;
 }
 
 .content{
   padding:30px;
 }
 
-.box{
+.status-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+  margin-bottom:24px;
+}
 
-  background:
-  rgba(255,255,255,.03);
-
-  border:
-  1px solid rgba(255,161,0,.18);
-
+.status-card{
+  background:rgba(255,255,255,.045);
+  border:1px solid rgba(255,161,0,.22);
   border-radius:18px;
+  padding:17px;
+  text-align:center;
+}
 
-  padding:22px;
+.status-card strong{
+  display:block;
+  color:#FFA100;
+  margin-bottom:8px;
+}
 
-  margin-bottom:22px;
+.box{
+  background:rgba(255,255,255,.035);
+  border:1px solid rgba(255,161,0,.18);
+  border-radius:20px;
+  padding:24px;
+  margin-bottom:24px;
 }
 
 .box-title{
-
   color:#FFA100;
-
+  font-size:23px;
   font-weight:900;
-
   margin-bottom:18px;
-
-  font-size:22px;
 }
 
-.line{
-  margin-bottom:14px;
-  line-height:1.6;
+.row{
+  display:grid;
+  grid-template-columns:170px 1fr auto;
+  gap:12px;
+  align-items:center;
+  padding:13px 0;
+  border-bottom:1px solid rgba(255,255,255,.08);
 }
+
+.row:last-child{border-bottom:none}
 
 .label{
   color:#FFA100;
-  font-weight:800;
+  font-weight:900;
 }
 
-.copy-btn{
+.value{
+  word-break:break-all;
+  color:#fff;
+}
 
-  margin-top:12px;
-
+button{
   background:#FFA100;
-
   color:#000;
-
   border:none;
-
-  padding:12px 18px;
-
   border-radius:12px;
-
+  padding:10px 14px;
   font-weight:900;
-
   cursor:pointer;
 }
 
 .apps{
-
   display:grid;
-
-  grid-template-columns:
-  repeat(auto-fit,minmax(160px,1fr));
-
+  grid-template-columns:repeat(4,1fr);
   gap:14px;
 }
 
 .app{
-
-  background:
-  rgba(255,255,255,.04);
-
-  border:
-  1px solid rgba(255,161,0,.18);
-
-  border-radius:14px;
-
-  padding:14px;
-
+  background:rgba(0,0,0,.28);
+  border:1px solid rgba(255,161,0,.18);
+  border-radius:16px;
+  padding:17px;
   text-align:center;
 }
 
 .app strong{
   display:block;
+  color:#FFA100;
   margin-bottom:6px;
 }
 
-.warning{
+.steps{
+  line-height:1.8;
+  color:rgba(255,255,255,.86);
+}
 
-  background:
-  rgba(255,80,80,.08);
-
-  border:
-  1px solid rgba(255,80,80,.25);
-
-  color:#ffb0b0;
-
-  border-radius:16px;
-
+.notice{
+  background:rgba(255,161,0,.10);
+  border:1px solid rgba(255,161,0,.32);
+  color:#FFA100;
   padding:18px;
-
-  margin-top:22px;
-
+  border-radius:18px;
   text-align:center;
+  font-weight:900;
+  line-height:1.5;
+}
 
+.warning{
+  margin-top:18px;
+  background:rgba(255,60,60,.09);
+  border:1px solid rgba(255,80,80,.24);
+  color:#ffb4b4;
+  padding:17px;
+  border-radius:18px;
+  text-align:center;
   line-height:1.5;
 }
 
 .footer{
   text-align:center;
-  padding:0 30px 35px;
+  padding:0 30px 34px;
 }
 
 .support{
-
   display:inline-block;
-
   background:#FFA100;
-
   color:#000;
-
   text-decoration:none;
-
-  padding:16px 24px;
-
+  padding:16px 26px;
   border-radius:16px;
-
   font-weight:900;
-
-  margin-top:15px;
 }
 
-@media(max-width:700px){
-
-  .header h1{
-    font-size:38px;
-  }
+@media(max-width:760px){
+  body{padding:14px}
 
   .dog{
-    width:72px;
+    width:66px;
+    right:12px;
+    top:14px;
   }
 
-}
+  h1{font-size:29px}
 
+  .content{padding:20px}
+
+  .status-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .row{
+    grid-template-columns:1fr;
+    gap:7px;
+  }
+
+  .apps{
+    grid-template-columns:1fr 1fr;
+  }
+}
 </style>
 </head>
 
@@ -232,175 +230,205 @@ body{
 <div class="card">
 
   <div class="header">
+    <img src="patan_apunta.png" class="dog" alt="PATAN TV">
 
-    <img src="patan_apunta.png" class="dog">
+    <div class="logo">PATAN<span>TV</span></div>
 
-    <h1>
-      Bienvenido <span class="orange">Patan Premium</span>
-    </h1>
+    <h1>Tu acceso <span class="orange">PATAN Premium</span> está activo</h1>
 
     <div class="sub">
-      Tus accesos ya están listos 😎
-      <br>
-      Prepárate para entrar al lado PATAN del streaming.
+      Guarda esta página. Aquí tienes tus datos de acceso, instalación y soporte.
     </div>
-
   </div>
 
   <div class="content">
 
-    <div class="box">
-
-      <div class="box-title">
-        📦 Información de la cuenta
+    <div class="status-grid">
+      <div class="status-card">
+        <strong>Estado</strong>
+        Activado ✅
       </div>
 
-      <div class="line">
-        <span class="label">Cliente:</span>
-        <span id="clienteNombre"></span>
+      <div class="status-card">
+        <strong>Inicio</strong>
+        <span id="fechaInicio"></span>
       </div>
 
-      <div class="line">
-        <span class="label">Plan:</span>
-        <span id="clientePlan"></span>
+      <div class="status-card">
+        <strong>Vencimiento</strong>
+        <span id="fechaFin"></span>
       </div>
 
-      <div class="line">
-        <span class="label">Usuario:</span>
-        <span id="clienteUsuario"></span>
+      <div class="status-card">
+        <strong>Dispositivos</strong>
+        3 pantallas
       </div>
-
-      <div class="line">
-        <span class="label">Contraseña:</span>
-        <span id="clientePassword"></span>
-      </div>
-
-      <div class="line">
-        <span class="label">Servidor M3U:</span>
-        <div id="clienteM3U"></div>
-
-        <button class="copy-btn" onclick="copiarM3U()">
-          Copiar link M3U
-        </button>
-      </div>
-
     </div>
 
     <div class="box">
+      <div class="box-title">📦 Resumen de contratación</div>
 
-      <div class="box-title">
-        📺 Apps recomendadas
+      <div class="row">
+        <div class="label">Cliente</div>
+        <div class="value" id="clienteNombre"></div>
+        <button onclick="copiar('clienteNombre')">Copiar</button>
       </div>
 
-      <div class="apps">
+      <div class="row">
+        <div class="label">Plan contratado</div>
+        <div class="value" id="clientePlan"></div>
+        <button onclick="copiar('clientePlan')">Copiar</button>
+      </div>
+    </div>
 
+    <div class="box">
+      <div class="box-title">🔐 Datos de conexión</div>
+
+      <div class="row">
+        <div class="label">Servidor</div>
+        <div class="value" id="clienteServidor"></div>
+        <button onclick="copiar('clienteServidor')">Copiar</button>
+      </div>
+
+      <div class="row">
+        <div class="label">Usuario</div>
+        <div class="value" id="clienteUsuario"></div>
+        <button onclick="copiar('clienteUsuario')">Copiar</button>
+      </div>
+
+      <div class="row">
+        <div class="label">Contraseña</div>
+        <div class="value" id="clientePassword"></div>
+        <button onclick="copiar('clientePassword')">Copiar</button>
+      </div>
+
+      <div class="row">
+        <div class="label">Link M3U</div>
+        <div class="value" id="clienteM3U"></div>
+        <button onclick="copiar('clienteM3U')">Copiar</button>
+      </div>
+    </div>
+
+    <div class="box">
+      <div class="box-title">📺 Apps recomendadas</div>
+
+      <div class="apps">
         <div class="app">
           <strong>IPTV Smarters</strong>
-          Android / Smart TV
+          Smart TV / Android
         </div>
 
         <div class="app">
           <strong>TiviMate</strong>
-          Android TV
+          Android TV / TV Box
         </div>
 
         <div class="app">
           <strong>XCIPTV</strong>
-          Celular / TV Box
+          Celular / Tablet
         </div>
 
         <div class="app">
           <strong>Smart IPTV</strong>
           Smart TV
         </div>
-
       </div>
-
     </div>
 
     <div class="box">
+      <div class="box-title">🚀 Instalación rápida</div>
 
-      <div class="box-title">
-        🚀 Cómo activar
+      <div class="steps">
+        1. Instala una app compatible.<br>
+        2. Elige conexión por <strong>Xtream Codes</strong> o <strong>M3U</strong>.<br>
+        3. Ingresa servidor, usuario y contraseña.<br>
+        4. Disfruta canales, películas, series y deportes como un verdadero Patán 😎.
       </div>
+    </div>
 
-      <div class="line">
-        1. Instala una app IPTV compatible.
-      </div>
-
-      <div class="line">
-        2. Selecciona Xtream Codes o M3U.
-      </div>
-
-      <div class="line">
-        3. Ingresa tus accesos PATAN.
-      </div>
-
-      <div class="line">
-        4. Disfruta películas, canales y deportes 😎
-      </div>
-
+    <div class="notice">
+      🔒 Tu compra fue procesada de forma segura.  
+      PATAN TV nunca solicitará tus claves bancarias.
     </div>
 
     <div class="warning">
-      ⚠️ No compartas tus accesos.
-      <br>
-      El uso simultáneo fuera de tu plan puede generar suspensión automática.
+      ⚠️ No compartas tus accesos. El uso indebido o fuera del plan contratado puede generar suspensión del servicio.
     </div>
 
   </div>
 
   <div class="footer">
-
-    <a
-      class="support"
-      href="https://wa.me/56964180558"
-      target="_blank">
-
+    <a class="support" href="https://wa.me/56964180558" target="_blank">
       Soporte PATAN TV
-
     </a>
-
   </div>
 
 </div>
 
 <script>
-
 const params = new URLSearchParams(window.location.search);
 
-const nombre =
-params.get("nombre") || "Cliente PATAN";
-
-const plan =
-params.get("plan") || "Plan Premium";
-
-const usuario =
-params.get("usuario") || "usuario_demo";
-
-const password =
-params.get("password") || "123456";
-
-const m3u =
-params.get("m3u") || "https://demo.patan.tv/get.php";
+const nombre = params.get("nombre") || "Cliente PATAN";
+const plan = params.get("plan") || "1 Mes";
+const usuario = params.get("usuario") || "usuario_demo";
+const password = params.get("password") || "123456";
+const m3u = params.get("m3u") || "https://demo.patan.tv/get.php";
+const servidor = obtenerServidor(m3u);
 
 document.getElementById("clienteNombre").textContent = nombre;
-
-document.getElementById("clientePlan").textContent = plan;
-
+document.getElementById("clientePlan").textContent = normalizarPlan(plan);
 document.getElementById("clienteUsuario").textContent = usuario;
-
 document.getElementById("clientePassword").textContent = password;
-
 document.getElementById("clienteM3U").textContent = m3u;
+document.getElementById("clienteServidor").textContent = servidor;
 
-function copiarM3U(){
+const inicio = new Date();
+const fin = calcularVencimiento(inicio, plan);
 
-  navigator.clipboard.writeText(m3u);
+document.getElementById("fechaInicio").textContent = formatearFecha(inicio);
+document.getElementById("fechaFin").textContent = formatearFecha(fin);
 
-  alert("✅ Link M3U copiado");
+function obtenerServidor(url){
+  try{
+    return new URL(url).origin;
+  }catch(e){
+    return "Servidor no disponible";
+  }
 }
 
+function normalizarPlan(plan){
+  if(plan.includes("12")) return "12 Meses PATANLOVERS";
+  if(plan.includes("3")) return "3 Meses TOP";
+  return "1 Mes Inicial";
+}
+
+function calcularVencimiento(fecha, plan){
+  const nueva = new Date(fecha);
+
+  if(plan.includes("12")){
+    nueva.setFullYear(nueva.getFullYear() + 1);
+  }else if(plan.includes("3")){
+    nueva.setMonth(nueva.getMonth() + 3);
+  }else{
+    nueva.setMonth(nueva.getMonth() + 1);
+  }
+
+  return nueva;
+}
+
+function formatearFecha(fecha){
+  return fecha.toLocaleDateString("es-CL", {
+    day:"2-digit",
+    month:"2-digit",
+    year:"numeric"
+  });
+}
+
+function copiar(id){
+  const texto = document.getElementById(id).textContent;
+  navigator.clipboard.writeText(texto);
+  alert("✅ Copiado");
+}
 </script>
 
 </body>
