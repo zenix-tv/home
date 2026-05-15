@@ -344,9 +344,13 @@ document.getElementById("continuarPago").addEventListener("click", async () => {
           } else if(result.status === "pending"){
             mostrarEstado("⏳ Pago pendiente. Mercado Pago está revisando la operación.", "info");
 
-          } else {
-            mostrarEstado("⚠️ No pudimos confirmar el pago. Intenta nuevamente.", "error");
-          }
+} else {
+  mostrarEstado("⚠️ No pudimos confirmar el pago. Redirigiendo para intentar nuevamente...", "error");
+
+  setTimeout(() => {
+    window.location.href = "/rechazado.html?plan=" + planElegido;
+  }, 1500);
+}
         })
         .catch(error => {
           console.error(error);
