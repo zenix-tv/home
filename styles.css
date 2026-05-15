@@ -4656,16 +4656,3 @@ body{
 .faq-item.active button::after{
   content:"-" !important;
 }
-
-button{
-  width:100%;
-  margin-top:22px;
-  padding:16px;
-  background:#FFA100;
-  color:#000;
-  border:none;
-  border-radius:14px;
-  font-weight:900;
-  font-size:17px;
-  cursor:pointer;
-}
