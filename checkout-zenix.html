@@ -123,7 +123,7 @@ input{
 </div>
 
 <script>
-const PUBLIC_KEY = "TEST-8427339320127802-051220-d1b9a7a9801a6b1e251098f444b74d16-96548681";
+const PUBLIC_KEY = "APP_USR-bd1e0065";
 
 const planes = {
   "1mes": { nombre:"PATAN 1 MES", precio:9990 },
@@ -251,5 +251,13 @@ document.getElementById("continuarPago").addEventListener("click", async () => {
 });
 </script>
 
+<script src="https://sdk.mercadopago.com/js/v2"></script>
+
+<script>
+const mp = new MercadoPago("APP_USR-bd1e0065", {
+  locale: "es-CL"
+});
+</script>
+  
 </body>
 </html>
