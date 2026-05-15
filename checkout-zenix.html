@@ -93,6 +93,53 @@ input{
   text-decoration:none;
   font-weight:900;
 }
+
+.checkout-dog{
+  width:92px;
+  display:block;
+  margin:0 auto 10px;
+  filter:drop-shadow(0 0 16px rgba(255,161,0,.65));
+}
+
+.checkout-sub{
+  text-align:center;
+  color:rgba(255,255,255,.82);
+  font-weight:700;
+  line-height:1.4;
+  margin-top:-5px;
+  margin-bottom:16px;
+}
+
+.secure-box{
+  background:rgba(255,161,0,.10);
+  border:1px solid rgba(255,161,0,.35);
+  color:#FFA100;
+  padding:13px;
+  border-radius:14px;
+  text-align:center;
+  font-weight:900;
+  font-size:14px;
+  margin-bottom:20px;
+}
+
+#cardPaymentBrick_container{
+  box-shadow:0 0 28px rgba(255,161,0,.25);
+}
+
+@media(max-width:600px){
+  h1{
+    font-size:28px;
+  }
+
+  .checkout-dog{
+    width:78px;
+  }
+
+  .secure-box{
+    font-size:13px;
+  }
+}
+  
 </style>
 </head>
 
@@ -100,9 +147,19 @@ input{
 
 <div class="container">
 
-  <h1>Contratar <span>PATAN TV</span></h1>
+<img src="file_00000000689871f5bd4fa34f49f6552b.png" class="checkout-dog" alt="Patan TV">
 
-  <div class="plan" id="planTexto"></div>
+<h1>Estás a pasos de ser un <span>Patán Premium</span></h1>
+
+<p class="checkout-sub">
+  Tranquilo, Patán 😎. Tu pago se procesa de forma segura con Mercado Pago.
+</p>
+
+<div class="secure-box">
+  🔒 Sitio seguro con SSL · Pago protegido por Mercado Pago · Tus datos están resguardados
+</div>
+
+<div class="plan" id="planTexto"></div>
 
   <div id="datosBox">
     <input type="text" id="nombre" placeholder="Nombre completo">
