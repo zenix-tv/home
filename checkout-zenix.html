@@ -3,175 +3,212 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contratar PATAN TV</title>
+<title>PATAN Checkout</title>
+
+<script src="https://sdk.mercadopago.com/js/v2"></script>
 
 <style>
-*{box-sizing:border-box}
+
+*{
+  box-sizing:border-box;
+}
+
 body{
   margin:0;
-  font-family:Arial,Helvetica,sans-serif;
-  background:radial-gradient(circle at top,rgba(255,161,0,.22),#000 45%);
+  font-family:Arial;
+  background:#000;
   color:#fff;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  min-height:100vh;
   padding:20px;
 }
-.box{
-  width:100%;
-  max-width:520px;
+
+.container{
+  max-width:600px;
+  margin:auto;
   background:#111827;
-  padding:30px;
   border-radius:24px;
-  border:1px solid rgba(255,161,0,.5);
-  box-shadow:0 0 50px rgba(255,161,0,.22);
+  padding:30px;
+  border:1px solid rgba(255,161,0,.4);
+  box-shadow:0 0 40px rgba(255,161,0,.2);
 }
-h1{text-align:center;margin-top:0}
-.plan-text{
+
+h1{
+  text-align:center;
+  margin-top:0;
+}
+
+.plan{
   text-align:center;
   color:#FFA100;
+  margin-bottom:25px;
   font-weight:900;
-  margin-bottom:20px;
 }
+
 input{
   width:100%;
   margin-top:12px;
   padding:15px;
   border-radius:12px;
-  border:1px solid rgba(255,161,0,.35);
+  border:1px solid rgba(255,161,0,.3);
   background:#000;
   color:#fff;
   font-size:16px;
 }
-button{
-  width:100%;
-  margin-top:22px;
-  padding:16px;
-  background:#FFA100;
-  color:#000;
-  border:none;
-  border-radius:14px;
-  font-weight:900;
-  font-size:17px;
-  cursor:pointer;
+
+#paymentBrick_container{
+  margin-top:25px;
 }
-button:disabled{
-  opacity:.6;
-  cursor:not-allowed;
-}
-.status{
-  margin-top:18px;
-  text-align:center;
-  color:#FFA100;
-  font-weight:900;
-}
+
 </style>
 </head>
 
 <body>
 
-<div class="box">
-  <h1>Contratar PATAN TV</h1>
-  <div class="plan-text" id="planTexto"></div>
+<div class="container">
 
-  <form id="checkoutForm">
-    <input type="text" id="nombre" placeholder="Nombre completo" required>
-    <input type="email" id="correo" placeholder="Correo electrónico" required>
-    <input type="tel" id="telefono" placeholder="Teléfono / WhatsApp" required>
+<h1>Contratar PATAN</h1>
 
-    <button type="submit" id="payBtn">
-      Guardar mis datos y pagar
-    </button>
-  </form>
+<div class="plan" id="planTexto"></div>
 
-  <div class="status" id="statusMsg"></div>
+<input type="text" id="nombre" placeholder="Nombre completo">
+
+<input type="email" id="correo" placeholder="Correo electrónico">
+
+<input type="tel" id="telefono" placeholder="WhatsApp">
+
+<div id="paymentBrick_container"></div>
+
 </div>
 
 <script>
-const planes = {
-  "1mes": {
-    nombre: "1 Mes",
-    precio: 9990
-  },
-  "3meses": {
-    nombre: "3 Meses",
-    precio: 26990
-  },
-  "12meses": {
-    nombre: "12 Meses",
-    precio: 79990
+
+const mp = new MercadoPago(
+  "TU_PUBLIC_KEY",
+  {
+    locale: "es-CL"
   }
+);
+
+const planes = {
+
+  "1mes":{
+    nombre:"PATAN 1 MES",
+    precio:9990
+  },
+
+  "3meses":{
+    nombre:"PATAN 3 MESES",
+    precio:26990
+  },
+
+  "12meses":{
+    nombre:"PATAN 12 MESES",
+    precio:79990
+  }
+
 };
 
 const params = new URLSearchParams(window.location.search);
+
 const planElegido = params.get("plan") || "1mes";
-const planData = planes[planElegido] || planes["1mes"];
 
-document.getElementById("planTexto").textContent =
-  "Plan seleccionado: " + planData.nombre + " · $" + planData.precio.toLocaleString("es-CL");
+const planData = planes[planElegido];
 
-document.getElementById("checkoutForm").addEventListener("submit", async function(e){
-  e.preventDefault();
+document.getElementById("planTexto").innerHTML =
+planData.nombre + " · $" + planData.precio.toLocaleString("es-CL");
 
-  const nombre = document.getElementById("nombre").value.trim();
-  const correo = document.getElementById("correo").value.trim();
-  const telefono = document.getElementById("telefono").value.trim();
-  const payBtn = document.getElementById("payBtn");
-  const statusMsg = document.getElementById("statusMsg");
+const bricksBuilder = mp.bricks();
 
-  if(!nombre || !correo || !telefono){
-    alert("Completa todos los campos antes de pagar.");
-    return;
-  }
+bricksBuilder.create(
+  "payment",
+  "paymentBrick_container",
+  {
 
-  localStorage.setItem("patan_cliente", JSON.stringify({
-    nombre,
-    correo,
-    telefono,
-    plan: planElegido,
-    planNombre: planData.nombre,
-    precio: planData.precio
-  }));
+    initialization: {
 
-  payBtn.disabled = true;
-  payBtn.textContent = "Generando pago seguro...";
-  statusMsg.textContent = "Conectando con Mercado Pago...";
+      amount: planData.precio,
 
-  try{
-    const response = await fetch("/api/process-payment", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
+      payer: {
+        email: ""
+      }
+
+    },
+
+    customization: {
+
+      visual: {
+        style: {
+          theme: "dark"
+        }
+      }
+
+    },
+
+    callbacks: {
+
+      onReady: () => {
+        console.log("Brick listo");
       },
-      body: JSON.stringify({
-        nombre,
-        correo,
-        telefono,
-        plan: planElegido
-      })
-    });
 
-    const data = await response.json();
+      onSubmit: async (formData) => {
 
-    if(data.init_point){
-      window.location.href = data.init_point;
-    }else{
-      console.error(data);
-      alert("No se pudo generar el pago. Revisa la configuración de Mercado Pago.");
-      payBtn.disabled = false;
-      payBtn.textContent = "Guardar mis datos y pagar";
-      statusMsg.textContent = "";
+        const nombre = document.getElementById("nombre").value;
+        const correo = document.getElementById("correo").value;
+        const telefono = document.getElementById("telefono").value;
+
+        const response = await fetch("/api/process-payment", {
+
+          method: "POST",
+
+          headers: {
+            "Content-Type":"application/json"
+          },
+
+          body: JSON.stringify({
+
+            ...formData,
+
+            description: planData.nombre,
+
+            transaction_amount: planData.precio,
+
+            cliente:{
+              nombre,
+              correo,
+              telefono,
+              plan:planData.nombre,
+              precio:planData.precio
+            }
+
+          })
+
+        });
+
+        const result = await response.json();
+
+        console.log(result);
+
+        if(result.status === "approved"){
+
+          window.location.href =
+          "/gracias.html";
+
+        }else{
+
+          alert("Pago rechazado o pendiente");
+
+        }
+
+      },
+
+      onError: (error) => {
+        console.error(error);
+      }
+
     }
 
-  }catch(error){
-    console.error(error);
-    alert("Error de conexión con Mercado Pago.");
-    payBtn.disabled = false;
-    payBtn.textContent = "Guardar mis datos y pagar";
-    statusMsg.textContent = "";
   }
-});
+);
+
 </script>
 
 </body>
