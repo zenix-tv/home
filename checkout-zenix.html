@@ -171,10 +171,10 @@ input{
 
   <img src="file_00000000689871f5bd4fa34f49f6552b.png" class="checkout-dog" alt="Patan TV">
 
-  <h1>Estás a pasos de ser un <span>Patán Premium</span></h1>
+  <h1>Estás a pasos de ser un <span>Patan Premium</span></h1>
 
   <p class="checkout-sub">
-    Tranquilo, Patán 😎. Tu pago se procesa de forma segura con Mercado Pago.
+    Tranquilo, Patan 😎. Tu pago se procesa de forma segura con Mercado Pago.
   </p>
 
   <div class="secure-box">
@@ -211,11 +211,41 @@ const planes = {
 };
 
 const params = new URLSearchParams(window.location.search);
-const planElegido = params.get("plan") || "1mes";
+let planElegido = params.get("plan");
+
+/* Si vuelve desde rechazado sin plan, recuperamos el último plan */
+if(!planElegido){
+  const clienteGuardado = localStorage.getItem("patan_cliente");
+
+  if(clienteGuardado){
+    const clientePrevio = JSON.parse(clienteGuardado);
+
+    if(clientePrevio.plan && clientePrevio.plan.includes("3")){
+      planElegido = "3meses";
+    } else if(clientePrevio.plan && clientePrevio.plan.includes("12")){
+      planElegido = "12meses";
+    } else {
+      planElegido = "1mes";
+    }
+  } else {
+    planElegido = "1mes";
+  }
+}
+
 const planData = planes[planElegido] || planes["1mes"];
 
 document.getElementById("planTexto").innerHTML =
   planData.nombre + " · $" + planData.precio.toLocaleString("es-CL");
+
+/* Recuperar datos anteriores */
+const clienteGuardado = localStorage.getItem("patan_cliente");
+
+if(clienteGuardado){
+  const clientePrevio = JSON.parse(clienteGuardado);
+  document.getElementById("nombre").value = clientePrevio.nombre || "";
+  document.getElementById("correo").value = clientePrevio.correo || "";
+  document.getElementById("telefono").value = clientePrevio.telefono || "";
+}
 
 function mostrarEstado(texto, tipo){
   const estado = document.getElementById("estadoPago");
@@ -287,40 +317,49 @@ document.getElementById("continuarPago").addEventListener("click", async () => {
           })
         })
         .then(res => res.json())
-.then(result => {
-  console.log(result);
+        .then(result => {
+          console.log(result);
 
-  if(result.status === "approved"){
-    mostrarEstado("✅ ¡Pago aprobado! Bienvenido al lado Patán del streaming. Estamos preparando tus accesos.", "ok");
+          if(result.status === "approved"){
+            mostrarEstado("✅ ¡Pago aprobado! Preparando tus accesos PATAN.", "ok");
 
-    localStorage.setItem("patan_pago_aprobado", JSON.stringify({
-      payment_id: result.id,
-      status: result.status,
-      cliente,
-      fecha: new Date().toISOString()
-    }));
+            localStorage.setItem("patan_pago_aprobado", JSON.stringify({
+              payment_id: result.id,
+              status: result.status,
+              cliente,
+              fecha: new Date().toISOString()
+            }));
 
-    setTimeout(() => {
-      window.location.href = "/gracias.html";
-    }, 1800);
+            setTimeout(() => {
+              window.location.href = "/gracias.html";
+            }, 1800);
 
-else if(result.status === "rejected"){
+          } else if(result.status === "rejected"){
+            mostrarEstado("❌ Pago rechazado. Redirigiendo para intentar nuevamente...", "error");
 
-  mostrarEstado("❌ Pago rechazado. Redirigiendo...", "error");
+            setTimeout(() => {
+              window.location.href = "/rechazado.html";
+            }, 1500);
 
-  setTimeout(() => {
-    window.location.href = "/rechazado.html";
-  }, 1500);
+          } else if(result.status === "pending"){
+            mostrarEstado("⏳ Pago pendiente. Mercado Pago está revisando la operación.", "info");
 
-}
+          } else {
+            mostrarEstado("⚠️ No pudimos confirmar el pago. Intenta nuevamente.", "error");
+          }
+        })
+        .catch(error => {
+          console.error(error);
+          mostrarEstado("❌ Error procesando pago.", "error");
+        });
+      },
 
-  } else if(result.status === "pending"){
-    mostrarEstado("⏳ Pago pendiente. Mercado Pago está revisando la operación. Te avisaremos cuando se confirme.", "info");
-
-  } else {
-    mostrarEstado("⚠️ No pudimos confirmar el pago. Intenta nuevamente o contacta soporte PATAN TV.", "error");
-  }
-})
+      onError: (error) => {
+        console.error(error);
+        mostrarEstado("❌ Error cargando Mercado Pago.", "error");
+      }
+    }
+  };
 
   await bricksBuilder.create(
     "cardPayment",
