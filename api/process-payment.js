@@ -24,11 +24,15 @@ export default async function handler(req, res) {
         installments: Number(body.installments),
         payment_method_id: body.payment_method_id,
         issuer_id: body.issuer_id,
-        payer: {
-          email: body.payer.email,
-          identification: body.payer.identification
-        },
-        metadata: {
+        
+payer: {
+  email: body.payer.email,
+  identification: {
+    type: "RUT",
+    number: body.payer.identification.number
+  }
+},
+metadata: {
           cliente_nombre: cliente.nombre || "",
           cliente_correo: cliente.correo || "",
           cliente_telefono: cliente.telefono || "",
