@@ -305,8 +305,15 @@ document.getElementById("continuarPago").addEventListener("click", async () => {
       window.location.href = "/gracias.html";
     }, 1800);
 
-  } else if(result.status === "rejected"){
-    mostrarEstado("❌ El pago fue rechazado. Tranquilo Patán, intenta con otra tarjeta o revisa los datos.", "error");
+else if(result.status === "rejected"){
+
+  mostrarEstado("❌ Pago rechazado. Redirigiendo...", "error");
+
+  setTimeout(() => {
+    window.location.href = "/rechazado.html";
+  }, 1500);
+
+}
 
   } else if(result.status === "pending"){
     mostrarEstado("⏳ Pago pendiente. Mercado Pago está revisando la operación. Te avisaremos cuando se confirme.", "info");
