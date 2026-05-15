@@ -80,11 +80,11 @@ input{
 
 #paymentBrick_container{
   display:none;
+  min-height:auto;
   margin-top:25px;
   background:#fff;
   border-radius:18px;
   padding:18px;
-  min-height:520px;
   width:100%;
   overflow:visible;
 }
@@ -178,11 +178,17 @@ const planData = planes[planElegido] || planes["1mes"];
 document.getElementById("planTexto").innerHTML =
   planData.nombre + " · $" + planData.precio.toLocaleString("es-CL");
 
-const mp = new MercadoPago(PUBLIC_KEY, {
-  locale: "es-CL"
-});
+let bricksBuilder = null;
 
-const bricksBuilder = mp.bricks();
+window.onload = async () => {
+
+  const mp = new MercadoPago(PUBLIC_KEY, {
+    locale: "es-CL"
+  });
+
+  bricksBuilder = mp.bricks();
+
+};
 
 let cliente = {};
 let brickCreado = false;
