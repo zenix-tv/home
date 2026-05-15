@@ -2,66 +2,84 @@ export default async function handler(req, res) {
 
   if (req.method !== "POST") {
     return res.status(405).json({
-      error: "Método no permitido"
+      error: "Method not allowed"
     });
   }
 
   try {
 
-    const body = req.body;
+    const { nombre, correo, telefono, plan } = req.body;
+
+    const planes = {
+      "1mes": {
+        title: "PATAN 1 MES",
+        price: 9990
+      },
+      "3meses": {
+        title: "PATAN 3 MESES",
+        price: 24990
+      },
+      "12meses": {
+        title: "PATAN 12 MESES",
+        price: 69990
+      }
+    };
+
+    const planData = planes[plan] || planes["1mes"];
 
     const response = await fetch(
-      "https://api.mercadopago.com/v1/payments",
+      "https://api.mercadopago.com/checkout/preferences",
       {
         method: "POST",
+
         headers: {
           "Content-Type": "application/json",
-          "Authorization":
-            `Bearer ${process.env.MERCADOPAGO_ACCESS_TOKEN}`,
-          "X-Idempotency-Key":
-            `${Date.now()}-${Math.random()}`
+          Authorization:
+            `Bearer ${process.env.MERCADOPAGO_ACCESS_TOKEN}`
         },
 
         body: JSON.stringify({
-          transaction_amount:
-            Number(body.transaction_amount),
 
-          token: body.token,
-
-          description: body.description,
-
-          installments:
-            Number(body.installments),
-
-          payment_method_id:
-            body.payment_method_id,
-
-          issuer_id:
-            body.issuer_id,
+          items: [
+            {
+              title: planData.title,
+              quantity: 1,
+              currency_id: "CLP",
+              unit_price: planData.price
+            }
+          ],
 
           payer: {
-            email: body.payer.email,
+            name: nombre,
+            email: correo,
+            phone: {
+              number: telefono
+            }
+          },
 
-            identification:
-              body.payer.identification
-          }
+          back_urls: {
+            success: "https://www.patan.tv/pago-exitoso.html",
+            failure: "https://www.patan.tv/pago-error.html",
+            pending: "https://www.patan.tv/pago-pendiente.html"
+          },
+
+          auto_return: "approved"
+
         })
       }
     );
 
     const data = await response.json();
 
-    return res
-      .status(response.status)
-      .json(data);
+    return res.status(200).json({
+      init_point: data.init_point
+    });
 
   } catch (error) {
 
     return res.status(500).json({
-      error: "Error procesando pago",
-      detail: error.message
+      error: error.message
     });
 
   }
-
 }
