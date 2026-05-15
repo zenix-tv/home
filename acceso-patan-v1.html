@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Acceso PATAN TV</title>
+
+<style>
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:
+  radial-gradient(circle at top,
+  rgba(255,161,0,.22),
+  #000 55%);
+  color:#fff;
+  padding:25px;
+}
+
+.card{
+
+  max-width:850px;
+  margin:auto;
+
+  background:#071229;
+
+  border-radius:28px;
+
+  border:1px solid rgba(255,161,0,.35);
+
+  box-shadow:
+  0 0 60px rgba(255,161,0,.18);
+
+  overflow:hidden;
+}
+
+.header{
+
+  position:relative;
+
+  padding:42px 30px 28px;
+
+  text-align:center;
+
+  border-bottom:
+  1px solid rgba(255,161,0,.18);
+}
+
+.header h1{
+  margin:0;
+  font-size:48px;
+  line-height:1.1;
+}
+
+.orange{
+  color:#FFA100;
+}
+
+.sub{
+  margin-top:18px;
+  color:rgba(255,255,255,.82);
+  font-size:20px;
+  line-height:1.5;
+}
+
+.dog{
+  position:absolute;
+  top:12px;
+  right:18px;
+  width:90px;
+
+  filter:
+  drop-shadow(0 0 15px rgba(255,161,0,.75));
+}
+
+.content{
+  padding:30px;
+}
+
+.box{
+
+  background:
+  rgba(255,255,255,.03);
+
+  border:
+  1px solid rgba(255,161,0,.18);
+
+  border-radius:18px;
+
+  padding:22px;
+
+  margin-bottom:22px;
+}
+
+.box-title{
+
+  color:#FFA100;
+
+  font-weight:900;
+
+  margin-bottom:18px;
+
+  font-size:22px;
+}
+
+.line{
+  margin-bottom:14px;
+  line-height:1.6;
+}
+
+.label{
+  color:#FFA100;
+  font-weight:800;
+}
+
+.copy-btn{
+
+  margin-top:12px;
+
+  background:#FFA100;
+
+  color:#000;
+
+  border:none;
+
+  padding:12px 18px;
+
+  border-radius:12px;
+
+  font-weight:900;
+
+  cursor:pointer;
+}
+
+.apps{
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(auto-fit,minmax(160px,1fr));
+
+  gap:14px;
+}
+
+.app{
+
+  background:
+  rgba(255,255,255,.04);
+
+  border:
+  1px solid rgba(255,161,0,.18);
+
+  border-radius:14px;
+
+  padding:14px;
+
+  text-align:center;
+}
+
+.app strong{
+  display:block;
+  margin-bottom:6px;
+}
+
+.warning{
+
+  background:
+  rgba(255,80,80,.08);
+
+  border:
+  1px solid rgba(255,80,80,.25);
+
+  color:#ffb0b0;
+
+  border-radius:16px;
+
+  padding:18px;
+
+  margin-top:22px;
+
+  text-align:center;
+
+  line-height:1.5;
+}
+
+.footer{
+  text-align:center;
+  padding:0 30px 35px;
+}
+
+.support{
+
+  display:inline-block;
+
+  background:#FFA100;
+
+  color:#000;
+
+  text-decoration:none;
+
+  padding:16px 24px;
+
+  border-radius:16px;
+
+  font-weight:900;
+
+  margin-top:15px;
+}
+
+@media(max-width:700px){
+
+  .header h1{
+    font-size:38px;
+  }
+
+  .dog{
+    width:72px;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+  <div class="header">
+
+    <img src="patan_apunta.png" class="dog">
+
+    <h1>
+      Bienvenido <span class="orange">Patán Premium</span>
+    </h1>
+
+    <div class="sub">
+      Tus accesos ya están listos 😎
+      <br>
+      Prepárate para entrar al lado PATÁN del streaming.
+    </div>
+
+  </div>
+
+  <div class="content">
+
+    <div class="box">
+
+      <div class="box-title">
+        📦 Información de la cuenta
+      </div>
+
+      <div class="line">
+        <span class="label">Cliente:</span>
+        <span id="clienteNombre"></span>
+      </div>
+
+      <div class="line">
+        <span class="label">Plan:</span>
+        <span id="clientePlan"></span>
+      </div>
+
+      <div class="line">
+        <span class="label">Usuario:</span>
+        <span id="clienteUsuario"></span>
+      </div>
+
+      <div class="line">
+        <span class="label">Contraseña:</span>
+        <span id="clientePassword"></span>
+      </div>
+
+      <div class="line">
+        <span class="label">Servidor M3U:</span>
+        <div id="clienteM3U"></div>
+
+        <button class="copy-btn" onclick="copiarM3U()">
+          Copiar link M3U
+        </button>
+      </div>
+
+    </div>
+
+    <div class="box">
+
+      <div class="box-title">
+        📺 Apps recomendadas
+      </div>
+
+      <div class="apps">
+
+        <div class="app">
+          <strong>IPTV Smarters</strong>
+          Android / Smart TV
+        </div>
+
+        <div class="app">
+          <strong>TiviMate</strong>
+          Android TV
+        </div>
+
+        <div class="app">
+          <strong>XCIPTV</strong>
+          Celular / TV Box
+        </div>
+
+        <div class="app">
+          <strong>Smart IPTV</strong>
+          Smart TV
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="box">
+
+      <div class="box-title">
+        🚀 Cómo activar
+      </div>
+
+      <div class="line">
+        1. Instala una app IPTV compatible.
+      </div>
+
+      <div class="line">
+        2. Selecciona Xtream Codes o M3U.
+      </div>
+
+      <div class="line">
+        3. Ingresa tus accesos PATAN.
+      </div>
+
+      <div class="line">
+        4. Disfruta películas, canales y deportes 😎
+      </div>
+
+    </div>
+
+    <div class="warning">
+      ⚠️ No compartas tus accesos.
+      <br>
+      El uso simultáneo fuera de tu plan puede generar suspensión automática.
+    </div>
+
+  </div>
+
+  <div class="footer">
+
+    <a
+      class="support"
+      href="https://wa.me/56964180558"
+      target="_blank">
+
+      Soporte PATAN TV
+
+    </a>
+
+  </div>
+
+</div>
+
+<script>
+
+const params = new URLSearchParams(window.location.search);
+
+const nombre =
+params.get("nombre") || "Cliente PATAN";
+
+const plan =
+params.get("plan") || "Plan Premium";
+
+const usuario =
+params.get("usuario") || "usuario_demo";
+
+const password =
+params.get("password") || "123456";
+
+const m3u =
+params.get("m3u") || "https://demo.patan.tv/get.php";
+
+document.getElementById("clienteNombre").textContent = nombre;
+
+document.getElementById("clientePlan").textContent = plan;
+
+document.getElementById("clienteUsuario").textContent = usuario;
+
+document.getElementById("clientePassword").textContent = password;
+
+document.getElementById("clienteM3U").textContent = m3u;
+
+function copiarM3U(){
+
+  navigator.clipboard.writeText(m3u);
+
+  alert("✅ Link M3U copiado");
+}
+
+</script>
+
+</body>
+</html>
