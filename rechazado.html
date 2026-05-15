@@ -125,14 +125,14 @@ h1{
   <img src="file_00000000689871f5bd4fa34f49f6552b.png" class="dog">
 
   <h1>
-    Patán... <span class="orange">algo salió mal</span>
+    Patan... <span class="orange">algo salió mal</span>
   </h1>
 
   <div class="sub">
     Tu pago no pudo ser aprobado esta vez.
     <br><br>
     Pero tranquilo 😎  
-    aún estás a un paso de convertirte en un <span class="orange">Patán Premium</span>.
+    aún estás a un paso de convertirte en un <span class="orange">Patan Premium</span>.
   </div>
 
   <div class="alert">
@@ -142,9 +142,9 @@ h1{
 
   <div class="actions">
 
-    <a href="javascript:history.back()" class="btn primary">
-      Intentar nuevamente
-    </a>
+<a id="retryBtn" href="/checkout-zenix.html?plan=1mes" class="btn primary">
+  Intentar nuevamente
+</a>
 
     <a href="https://wa.me/56964180558?text=Hola%20PATAN%20TV,%20tuve%20problemas%20con%20mi%20pago" class="btn secondary">
       Hablar con soporte PATAN
@@ -158,5 +158,25 @@ h1{
 
 </div>
 
+  <script>
+const clienteGuardado = localStorage.getItem("patan_cliente");
+
+if (clienteGuardado) {
+  const cliente = JSON.parse(clienteGuardado);
+
+  let plan = "1mes";
+
+  if (cliente.plan && cliente.plan.includes("3")) {
+    plan = "3meses";
+  }
+
+  if (cliente.plan && cliente.plan.includes("12")) {
+    plan = "12meses";
+  }
+
+  document.getElementById("retryBtn").href =
+    "/checkout-zenix.html?plan=" + plan;
+}
+</script>
 </body>
 </html>
