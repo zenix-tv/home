@@ -337,9 +337,9 @@ document.getElementById("continuarPago").addEventListener("click", async () => {
           } else if(result.status === "rejected"){
             mostrarEstado("❌ Pago rechazado. Redirigiendo para intentar nuevamente...", "error");
 
-            setTimeout(() => {
-              window.location.href = "/rechazado.html";
-            }, 1500);
+           setTimeout(() => {
+  window.location.href = "/rechazado.html?plan=" + planElegido;
+}, 1500);
 
           } else if(result.status === "pending"){
             mostrarEstado("⏳ Pago pendiente. Mercado Pago está revisando la operación.", "info");
