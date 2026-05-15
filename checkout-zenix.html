@@ -146,8 +146,8 @@ button:disabled{
     <input type="email" id="correo" placeholder="Correo electrónico">
     <input type="tel" id="telefono" placeholder="WhatsApp">
 
-    <button id="continuarPago">
-      Continuar al pago
+<button class="checkout-btn">
+  Cargar medio de pago
     </button>
   </div>
 
@@ -326,10 +326,19 @@ document.getElementById("continuarPago").addEventListener("click", async () => {
     }
   };
 
+try {
   await bricksBuilder.create(
     "payment",
     "paymentBrick_container",
     settings
+  );
+
+  console.log("Brick creado correctamente");
+
+} catch (error) {
+  console.error("ERROR CREANDO BRICK:", error);
+  mostrarEstado("❌ Mercado Pago no cargó correctamente. Revisa la consola.", "error");
+}
   );
 
 });
