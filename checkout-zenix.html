@@ -18,16 +18,11 @@ body{
   min-height:100vh;
   padding:20px;
 }
-
+  
 .container{
-  width:100%;
-  max-width:620px;
-  margin:40px auto;
-  background:#111827;
-  border-radius:24px;
-  padding:30px;
-  border:1px solid rgba(255,161,0,.45);
-  box-shadow:0 0 45px rgba(255,161,0,.22);
+  position:relative;
+  overflow:visible;
+
 }
 
 h1{text-align:center;margin-top:0;font-size:34px}
@@ -36,8 +31,11 @@ h1 span{color:#FFA100}
 .plan{
   text-align:center;
   color:#FFA100;
-  margin-bottom:25px;
+  margin:20px 0 25px;
   font-weight:900;
+  font-size:24px;
+  letter-spacing:.5px;
+  text-shadow:0 0 14px rgba(255,161,0,.45);
 }
 
 input{
@@ -95,10 +93,12 @@ input{
 }
 
 .checkout-dog{
-  width:92px;
-  display:block;
-  margin:0 auto 10px;
-  filter:drop-shadow(0 0 16px rgba(255,161,0,.65));
+  position:absolute;
+  top:-55px;
+  right:-28px;
+  width:105px;
+  filter:drop-shadow(0 0 18px rgba(255,161,0,.75));
+  z-index:5;
 }
 
 .checkout-sub{
@@ -138,6 +138,12 @@ input{
   .secure-box{
     font-size:13px;
   }
+
+.checkout-dog{
+  top:-42px;
+  right:10px;
+  width:78px;
+
 }
   
 </style>
