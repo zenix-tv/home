@@ -8,9 +8,7 @@
 <script src="https://sdk.mercadopago.com/js/v2"></script>
 
 <style>
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
   margin:0;
@@ -32,15 +30,8 @@ body{
   box-shadow:0 0 45px rgba(255,161,0,.22);
 }
 
-h1{
-  text-align:center;
-  margin-top:0;
-  font-size:34px;
-}
-
-h1 span{
-  color:#FFA100;
-}
+h1{text-align:center;margin-top:0;font-size:34px}
+h1 span{color:#FFA100}
 
 .plan{
   text-align:center;
@@ -73,20 +64,12 @@ input{
   cursor:pointer;
 }
 
-.checkout-btn:disabled{
-  opacity:.55;
-  cursor:not-allowed;
-}
-
-#paymentBrick_container{
+#cardPaymentBrick_container{
   display:none;
-  min-height:auto;
   margin-top:25px;
   background:#fff;
   border-radius:18px;
   padding:18px;
-  width:100%;
-  overflow:visible;
 }
 
 .status{
@@ -98,23 +81,9 @@ input{
   font-weight:900;
 }
 
-.status.ok{
-  display:block;
-  background:#14532d;
-  color:#fff;
-}
-
-.status.error{
-  display:block;
-  background:#7f1d1d;
-  color:#fff;
-}
-
-.status.info{
-  display:block;
-  background:#1f2937;
-  color:#FFA100;
-}
+.status.ok{display:block;background:#14532d;color:#fff}
+.status.error{display:block;background:#7f1d1d;color:#fff}
+.status.info{display:block;background:#1f2937;color:#FFA100}
 
 .back{
   display:block;
@@ -145,7 +114,7 @@ input{
     </button>
   </div>
 
-  <div id="paymentBrick_container"></div>
+  <div id="cardPaymentBrick_container"></div>
 
   <div id="estadoPago" class="status"></div>
 
@@ -157,18 +126,9 @@ input{
 const PUBLIC_KEY = "TEST-8427339320127802-051220-d1b9a7a9801a6b1e251098f444b74d16-96548681";
 
 const planes = {
-  "1mes": {
-    nombre: "PATAN 1 MES",
-    precio: 9990
-  },
-  "3meses": {
-    nombre: "PATAN 3 MESES",
-    precio: 26990
-  },
-  "12meses": {
-    nombre: "PATAN 12 MESES",
-    precio: 79990
-  }
+  "1mes": { nombre:"PATAN 1 MES", precio:9990 },
+  "3meses": { nombre:"PATAN 3 MESES", precio:26990 },
+  "12meses": { nombre:"PATAN 12 MESES", precio:79990 }
 };
 
 const params = new URLSearchParams(window.location.search);
@@ -178,26 +138,17 @@ const planData = planes[planElegido] || planes["1mes"];
 document.getElementById("planTexto").innerHTML =
   planData.nombre + " · $" + planData.precio.toLocaleString("es-CL");
 
-let bricksBuilder = null;
-
-window.onload = async () => {
-
-  const mp = new MercadoPago(PUBLIC_KEY, {
-    locale: "es-CL"
-  });
-
-  bricksBuilder = mp.bricks();
-
-};
-
-let cliente = {};
-let brickCreado = false;
-
 function mostrarEstado(texto, tipo){
   const estado = document.getElementById("estadoPago");
   estado.textContent = texto;
   estado.className = "status " + tipo;
 }
+
+const mp = new MercadoPago(PUBLIC_KEY, { locale:"es-CL" });
+const bricksBuilder = mp.bricks();
+
+let brickCreado = false;
+let cliente = {};
 
 document.getElementById("continuarPago").addEventListener("click", async () => {
 
@@ -221,38 +172,27 @@ document.getElementById("continuarPago").addEventListener("click", async () => {
   localStorage.setItem("patan_cliente", JSON.stringify(cliente));
 
   document.getElementById("datosBox").style.display = "none";
+  document.getElementById("cardPaymentBrick_container").style.display = "block";
 
-  const brickContainer = document.getElementById("paymentBrick_container");
-  brickContainer.style.display = "block";
-
-  mostrarEstado("Carga el medio de pago para activar tu acceso PATAN.", "info");
+  mostrarEstado("Ingresa tu tarjeta para activar PATAN.", "info");
 
   if(brickCreado) return;
-
   brickCreado = true;
 
   const settings = {
     initialization: {
       amount: planData.precio,
       payer: {
-        email: cliente.correo
-      }
-    },
-
-    customization: {
-      paymentMethods: {
-        creditCard: "all",
-        debitCard: "all",
-        mercadoPago: "all"
+        email: correo
       }
     },
 
     callbacks: {
       onReady: () => {
-        console.log("Brick listo");
+        console.log("CardPayment Brick listo");
       },
 
-      onSubmit: ({ formData }) => {
+      onSubmit: (cardFormData) => {
         mostrarEstado("Procesando pago seguro...", "info");
 
         return fetch("/api/process-payment", {
@@ -261,7 +201,7 @@ document.getElementById("continuarPago").addEventListener("click", async () => {
             "Content-Type":"application/json"
           },
           body: JSON.stringify({
-            ...formData,
+            ...cardFormData,
             description: planData.nombre,
             transaction_amount: planData.precio,
             cliente
@@ -285,10 +225,8 @@ document.getElementById("continuarPago").addEventListener("click", async () => {
               window.location.href = "/gracias.html";
             }, 1500);
 
-          }else if(result.status === "in_process"){
-            mostrarEstado("⏳ Pago en proceso. Te avisaremos cuando Mercado Pago confirme.", "info");
           }else{
-            mostrarEstado("❌ Pago no aprobado.", "error");
+            mostrarEstado("❌ Pago no aprobado. Intenta con otra tarjeta.", "error");
           }
         })
         .catch(error => {
@@ -304,19 +242,11 @@ document.getElementById("continuarPago").addEventListener("click", async () => {
     }
   };
 
-  try {
-    await bricksBuilder.create(
-      "payment",
-      "paymentBrick_container",
-      settings
-    );
-
-    console.log("Brick creado correctamente");
-
-  } catch (error) {
-    console.error("ERROR CREANDO BRICK:", error);
-    mostrarEstado("❌ Mercado Pago no cargó correctamente. Revisa la consola.", "error");
-  }
+  await bricksBuilder.create(
+    "cardPayment",
+    "cardPaymentBrick_container",
+    settings
+  );
 
 });
 </script>
