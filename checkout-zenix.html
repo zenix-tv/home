@@ -173,12 +173,14 @@ const planData = planes[planElegido] || planes["1mes"];
 document.getElementById("planTexto").innerHTML =
   planData.nombre + " · $" + planData.precio.toLocaleString("es-CL");
 
-const mp = new MercadoPago(PUBLIC_KEY, { locale: "es-CL" });
+const mp = new MercadoPago(PUBLIC_KEY, {
+  locale: "es-CL"
+});
+
 const bricksBuilder = mp.bricks();
 
 let cliente = {};
 let brickCreado = false;
-let paymentBrickController = null;
 
 function mostrarEstado(texto, tipo){
   const estado = document.getElementById("estadoPago");
@@ -187,12 +189,13 @@ function mostrarEstado(texto, tipo){
 }
 
 document.getElementById("continuarPago").addEventListener("click", async () => {
+
   const nombre = document.getElementById("nombre").value.trim();
   const correo = document.getElementById("correo").value.trim();
   const telefono = document.getElementById("telefono").value.trim();
 
   if(!nombre || !correo || !telefono){
-    alert("Completa nombre, correo y WhatsApp antes de continuar.");
+    alert("Completa todos los campos.");
     return;
   }
 
@@ -207,8 +210,14 @@ document.getElementById("continuarPago").addEventListener("click", async () => {
   localStorage.setItem("patan_cliente", JSON.stringify(cliente));
 
   document.getElementById("datosBox").style.display = "none";
-  document.getElementById("paymentBrick_container").style.display = "block";
-  mostrarEstado("Carga el medio de pago para activar tu acceso PATAN.", "info");
+
+  const brickContainer = document.getElementById("paymentBrick_container");
+  brickContainer.style.display = "block";
+
+  mostrarEstado(
+    "Carga el medio de pago para activar tu acceso PATAN.",
+    "info"
+  );
 
   if(brickCreado) return;
 
@@ -232,73 +241,86 @@ document.getElementById("continuarPago").addEventListener("click", async () => {
 
     callbacks: {
       onReady: () => {
-        console.log("Payment Brick listo");
+        console.log("Brick listo");
       },
 
-      onSubmit: ({ selectedPaymentMethod, formData }) => {
-        return new Promise((resolve, reject) => {
+      onSubmit: ({ formData }) => {
 
-          mostrarEstado("Procesando pago seguro con Mercado Pago...", "info");
+        mostrarEstado(
+          "Procesando pago seguro...",
+          "info"
+        );
 
-          fetch("/api/process-payment", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-              ...formData,
-              description: planData.nombre,
-              transaction_amount: planData.precio,
-              cliente
-            })
+        return fetch("/api/process-payment", {
+          method: "POST",
+          headers: {
+            "Content-Type":"application/json"
+          },
+          body: JSON.stringify({
+            ...formData,
+            description: planData.nombre,
+            transaction_amount: planData.precio,
+            cliente
           })
-          .then(response => response.json())
-          .then(result => {
-            console.log(result);
+        })
+        .then(res => res.json())
+        .then(result => {
 
-            if(result.status === "approved"){
-              mostrarEstado("✅ Pago aprobado. Tu acceso PATAN está listo para generar.", "ok");
+          console.log(result);
 
-              localStorage.setItem("patan_pago_aprobado", JSON.stringify({
-                payment_id: result.id,
-                status: result.status,
-                cliente,
-                fecha: new Date().toISOString()
-              }));
+          if(result.status === "approved"){
 
-              setTimeout(() => {
-                window.location.href = "/gracias.html";
-              }, 1800);
+            mostrarEstado(
+              "✅ Pago aprobado correctamente.",
+              "ok"
+            );
 
-            }else if(result.status === "in_process"){
-              mostrarEstado("⏳ Pago en proceso. Te avisaremos cuando Mercado Pago confirme.", "info");
-            }else{
-              mostrarEstado("❌ Pago no aprobado. Intenta con otro medio de pago.", "error");
-            }
+            localStorage.setItem(
+              "patan_pago_aprobado",
+              JSON.stringify(result)
+            );
 
-            resolve();
-          })
-          .catch(error => {
-            console.error(error);
-            mostrarEstado("❌ Error procesando el pago. Intenta nuevamente.", "error");
-            reject();
-          });
+            setTimeout(()=>{
+              window.location.href="/gracias.html";
+            },1500);
 
+          }else{
+
+            mostrarEstado(
+              "❌ Pago no aprobado.",
+              "error"
+            );
+
+          }
+        })
+        .catch(error => {
+
+          console.error(error);
+
+          mostrarEstado(
+            "❌ Error procesando pago.",
+            "error"
+          );
         });
       },
 
       onError: (error) => {
         console.error(error);
-        mostrarEstado("❌ Error cargando Mercado Pago.", "error");
+
+        mostrarEstado(
+          "❌ Error cargando Mercado Pago.",
+          "error"
+        );
       }
     }
   };
 
-  paymentBrickController = await bricksBuilder.create(
+  await bricksBuilder.create(
     "payment",
     "paymentBrick_container",
     settings
   );
+
 });
 </script>
 
