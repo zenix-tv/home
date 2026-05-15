@@ -13,27 +13,69 @@
 body{
   margin:0;
   font-family:Arial,Helvetica,sans-serif;
-  background:radial-gradient(circle at top,rgba(255,161,0,.22),#000 45%);
+  background:radial-gradient(circle at top,rgba(255,161,0,.24),#000 48%);
   color:#fff;
   min-height:100vh;
   padding:20px;
 }
-  
+
 .container{
+  width:100%;
+  max-width:620px;
+  margin:55px auto;
+  background:#111827;
+  border-radius:24px;
+  padding:34px 30px 30px;
+  border:1px solid rgba(255,161,0,.45);
+  box-shadow:0 0 45px rgba(255,161,0,.22);
   position:relative;
   overflow:visible;
-
 }
 
-h1{text-align:center;margin-top:0;font-size:34px}
+.checkout-dog{
+  position:absolute;
+  top:-52px;
+  right:-24px;
+  width:105px;
+  filter:drop-shadow(0 0 18px rgba(255,161,0,.75));
+  z-index:5;
+}
+
+h1{
+  text-align:center;
+  margin:0;
+  font-size:34px;
+  line-height:1.1;
+}
+
 h1 span{color:#FFA100}
+
+.checkout-sub{
+  text-align:center;
+  color:rgba(255,255,255,.82);
+  font-weight:700;
+  line-height:1.4;
+  margin:14px 0 16px;
+}
+
+.secure-box{
+  background:rgba(255,161,0,.10);
+  border:1px solid rgba(255,161,0,.35);
+  color:#FFA100;
+  padding:13px;
+  border-radius:14px;
+  text-align:center;
+  font-weight:900;
+  font-size:14px;
+  margin-bottom:20px;
+}
 
 .plan{
   text-align:center;
   color:#FFA100;
-  margin:20px 0 25px;
+  margin:22px 0 26px;
   font-weight:900;
-  font-size:24px;
+  font-size:26px;
   letter-spacing:.5px;
   text-shadow:0 0 14px rgba(255,161,0,.45);
 }
@@ -68,6 +110,7 @@ input{
   background:#fff;
   border-radius:18px;
   padding:18px;
+  box-shadow:0 0 28px rgba(255,161,0,.25);
 }
 
 .status{
@@ -92,46 +135,23 @@ input{
   font-weight:900;
 }
 
-.checkout-dog{
-  position:absolute;
-  top:-55px;
-  right:-28px;
-  width:105px;
-  filter:drop-shadow(0 0 18px rgba(255,161,0,.75));
-  z-index:5;
-}
-
-.checkout-sub{
-  text-align:center;
-  color:rgba(255,255,255,.82);
-  font-weight:700;
-  line-height:1.4;
-  margin-top:-5px;
-  margin-bottom:16px;
-}
-
-.secure-box{
-  background:rgba(255,161,0,.10);
-  border:1px solid rgba(255,161,0,.35);
-  color:#FFA100;
-  padding:13px;
-  border-radius:14px;
-  text-align:center;
-  font-weight:900;
-  font-size:14px;
-  margin-bottom:20px;
-}
-
-#cardPaymentBrick_container{
-  box-shadow:0 0 28px rgba(255,161,0,.25);
-}
-
 @media(max-width:600px){
+  body{
+    padding:16px;
+  }
+
+  .container{
+    margin:48px auto 25px;
+    padding:30px 18px 24px;
+  }
+
   h1{
-    font-size:28px;
+    font-size:27px;
   }
 
   .checkout-dog{
+    top:-42px;
+    right:8px;
     width:78px;
   }
 
@@ -139,13 +159,10 @@ input{
     font-size:13px;
   }
 
-.checkout-dog{
-  top:-42px;
-  right:10px;
-  width:78px;
-
+  .plan{
+    font-size:22px;
+  }
 }
-  
 </style>
 </head>
 
@@ -153,19 +170,19 @@ input{
 
 <div class="container">
 
-<img src="file_00000000689871f5bd4fa34f49f6552b.png" class="checkout-dog" alt="Patan TV">
+  <img src="file_00000000689871f5bd4fa34f49f6552b.png" class="checkout-dog" alt="Patan TV">
 
-<h1>Estás a pasos de ser un <span>Patán Premium</span></h1>
+  <h1>Estás a pasos de ser un <span>Patán Premium</span></h1>
 
-<p class="checkout-sub">
-  Tranquilo, Patán 😎. Tu pago se procesa de forma segura con Mercado Pago.
-</p>
+  <p class="checkout-sub">
+    Tranquilo, Patán 😎. Tu pago se procesa de forma segura con Mercado Pago.
+  </p>
 
-<div class="secure-box">
-  🔒 Sitio seguro con SSL · Pago protegido por Mercado Pago · Tus datos están resguardados
-</div>
+  <div class="secure-box">
+    🔒 Sitio seguro con SSL · Pago protegido por Mercado Pago · Tus datos están resguardados
+  </div>
 
-<div class="plan" id="planTexto"></div>
+  <div class="plan" id="planTexto"></div>
 
   <div id="datosBox">
     <input type="text" id="nombre" placeholder="Nombre completo">
@@ -187,7 +204,6 @@ input{
 
 <script>
 const PUBLIC_KEY = "APP_USR-bd1e0065-e657-4ebc-bb42-c3797ab6c953";
-
 
 const planes = {
   "1mes": { nombre:"1 MES INICIAL", precio:9990 },
