@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pago rechazado - PATAN TV</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  min-height:100vh;
+  background:radial-gradient(circle at top,rgba(255,161,0,.22),#000 55%);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.card{
+  width:100%;
+  max-width:650px;
+  background:#071229;
+  border-radius:28px;
+  border:1px solid rgba(255,161,0,.45);
+  box-shadow:0 0 55px rgba(255,161,0,.25);
+  padding:40px 32px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+
+.dog{
+  position:absolute;
+  top:12px;
+  left:95px;
+  width:82px;
+  filter:drop-shadow(0 0 18px rgba(255,161,0,.8));
+}
+
+h1{
+  font-size:48px;
+  margin:0;
+  line-height:1.1;
+}
+
+.orange{
+  color:#FFA100;
+}
+
+.sub{
+  margin-top:26px;
+  font-size:22px;
+  line-height:1.5;
+  color:rgba(255,255,255,.92);
+}
+
+.alert{
+  margin-top:28px;
+  background:rgba(255,161,0,.10);
+  border:1px solid rgba(255,161,0,.35);
+  border-radius:18px;
+  padding:18px;
+  color:#FFA100;
+  font-weight:800;
+  line-height:1.5;
+}
+
+.actions{
+  margin-top:35px;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+
+.btn{
+  display:inline-block;
+  padding:16px 24px;
+  border-radius:16px;
+  text-decoration:none;
+  font-weight:900;
+  font-size:18px;
+}
+
+.primary{
+  background:#FFA100;
+  color:#000;
+}
+
+.secondary{
+  border:1px solid rgba(255,161,0,.4);
+  color:#fff;
+  background:rgba(255,255,255,.05);
+}
+
+.small{
+  margin-top:24px;
+  color:rgba(255,255,255,.72);
+  font-size:15px;
+}
+
+@media(max-width:600px){
+
+  h1{
+    font-size:38px;
+    margin-top:28px;
+  }
+
+  .dog{
+    left:55px;
+    width:68px;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+  <img src="file_00000000689871f5bd4fa34f49f6552b.png" class="dog">
+
+  <h1>
+    Patán... <span class="orange">algo salió mal</span>
+  </h1>
+
+  <div class="sub">
+    Tu pago no pudo ser aprobado esta vez.
+    <br><br>
+    Pero tranquilo 😎  
+    aún estás a un paso de convertirte en un <span class="orange">Patán Premium</span>.
+  </div>
+
+  <div class="alert">
+    🔒 A veces los bancos bloquean pagos online automáticamente.<br>
+    Puedes intentar nuevamente o usar otra tarjeta.
+  </div>
+
+  <div class="actions">
+
+    <a href="javascript:history.back()" class="btn primary">
+      Intentar nuevamente
+    </a>
+
+    <a href="https://wa.me/56964180558?text=Hola%20PATAN%20TV,%20tuve%20problemas%20con%20mi%20pago" class="btn secondary">
+      Hablar con soporte PATAN
+    </a>
+
+  </div>
+
+  <div class="small">
+    Mercado Pago protege tu información mediante conexión SSL segura.
+  </div>
+
+</div>
+
+</body>
+</html>
