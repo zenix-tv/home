@@ -56,6 +56,16 @@ button{
   font-size:17px;
   cursor:pointer;
 }
+button:disabled{
+  opacity:.6;
+  cursor:not-allowed;
+}
+.status{
+  margin-top:18px;
+  text-align:center;
+  color:#FFA100;
+  font-weight:900;
+}
 </style>
 </head>
 
@@ -70,25 +80,27 @@ button{
     <input type="email" id="correo" placeholder="Correo electrónico" required>
     <input type="tel" id="telefono" placeholder="Teléfono / WhatsApp" required>
 
-    <button type="submit">
+    <button type="submit" id="payBtn">
       Guardar mis datos y pagar
     </button>
   </form>
+
+  <div class="status" id="statusMsg"></div>
 </div>
 
 <script>
 const planes = {
   "1mes": {
     nombre: "1 Mes",
-    link: "https://mpago.la/2EGd2SF"
+    precio: 9990
   },
   "3meses": {
     nombre: "3 Meses",
-    link: "https://mpago.la/1smZcyZ"
+    precio: 26990
   },
   "12meses": {
     nombre: "12 Meses",
-    link: "https://mpago.la/1m6HBAU"
+    precio: 79990
   }
 };
 
@@ -97,46 +109,68 @@ const planElegido = params.get("plan") || "1mes";
 const planData = planes[planElegido] || planes["1mes"];
 
 document.getElementById("planTexto").textContent =
-  "Plan seleccionado: " + planData.nombre;
+  "Plan seleccionado: " + planData.nombre + " · $" + planData.precio.toLocaleString("es-CL");
 
-document.getElementById("checkoutForm").addEventListener("submit", function(e){
+document.getElementById("checkoutForm").addEventListener("submit", async function(e){
   e.preventDefault();
 
   const nombre = document.getElementById("nombre").value.trim();
   const correo = document.getElementById("correo").value.trim();
   const telefono = document.getElementById("telefono").value.trim();
+  const payBtn = document.getElementById("payBtn");
+  const statusMsg = document.getElementById("statusMsg");
 
   if(!nombre || !correo || !telefono){
     alert("Completa todos los campos antes de pagar.");
     return;
   }
 
-  const mensaje = `😎 Ya falta poco para convertirte en Patán Premium
-
-👤 Cliente: ${nombre}
-📧 Correo: ${correo}
-📱 Teléfono: ${telefono}
-📦 Plan: ${planData.nombre}
-
-💰 Estado: Pendiente de pago
-
-👉 Cuando confirme pago, generar acceso.`;
-
   localStorage.setItem("patan_cliente", JSON.stringify({
     nombre,
     correo,
     telefono,
-    plan: planData.nombre
+    plan: planElegido,
+    planNombre: planData.nombre,
+    precio: planData.precio
   }));
 
-  const miWhatsApp = "56964180558";
-  const waURL = "https://wa.me/" + miWhatsApp + "?text=" + encodeURIComponent(mensaje);
+  payBtn.disabled = true;
+  payBtn.textContent = "Generando pago seguro...";
+  statusMsg.textContent = "Conectando con Mercado Pago...";
 
-  window.open(waURL, "_blank");
+  try{
+    const response = await fetch("/api/process-payment", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        nombre,
+        correo,
+        telefono,
+        plan: planElegido
+      })
+    });
 
-  setTimeout(function(){
-    window.location.href = planData.link;
-  }, 1200);
+    const data = await response.json();
+
+    if(data.init_point){
+      window.location.href = data.init_point;
+    }else{
+      console.error(data);
+      alert("No se pudo generar el pago. Revisa la configuración de Mercado Pago.");
+      payBtn.disabled = false;
+      payBtn.textContent = "Guardar mis datos y pagar";
+      statusMsg.textContent = "";
+    }
+
+  }catch(error){
+    console.error(error);
+    alert("Error de conexión con Mercado Pago.");
+    payBtn.disabled = false;
+    payBtn.textContent = "Guardar mis datos y pagar";
+    statusMsg.textContent = "";
+  }
 });
 </script>
 
