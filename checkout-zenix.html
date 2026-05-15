@@ -288,39 +288,33 @@ document.getElementById("continuarPago").addEventListener("click", async () => {
           })
         })
         .then(res => res.json())
-        .then(result => {
-          console.log(result);
+.then(result => {
+  console.log(result);
 
-          if(result.status === "approved"){
-            mostrarEstado("✅ Pago aprobado correctamente.", "ok");
+  if(result.status === "approved"){
+    mostrarEstado("✅ ¡Pago aprobado! Bienvenido al lado Patán del streaming. Estamos preparando tus accesos.", "ok");
 
-            localStorage.setItem("patan_pago_aprobado", JSON.stringify({
-              payment_id: result.id,
-              status: result.status,
-              cliente,
-              fecha: new Date().toISOString()
-            }));
+    localStorage.setItem("patan_pago_aprobado", JSON.stringify({
+      payment_id: result.id,
+      status: result.status,
+      cliente,
+      fecha: new Date().toISOString()
+    }));
 
-            setTimeout(() => {
-              window.location.href = "/gracias.html";
-            }, 1500);
+    setTimeout(() => {
+      window.location.href = "/gracias.html";
+    }, 1800);
 
-          }else{
-            mostrarEstado("❌ Pago no aprobado. Intenta con otra tarjeta.", "error");
-          }
-        })
-        .catch(error => {
-          console.error(error);
-          mostrarEstado("❌ Error procesando pago.", "error");
-        });
-      },
+  } else if(result.status === "rejected"){
+    mostrarEstado("❌ El pago fue rechazado. Tranquilo Patán, intenta con otra tarjeta o revisa los datos.", "error");
 
-      onError: (error) => {
-        console.error(error);
-        mostrarEstado("❌ Error cargando Mercado Pago.", "error");
-      }
-    }
-  };
+  } else if(result.status === "pending"){
+    mostrarEstado("⏳ Pago pendiente. Mercado Pago está revisando la operación. Te avisaremos cuando se confirme.", "info");
+
+  } else {
+    mostrarEstado("⚠️ No pudimos confirmar el pago. Intenta nuevamente o contacta soporte PATAN TV.", "error");
+  }
+})
 
   await bricksBuilder.create(
     "cardPayment",
