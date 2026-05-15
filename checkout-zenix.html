@@ -318,7 +318,8 @@ document.getElementById("continuarPago").addEventListener("click", async () => {
         })
         .then(res => res.json())
         .then(result => {
-          console.log(result);
+         alert(JSON.stringify(result));
+        console.log(result);
 
           if(result.status === "approved"){
             mostrarEstado("✅ ¡Pago aprobado! Preparando tus accesos PATAN.", "ok");
