@@ -158,25 +158,13 @@ h1{
 
 </div>
 
-  <script>
-const clienteGuardado = localStorage.getItem("patan_cliente");
+ <script>
+const params = new URLSearchParams(window.location.search);
+let plan = params.get("plan") || "1mes";
 
-if (clienteGuardado) {
-  const cliente = JSON.parse(clienteGuardado);
-
-  let plan = "1mes";
-
-  if (cliente.plan && cliente.plan.includes("3")) {
-    plan = "3meses";
-  }
-
-  if (cliente.plan && cliente.plan.includes("12")) {
-    plan = "12meses";
-  }
-
-  document.getElementById("retryBtn").href =
-    "/checkout-zenix.html?plan=" + plan;
-}
+document.getElementById("retryBtn").href =
+  "/checkout-zenix.html?plan=" + plan;
+   
 </script>
 </body>
 </html>
