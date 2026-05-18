@@ -317,11 +317,11 @@ document.getElementById("continuarPago").addEventListener("click", async () => {
           })
         })
         .then(res => res.json())
-        .then(result => {
-         alert(JSON.stringify(result));
-        console.log(result);
+.then(result => {
 
-          if(result.status === "approved"){
+  console.log("Respuesta Mercado Pago:", result);
+
+  if(result.status === "approved"){
             mostrarEstado("✅ ¡Pago aprobado! Preparando tus accesos PATAN.", "ok");
 
             localStorage.setItem("patan_pago_aprobado", JSON.stringify({
