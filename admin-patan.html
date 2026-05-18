@@ -3,240 +3,241 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>PATAN TV - Acceso Premium</title>
+<title>Admin PATAN TV</title>
 
 <style>
-
-*{
-box-sizing:border-box;
-margin:0;
-padding:0;
-font-family:Arial,Helvetica,sans-serif;
-}
+*{box-sizing:border-box}
 
 body{
-background:#020817;
-color:white;
-min-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-padding:20px;
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#050b16;
+  color:#fff;
+  padding:24px;
+}
+
+h1{
+  text-align:center;
+  color:#FFA100;
+}
+
+.panel{
+  max-width:1200px;
+  margin:auto;
 }
 
 .card{
-width:100%;
-max-width:750px;
-background:#0f172a;
-border:1px solid rgba(255,161,0,.35);
-border-radius:25px;
-padding:35px;
-box-shadow:0 0 40px rgba(255,161,0,.15);
+  background:#111827;
+  border:1px solid rgba(255,161,0,.35);
+  border-radius:20px;
+  padding:20px;
+  margin-bottom:18px;
+  box-shadow:0 0 25px rgba(255,161,0,.12);
 }
 
-.logo{
-text-align:center;
-font-size:42px;
-font-weight:900;
-color:#FFA100;
-margin-bottom:10px;
-}
-
-.sub{
-text-align:center;
-color:#ccc;
-margin-bottom:35px;
-}
-
-.bloque{
-background:#111827;
-padding:18px;
-border-radius:18px;
-margin-bottom:18px;
-border:1px solid rgba(255,255,255,.06);
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:12px;
 }
 
 .label{
-color:#FFA100;
-font-size:14px;
-font-weight:900;
-margin-bottom:6px;
+  color:#FFA100;
+  font-weight:900;
 }
 
-.valor{
-font-size:18px;
-word-break:break-word;
+input{
+  width:100%;
+  padding:12px;
+  margin-top:8px;
+  border-radius:10px;
+  border:1px solid rgba(255,161,0,.35);
+  background:#000;
+  color:#fff;
 }
 
-.copy{
-margin-top:10px;
-background:#FFA100;
-color:#000;
-border:none;
-padding:10px 15px;
-border-radius:10px;
-font-weight:900;
-cursor:pointer;
+button,a.btn{
+  display:inline-block;
+  margin-top:12px;
+  padding:12px 16px;
+  border-radius:12px;
+  background:#FFA100;
+  color:#000;
+  border:none;
+  font-weight:900;
+  cursor:pointer;
+  text-decoration:none;
 }
 
-.apps{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-gap:15px;
-margin-top:25px;
+.status{
+  display:inline-block;
+  padding:6px 10px;
+  border-radius:999px;
+  font-weight:900;
 }
 
-.app{
-background:#111827;
-padding:18px;
-border-radius:18px;
-text-align:center;
-border:1px solid rgba(255,255,255,.06);
-}
+.pendiente{background:#7c2d12;color:#fff}
+.activado{background:#14532d;color:#fff}
 
-.app h3{
-color:#FFA100;
-margin-bottom:10px;
+.small{
+  color:#ccc;
+  font-size:14px;
 }
-
-.app a{
-display:inline-block;
-margin-top:12px;
-background:#FFA100;
-color:black;
-padding:10px 14px;
-border-radius:10px;
-text-decoration:none;
-font-weight:900;
-}
-
-.footer{
-margin-top:35px;
-text-align:center;
-color:#aaa;
-font-size:14px;
-}
-
 </style>
 </head>
 
 <body>
 
-<div class="card">
+<div class="panel">
+  <h1>Panel Admin PATAN TV</h1>
+  <p style="text-align:center;color:#ccc;">Clientes pagados y pendientes de activación</p>
 
-<div class="logo">
-PATAN TV
+  <div id="clientes"></div>
 </div>
 
-<div class="sub">
-Tu acceso premium ya está activo 😎🔥
-</div>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
-<div class="bloque">
-<div class="label">Cliente</div>
-<div class="valor" id="nombre"></div>
-</div>
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  doc,
+  updateDoc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-<div class="bloque">
-<div class="label">Plan</div>
-<div class="valor" id="plan"></div>
-</div>
+const firebaseConfig = {
+  apiKey: "TU_APIKEY",
+  authDomain: "patan-tv.firebaseapp.com",
+  projectId: "patan-tv",
+  storageBucket: "patan-tv.firebasestorage.app",
+  messagingSenderId: "400945997953",
+  appId: "1:400945997953:web:c5721123411dad95c08580"
+};
 
-<div class="bloque">
-<div class="label">Usuario IPTV</div>
-<div class="valor" id="usuario"></div>
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-<button class="copy" onclick="copiar('usuario')">
-Copiar usuario
-</button>
-</div>
+const contenedor = document.getElementById("clientes");
 
-<div class="bloque">
-<div class="label">Contraseña IPTV</div>
-<div class="valor" id="password"></div>
+async function cargarClientes(){
+  contenedor.innerHTML = "Cargando clientes...";
 
-<button class="copy" onclick="copiar('password')">
-Copiar contraseña
-</button>
-</div>
+  const querySnapshot = await getDocs(collection(db, "clientes"));
+  contenedor.innerHTML = "";
 
-<div class="bloque">
-<div class="label">Link M3U</div>
-<div class="valor" id="m3u"></div>
+  querySnapshot.forEach((documento) => {
+    const c = documento.data();
+    const id = documento.id;
 
-<button class="copy" onclick="copiar('m3u')">
-Copiar M3U
-</button>
-</div>
+    const estado = c.estado_activacion || "pendiente";
 
-<div class="apps">
+    const div = document.createElement("div");
+    div.className = "card";
 
-<div class="app">
-<h3>IPTV Smarters</h3>
-<p>Compatible Android / TV / FireStick</p>
+    div.innerHTML = `
+      <div class="grid">
+        <div><div class="label">Cliente</div>${c.nombre || ""}</div>
+        <div><div class="label">Correo</div>${c.correo || ""}</div>
+        <div><div class="label">WhatsApp</div>${c.whatsapp || ""}</div>
+        <div><div class="label">Plan</div>${c.plan || ""}</div>
+        <div><div class="label">Precio</div>$${Number(c.precio || 0).toLocaleString("es-CL")}</div>
+        <div><div class="label">Pago</div>${c.estado_pago || ""}</div>
+        <div><div class="label">Estado</div><span class="status ${estado}">${estado}</span></div>
+      </div>
 
-<a href="https://www.iptvsmarters.com/" target="_blank">
-Descargar
-</a>
-</div>
+      <hr style="border-color:rgba(255,255,255,.1);margin:18px 0">
 
-<div class="app">
-<h3>TiviMate</h3>
-<p>La mejor app para Android TV</p>
+      <div class="grid">
+        <div>
+          <div class="label">Usuario IPTV</div>
+          <input id="usuario-${id}" placeholder="Usuario">
+        </div>
 
-<a href="https://tivimate.com/" target="_blank">
-Descargar
-</a>
-</div>
+        <div>
+          <div class="label">Contraseña IPTV</div>
+          <input id="password-${id}" placeholder="Contraseña">
+        </div>
 
-<div class="app">
-<h3>Soporte PATAN TV</h3>
-<p>¿Problemas con tu acceso?</p>
+        <div>
+          <div class="label">Link M3U</div>
+          <input id="m3u-${id}" placeholder="Link M3U">
+        </div>
+      </div>
 
-<a href="https://wa.me/56994410220" target="_blank">
-WhatsApp
-</a>
-</div>
+      <button onclick="activarCliente('${id}')">Guardar acceso</button>
+      <a class="btn" id="whatsapp-${id}" target="_blank">Enviar por WhatsApp</a>
 
-</div>
+      <p class="small">Payment ID: ${c.payment_id || ""}</p>
+    `;
 
-<div class="footer">
-PATAN TV © Premium Streaming Experience
-</div>
+    contenedor.appendChild(div);
 
-</div>
+    if(c.usuario_iptv) document.getElementById("usuario-" + id).value = c.usuario_iptv;
+    if(c.password_iptv) document.getElementById("password-" + id).value = c.password_iptv;
+    if(c.m3u) document.getElementById("m3u-" + id).value = c.m3u;
 
-<script>
-
-const params = new URLSearchParams(window.location.search);
-
-document.getElementById("nombre").innerText =
-params.get("nombre") || "";
-
-document.getElementById("plan").innerText =
-params.get("plan") || "";
-
-document.getElementById("usuario").innerText =
-params.get("usuario") || "";
-
-document.getElementById("password").innerText =
-params.get("password") || "";
-
-document.getElementById("m3u").innerText =
-params.get("m3u") || "";
-
-function copiar(id){
-
-const texto =
-document.getElementById(id).innerText;
-
-navigator.clipboard.writeText(texto);
-
-alert("Copiado correctamente 😎");
-
+    actualizarWhatsApp(id, c);
+  });
 }
 
+window.activarCliente = async function(id){
+  const usuario = document.getElementById("usuario-" + id).value.trim();
+  const password = document.getElementById("password-" + id).value.trim();
+  const m3u = document.getElementById("m3u-" + id).value.trim();
+
+  if(!usuario || !password || !m3u){
+    alert("Completa usuario, contraseña y M3U.");
+    return;
+  }
+
+  await updateDoc(doc(db, "clientes", id), {
+    usuario_iptv: usuario,
+    password_iptv: password,
+    m3u: m3u,
+    estado_activacion: "activado",
+    fecha_activacion: new Date().toISOString()
+  });
+
+  alert("Cliente activado correctamente.");
+  cargarClientes();
+}
+
+function actualizarWhatsApp(id, c){
+  const btn = document.getElementById("whatsapp-" + id);
+  if(!btn) return;
+
+  btn.addEventListener("click", () => {
+    const usuario = document.getElementById("usuario-" + id).value.trim();
+    const password = document.getElementById("password-" + id).value.trim();
+    const m3u = document.getElementById("m3u-" + id).value.trim();
+
+    const accesoURL =
+      "https://www.patan.tv/acceso-patan.html?nombre=" + encodeURIComponent(c.nombre || "") +
+      "&plan=" + encodeURIComponent(c.plan || "") +
+      "&usuario=" + encodeURIComponent(usuario) +
+      "&password=" + encodeURIComponent(password) +
+      "&m3u=" + encodeURIComponent(m3u);
+
+    const mensaje =
+`Hola ${c.nombre || "Patán Premium"} 😎🔥
+
+Tu cuenta PATAN TV ya está activa.
+
+📦 Plan: ${c.plan || ""}
+👤 Usuario: ${usuario}
+🔑 Contraseña: ${password}
+
+👉 Tu hoja de acceso:
+${accesoURL}
+
+Guarda este enlace. Ahí tienes tus datos, apps recomendadas e instrucciones.`;
+
+    btn.href = "https://wa.me/56" + String(c.whatsapp || "").replace(/\D/g,"") + "?text=" + encodeURIComponent(mensaje);
+  });
+}
+
+cargarClientes();
 </script>
 
 </body>
