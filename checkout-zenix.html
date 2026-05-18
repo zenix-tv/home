@@ -3,8 +3,37 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PATANTV Checkout</title>
 
+  <script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+  getFirestore,
+  collection,
+  addDoc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCgK8LvJS69gyEhiUL7U-6AQoKBwyq-Pfs",
+  authDomain: "patan-tv.firebaseapp.com",
+  projectId: "patan-tv",
+  storageBucket: "patan-tv.firebasestorage.app",
+  messagingSenderId: "400945997953",
+  appId: "1:400945997953:web:c5721123411dad95c08580"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+window.db = db;
+window.collection = collection;
+window.addDoc = addDoc;
+
+</script>
+  
+<title>PATANTV Checkout</title>
+  
 <script src="https://sdk.mercadopago.com/js/v2"></script>
 <style>
 *{box-sizing:border-box}
