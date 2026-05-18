@@ -240,33 +240,13 @@ const planes = {
 };
 
 const params = new URLSearchParams(window.location.search);
-let planElegido = params.get("plan");
-
-/* Si vuelve desde rechazado sin plan, recuperamos el último plan */
-if(!planElegido){
-  const clienteGuardado = localStorage.getItem("patan_cliente");
-
-  if(clienteGuardado){
-    const clientePrevio = JSON.parse(clienteGuardado);
-
-    if(clientePrevio.plan && clientePrevio.plan.includes("3")){
-      planElegido = "3meses";
-    } else if(clientePrevio.plan && clientePrevio.plan.includes("12")){
-      planElegido = "12meses";
-    } else {
-      planElegido = "1mes";
-    }
-  } else {
-    planElegido = "1mes";
-  }
-}
+let planElegido = params.get("plan") || "1mes";
 
 const planData = planes[planElegido] || planes["1mes"];
 
 document.getElementById("planTexto").innerHTML =
   planData.nombre + " · $" + planData.precio.toLocaleString("es-CL");
 
-/* Recuperar datos anteriores */
 const clienteGuardado = localStorage.getItem("patan_cliente");
 
 if(clienteGuardado){
@@ -346,11 +326,12 @@ document.getElementById("continuarPago").addEventListener("click", async () => {
           })
         })
         .then(res => res.json())
-.then(result => {
+        .then(async result => {
 
-  console.log("Respuesta Mercado Pago:", result);
+          console.log("Respuesta Mercado Pago:", result);
 
-  if(result.status === "approved"){
+          if(result.status === "approved"){
+
             mostrarEstado("✅ ¡Pago aprobado! Preparando tus accesos PATAN.", "ok");
 
             localStorage.setItem("patan_pago_aprobado", JSON.stringify({
@@ -360,27 +341,52 @@ document.getElementById("continuarPago").addEventListener("click", async () => {
               fecha: new Date().toISOString()
             }));
 
+            try{
+              await window.addDoc(
+                window.collection(window.db, "clientes"),
+                {
+                  nombre: cliente.nombre,
+                  correo: cliente.correo,
+                  whatsapp: cliente.telefono,
+                  plan: cliente.plan,
+                  precio: cliente.precio,
+                  payment_id: result.id || "",
+                  estado_pago: result.status || "",
+                  estado_activacion: "pendiente",
+                  fecha_pago: new Date().toISOString()
+                }
+              );
+
+              console.log("Cliente guardado en Firebase");
+
+            }catch(error){
+              console.error("Error guardando cliente en Firebase:", error);
+            }
+
             setTimeout(() => {
               window.location.href = "/gracias.html";
             }, 1800);
 
           } else if(result.status === "rejected"){
+
             mostrarEstado("❌ Pago rechazado. Redirigiendo para intentar nuevamente...", "error");
 
-           setTimeout(() => {
-  window.location.href = "/rechazado.html?plan=" + planElegido;
-}, 1500);
+            setTimeout(() => {
+              window.location.href = "/rechazado.html?plan=" + planElegido;
+            }, 1500);
 
           } else if(result.status === "pending"){
+
             mostrarEstado("⏳ Pago pendiente. Mercado Pago está revisando la operación.", "info");
 
-} else {
-  mostrarEstado("⚠️ No pudimos confirmar el pago. Redirigiendo para intentar nuevamente...", "error");
+          } else {
 
-  setTimeout(() => {
-    window.location.href = "/rechazado.html?plan=" + planElegido;
-  }, 1500);
-}
+            mostrarEstado("⚠️ No pudimos confirmar el pago. Redirigiendo para intentar nuevamente...", "error");
+
+            setTimeout(() => {
+              window.location.href = "/rechazado.html?plan=" + planElegido;
+            }, 1500);
+          }
         })
         .catch(error => {
           console.error(error);
