@@ -399,11 +399,31 @@ Convertir a Cliente
 
 ` : ""}
 
+${c.tipo === "lead" ? `
+
+<a
+class="btn"
+target="_blank"
+href="https://wa.me/56${String(c.whatsapp || "").replace(/\D/g,'')}?text=${encodeURIComponent(`Hola ${c.nombre || ""} 😎
+
+Soy de PATAN TV.
+
+Vimos que mostraste interés en el plan ${c.plan || ""}.
+
+¿Te ayudo a activar tu cuenta premium? 🔥`)}"
+>
+WhatsApp Lead
+</a>
+
+` : `
+
 <button
 onclick="enviarAcceso('${c.id}')"
 >
 Enviar Hoja de Acceso
 </button>
+
+`}
 
 <button
 class="delete"
