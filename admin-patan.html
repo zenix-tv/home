@@ -3,38 +3,53 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Admin PATAN TV</title>
 
 <style>
-*{box-sizing:border-box}
+
+*{
+  box-sizing:border-box;
+}
 
 body{
   margin:0;
-  font-family:Arial,Helvetica,sans-serif;
   background:#050b16;
   color:#fff;
+  font-family:Arial,Helvetica,sans-serif;
   padding:24px;
 }
-
-.panel{max-width:1250px;margin:auto}
 
 h1{
   text-align:center;
   color:#FFA100;
-  margin-bottom:5px;
 }
 
-.subtitle{
-  text-align:center;
-  color:#ccc;
-  margin-bottom:28px;
+.panel{
+  max-width:1300px;
+  margin:auto;
 }
 
-.section-title{
-  margin:32px 0 14px;
-  color:#FFA100;
-  font-size:26px;
-  font-weight:900;
+.topbar{
+  display:flex;
+  gap:12px;
+  margin-bottom:25px;
+  flex-wrap:wrap;
+}
+
+.search{
+  flex:1;
+  min-width:240px;
+}
+
+.search input,
+select{
+  width:100%;
+  padding:14px;
+  border-radius:12px;
+  border:1px solid rgba(255,161,0,.35);
+  background:#111827;
+  color:#fff;
 }
 
 .card{
@@ -46,11 +61,6 @@ h1{
   box-shadow:0 0 25px rgba(255,161,0,.12);
 }
 
-.lead-card{
-  border-color:rgba(255,180,0,.6);
-  background:linear-gradient(180deg,#151923,#0d1320);
-}
-
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
@@ -60,7 +70,6 @@ h1{
 .label{
   color:#FFA100;
   font-weight:900;
-  margin-bottom:4px;
 }
 
 input{
@@ -84,12 +93,17 @@ button,a.btn{
   font-weight:900;
   cursor:pointer;
   text-decoration:none;
+  margin-right:8px;
 }
 
-.btn-secondary{
-  background:transparent !important;
-  color:#FFA100 !important;
-  border:1px solid rgba(255,161,0,.55) !important;
+.delete{
+  background:#7f1d1d;
+  color:#fff;
+}
+
+.contactado{
+  background:#14532d;
+  color:#fff;
 }
 
 .status{
@@ -99,25 +113,31 @@ button,a.btn{
   font-weight:900;
 }
 
-.pendiente{background:#7c2d12;color:#fff}
-.activado{background:#14532d;color:#fff}
-.lead{background:#92400e;color:#fff}
-.approved{background:#14532d;color:#fff}
+.pendiente{
+  background:#7c2d12;
+  color:#fff;
+}
+
+.activado{
+  background:#14532d;
+  color:#fff;
+}
+
+.lead{
+  background:#1d4ed8;
+  color:#fff;
+}
 
 .small{
   color:#ccc;
   font-size:14px;
-  word-break:break-word;
 }
 
-.empty{
-  color:#aaa;
-  background:#0f172a;
-  border:1px dashed rgba(255,161,0,.25);
-  padding:18px;
-  border-radius:16px;
-  text-align:center;
+hr{
+  border-color:rgba(255,255,255,.1);
+  margin:18px 0;
 }
+
 </style>
 </head>
 
@@ -128,235 +148,345 @@ if(localStorage.getItem("patan_admin") !== "ok"){
   window.location.href = "/admin-login.html";
 }
 </script>
-  
+
 <div class="panel">
-  <h1>Panel Admin PATAN TV</h1>
-  <p class="subtitle">Clientes pagados, activaciones y leads comerciales</p>
 
-  <div class="section-title">🟠 Leads sin pago / Clientes interesados</div>
-  <div id="leads"></div>
+<h1>Panel Admin PATAN TV</h1>
 
-  <div class="section-title">🟢 Clientes pagados / Pendientes de activación</div>
-  <div id="clientes"></div>
+<div class="topbar">
+
+<div class="search">
+<input
+type="text"
+id="busqueda"
+placeholder="Buscar cliente, correo o WhatsApp..."
+>
+</div>
+
+<div style="width:240px">
+<select id="filtro">
+<option value="todos">Todos</option>
+<option value="lead">Leads</option>
+<option value="approved">Pagados</option>
+<option value="activado">Activados</option>
+<option value="pendiente">Pendientes</option>
+</select>
+</div>
+
+</div>
+
+<div id="clientes"></div>
+
 </div>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
   getFirestore,
   collection,
   getDocs,
   doc,
-  updateDoc
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+  updateDoc,
+  deleteDoc
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
+
   apiKey: "AIzaSyCgK8LvJS69gyEhiUL7U-6AQoKBwyq-Pfs",
+
   authDomain: "patan-tv.firebaseapp.com",
+
   projectId: "patan-tv",
+
   storageBucket: "patan-tv.firebasestorage.app",
+
   messagingSenderId: "400945997953",
+
   appId: "1:400945997953:web:c5721123411dad95c08580"
+
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-const contenedorClientes = document.getElementById("clientes");
-const contenedorLeads = document.getElementById("leads");
+const contenedor =
+document.getElementById("clientes");
 
-function formatearFecha(fecha){
-  if(!fecha) return "";
-  try{
-    return new Date(fecha).toLocaleString("es-CL");
-  }catch(e){
-    return fecha;
-  }
-}
+let TODOS = [];
 
-async function cargarLeads(){
-  contenedorLeads.innerHTML = "Cargando leads...";
+async function cargar(){
 
-  const querySnapshot = await getDocs(collection(db, "leads"));
-  contenedorLeads.innerHTML = "";
+  TODOS = [];
 
-  if(querySnapshot.empty){
-    contenedorLeads.innerHTML = `<div class="empty">Aún no hay leads sin pago.</div>`;
-    return;
-  }
+  const clientesSnap =
+  await getDocs(collection(db,"clientes"));
 
-  querySnapshot.forEach((documento) => {
-    const l = documento.data();
+  clientesSnap.forEach(docu => {
 
-    const telefono = String(l.whatsapp || "").replace(/\D/g,"");
-    const telefonoFinal = telefono.startsWith("56") ? telefono : "56" + telefono;
+    TODOS.push({
+      id:docu.id,
+      tipo:"cliente",
+      ...docu.data()
+    });
 
-    const mensaje =
-`Hola ${l.nombre || ""} 😎 Soy de PATAN TV.
-
-Vimos que comenzaste la contratación del plan ${l.plan || ""}, pero no alcanzaste a finalizar el pago.
-
-¿Tuviste algún problema o necesitas ayuda para activar tu plan?`;
-
-    const div = document.createElement("div");
-    div.className = "card lead-card";
-
-    div.innerHTML = `
-      <div class="grid">
-        <div><div class="label">Cliente</div>${l.nombre || ""}</div>
-        <div><div class="label">Correo</div>${l.correo || ""}</div>
-        <div><div class="label">WhatsApp</div>${l.whatsapp || ""}</div>
-        <div><div class="label">Plan</div>${l.plan || ""}</div>
-        <div><div class="label">Precio</div>$${Number(l.precio || 0).toLocaleString("es-CL")}</div>
-        <div><div class="label">Estado</div><span class="status lead">${l.estado || "inicio_checkout"}</span></div>
-      </div>
-
-      <a class="btn" target="_blank"
-        href="https://wa.me/${telefonoFinal}?text=${encodeURIComponent(mensaje)}">
-        Contactar por WhatsApp
-      </a>
-
-      <p class="small">Fecha: ${formatearFecha(l.fecha)}</p>
-    `;
-
-    contenedorLeads.appendChild(div);
   });
+
+  const leadsSnap =
+  await getDocs(collection(db,"leads"));
+
+  leadsSnap.forEach(docu => {
+
+    TODOS.push({
+      id:docu.id,
+      tipo:"lead",
+      ...docu.data()
+    });
+
+  });
+
+  render();
+
 }
 
-async function cargarClientes(){
-  contenedorClientes.innerHTML = "Cargando clientes...";
+function render(){
 
-  const querySnapshot = await getDocs(collection(db, "clientes"));
-  contenedorClientes.innerHTML = "";
+  const texto =
+  document.getElementById("busqueda")
+  .value
+  .toLowerCase();
 
-  if(querySnapshot.empty){
-    contenedorClientes.innerHTML = `<div class="empty">Aún no hay clientes pagados.</div>`;
-    return;
-  }
+  const filtro =
+  document.getElementById("filtro")
+  .value;
 
-  querySnapshot.forEach((documento) => {
-    const c = documento.data();
-    const id = documento.id;
+  contenedor.innerHTML = "";
 
-    const estado = c.estado_activacion || "pendiente";
+  TODOS
+  .filter(c => {
 
-    const div = document.createElement("div");
+    const matchTexto =
+    (c.nombre || "")
+    .toLowerCase()
+    .includes(texto)
+
+    ||
+
+    (c.correo || "")
+    .toLowerCase()
+    .includes(texto)
+
+    ||
+
+    (c.whatsapp || "")
+    .includes(texto);
+
+    let matchFiltro = true;
+
+    if(filtro === "lead"){
+      matchFiltro = c.tipo === "lead";
+    }
+
+    if(filtro === "approved"){
+      matchFiltro = c.estado_pago === "approved";
+    }
+
+    if(filtro === "activado"){
+      matchFiltro = c.estado_activacion === "activado";
+    }
+
+    if(filtro === "pendiente"){
+      matchFiltro = c.estado_activacion === "pendiente";
+    }
+
+    return matchTexto && matchFiltro;
+
+  })
+
+  .forEach(c => {
+
+    const estado =
+    c.estado_activacion || c.estado || "lead";
+
+    const div =
+    document.createElement("div");
+
     div.className = "card";
 
     div.innerHTML = `
-      <div class="grid">
-        <div><div class="label">Cliente</div>${c.nombre || ""}</div>
-        <div><div class="label">Correo</div>${c.correo || ""}</div>
-        <div><div class="label">WhatsApp</div>${c.whatsapp || ""}</div>
-        <div><div class="label">Plan</div>${c.plan || ""}</div>
-        <div><div class="label">Precio</div>$${Number(c.precio || 0).toLocaleString("es-CL")}</div>
-        <div><div class="label">Pago</div><span class="status approved">${c.estado_pago || ""}</span></div>
-        <div><div class="label">Estado</div><span class="status ${estado}">${estado}</span></div>
-      </div>
 
-      <hr style="border-color:rgba(255,255,255,.1);margin:18px 0">
+<div class="grid">
 
-      <div class="grid">
-        <div>
-          <div class="label">Usuario IPTV</div>
-          <input id="usuario-${id}" placeholder="Usuario">
-        </div>
+<div>
+<div class="label">Cliente</div>
+${c.nombre || ""}
+</div>
 
-        <div>
-          <div class="label">Contraseña IPTV</div>
-          <input id="password-${id}" placeholder="Contraseña">
-        </div>
+<div>
+<div class="label">Correo</div>
+${c.correo || ""}
+</div>
 
-        <div>
-          <div class="label">Link M3U</div>
-          <input id="m3u-${id}" placeholder="Link M3U">
-        </div>
-      </div>
+<div>
+<div class="label">WhatsApp</div>
+${c.whatsapp || ""}
+</div>
 
-      <button onclick="activarCliente('${id}')">Guardar acceso</button>
-      <a class="btn" id="whatsapp-${id}" target="_blank">Enviar por WhatsApp</a>
+<div>
+<div class="label">Plan</div>
+${c.plan || ""}
+</div>
 
-      <p class="small">Payment ID: ${c.payment_id || ""}</p>
-      <p class="small">Fecha pago: ${formatearFecha(c.fecha_pago)}</p>
-    `;
+<div>
+<div class="label">Precio</div>
+$${Number(c.precio || 0)
+.toLocaleString("es-CL")}
+</div>
 
-    contenedorClientes.appendChild(div);
+<div>
+<div class="label">Estado</div>
 
-    if(c.usuario_iptv) document.getElementById("usuario-" + id).value = c.usuario_iptv;
-    if(c.password_iptv) document.getElementById("password-" + id).value = c.password_iptv;
-    if(c.m3u) document.getElementById("m3u-" + id).value = c.m3u;
+<span class="status ${estado}">
+${estado}
+</span>
 
-    actualizarWhatsApp(id, c);
+</div>
+
+</div>
+
+<hr>
+
+<div class="grid">
+
+<div>
+<div class="label">Usuario IPTV</div>
+<input id="u-${c.id}" value="${c.usuario_iptv || ""}">
+</div>
+
+<div>
+<div class="label">Password IPTV</div>
+<input id="p-${c.id}" value="${c.password_iptv || ""}">
+</div>
+
+<div>
+<div class="label">Link M3U</div>
+<input id="m-${c.id}" value="${c.m3u || ""}">
+</div>
+
+</div>
+
+<button onclick="activar('${c.id}')">
+Guardar acceso
+</button>
+
+<button
+class="contactado"
+onclick="contactado('${c.id}','${c.tipo}')"
+>
+Marcar contactado
+</button>
+
+<a
+class="btn"
+target="_blank"
+href="https://wa.me/56${String(c.whatsapp || "").replace(/\D/g,'')}"
+>
+WhatsApp
+</a>
+
+<button
+class="delete"
+onclick="eliminar('${c.id}','${c.tipo}')"
+>
+Eliminar
+</button>
+
+<p class="small">
+${c.payment_id || ""}
+</p>
+
+`;
+
+    contenedor.appendChild(div);
+
   });
+
 }
 
-window.activarCliente = async function(id){
-  const usuario = document.getElementById("usuario-" + id).value.trim();
-  const password = document.getElementById("password-" + id).value.trim();
-  const m3u = document.getElementById("m3u-" + id).value.trim();
+window.activar = async function(id){
 
-  if(!usuario || !password || !m3u){
-    alert("Completa usuario, contraseña y M3U.");
-    return;
-  }
+  const usuario =
+  document.getElementById("u-"+id)
+  .value
+  .trim();
 
-  await updateDoc(doc(db, "clientes", id), {
-    usuario_iptv: usuario,
-    password_iptv: password,
-    m3u: m3u,
-    estado_activacion: "activado",
-    fecha_activacion: new Date().toISOString()
-  });
+  const password =
+  document.getElementById("p-"+id)
+  .value
+  .trim();
 
-  alert("Cliente activado correctamente.");
-  cargarClientes();
-}
+  const m3u =
+  document.getElementById("m-"+id)
+  .value
+  .trim();
 
-function actualizarWhatsApp(id, c){
-  const btn = document.getElementById("whatsapp-" + id);
-  if(!btn) return;
-
-  btn.addEventListener("click", () => {
-    const usuario = document.getElementById("usuario-" + id).value.trim();
-    const password = document.getElementById("password-" + id).value.trim();
-    const m3u = document.getElementById("m3u-" + id).value.trim();
-
-    if(!usuario || !password || !m3u){
-      alert("Primero completa y guarda usuario, contraseña y M3U.");
-      return;
+  await updateDoc(
+    doc(db,"clientes",id),
+    {
+      usuario_iptv:usuario,
+      password_iptv:password,
+      m3u:m3u,
+      estado_activacion:"activado"
     }
+  );
 
-    const accesoURL =
-      "https://www.patan.tv/acceso-patan.html?nombre=" + encodeURIComponent(c.nombre || "") +
-      "&plan=" + encodeURIComponent(c.plan || "") +
-      "&usuario=" + encodeURIComponent(usuario) +
-      "&password=" + encodeURIComponent(password) +
-      "&m3u=" + encodeURIComponent(m3u);
+  alert("Cliente activado");
 
-    const mensaje =
-`Hola ${c.nombre || "Patán Premium"} 😎🔥
+  cargar();
 
-Tu cuenta PATAN TV ya está activa.
-
-📦 Plan: ${c.plan || ""}
-👤 Usuario: ${usuario}
-🔑 Contraseña: ${password}
-
-👉 Tu hoja de acceso:
-${accesoURL}
-
-Guarda este enlace. Ahí tienes tus datos, apps recomendadas e instrucciones.`;
-
-    const telefono = String(c.whatsapp || "").replace(/\D/g,"");
-    const telefonoFinal = telefono.startsWith("56") ? telefono : "56" + telefono;
-
-    btn.href = "https://wa.me/" + telefonoFinal + "?text=" + encodeURIComponent(mensaje);
-  });
 }
 
-cargarLeads();
-cargarClientes();
+window.contactado = async function(id,tipo){
+
+  await updateDoc(
+    doc(db,tipo === "lead" ? "leads":"clientes",id),
+    {
+      estado:"contactado"
+    }
+  );
+
+  cargar();
+
+}
+
+window.eliminar = async function(id,tipo){
+
+  const ok =
+  confirm("¿Eliminar registro?");
+
+  if(!ok) return;
+
+  await deleteDoc(
+    doc(db,tipo === "lead" ? "leads":"clientes",id)
+  );
+
+  cargar();
+
+}
+
+document
+.getElementById("busqueda")
+.addEventListener("input",render);
+
+document
+.getElementById("filtro")
+.addEventListener("change",render);
+
+cargar();
+
 </script>
 
 </body>
