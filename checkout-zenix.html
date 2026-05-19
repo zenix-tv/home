@@ -262,6 +262,27 @@ function mostrarEstado(texto, tipo){
   estado.className = "status " + tipo;
 }
 
+async function enviarAlertaTelegram(tipo, extra = {}) {
+  try {
+    await fetch("/api/telegram-alert", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        tipo,
+        nombre: cliente.nombre,
+        correo: cliente.correo,
+        telefono: cliente.telefono,
+        plan: cliente.plan,
+        precio: cliente.precio,
+        ...extra
+      })
+    });
+  } catch (error) {
+    console.error("Error alerta Telegram:", error);
+  }
+}  
 const mp = new MercadoPago(PUBLIC_KEY, { locale:"es-CL" });
 const bricksBuilder = mp.bricks();
 
@@ -303,6 +324,7 @@ try{
   );
 
   console.log("Lead guardado en Firebase");
+  await enviarAlertaTelegram("lead");
 
 }catch(error){
   console.error("Error guardando lead:", error);
@@ -377,6 +399,9 @@ try{
               );
 
               console.log("Cliente guardado en Firebase");
+              await enviarAlertaTelegram("pago", {
+  payment_id: result.id
+});
 
             }catch(error){
               console.error("Error guardando cliente en Firebase:", error);
