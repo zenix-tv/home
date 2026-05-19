@@ -404,13 +404,13 @@ ${c.tipo === "lead" ? `
 <a
 class="btn"
 target="_blank"
-href="https://wa.me/56${String(c.whatsapp || "").replace(/\D/g,'')}?text=${encodeURIComponent(`Hola ${c.nombre || ""} 😎
+href="intent://send?phone=56${String(c.whatsapp || "").replace(/\D/g,'')}&text=${encodeURIComponent(`Hola ${c.nombre || ""} 😎
 
 Soy de PATAN TV.
 
 Vimos que mostraste interés en el plan ${c.plan || ""}.
 
-¿Te ayudo a activar tu cuenta premium? 🔥`)}"
+¿Te ayudo a activar tu cuenta premium? 🔥`)}#Intent;scheme=smsto;package=com.whatsapp.w4b;end"
 >
 WhatsApp Lead
 </a>
