@@ -1,21 +1,29 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Login Admin PATAN TV</title>
+
+<title>Admin Login PATAN TV</title>
 
 <style>
-*{box-sizing:border-box}
+
+*{
+  box-sizing:border-box;
+}
 
 body{
   margin:0;
-  font-family:Arial,Helvetica,sans-serif;
   min-height:100vh;
-  background:radial-gradient(circle at top,rgba(255,161,0,.24),#000 55%);
   display:flex;
-  align-items:center;
   justify-content:center;
+  align-items:center;
+  font-family:Arial,Helvetica,sans-serif;
+  background:
+  radial-gradient(circle at top,
+  rgba(255,161,0,.28),
+  #000 55%);
   color:#fff;
   padding:20px;
 }
@@ -24,9 +32,131 @@ body{
   width:100%;
   max-width:420px;
   background:#111827;
-  border:1px
+  border-radius:24px;
+  padding:35px;
+  border:1px solid rgba(255,161,0,.45);
+  box-shadow:0 0 45px rgba(255,161,0,.25);
+}
 
-  </script>
+h1{
+  margin:0;
+  text-align:center;
+  font-size:34px;
+}
+
+h1 span{
+  color:#FFA100;
+}
+
+.sub{
+  text-align:center;
+  margin-top:12px;
+  color:#ccc;
+  font-weight:700;
+}
+
+input{
+  width:100%;
+  margin-top:25px;
+  padding:15px;
+  border-radius:14px;
+  border:1px solid rgba(255,161,0,.35);
+  background:#000;
+  color:#fff;
+  font-size:17px;
+}
+
+button{
+  width:100%;
+  margin-top:18px;
+  padding:15px;
+  border:none;
+  border-radius:14px;
+  background:#FFA100;
+  color:#000;
+  font-weight:900;
+  font-size:17px;
+  cursor:pointer;
+}
+
+.error{
+  margin-top:15px;
+  text-align:center;
+  color:#ff8a8a;
+  font-weight:900;
+  display:none;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="login-box">
+
+  <h1>Admin <span>PATAN TV</span></h1>
+
+  <div class="sub">
+    Acceso privado del panel comercial
+  </div>
+
+  <input
+    type="password"
+    id="clave"
+    placeholder="Ingresa tu clave"
+  >
+
+  <button onclick="entrar()">
+    Entrar al Panel
+  </button>
+
+  <div class="error" id="error">
+    Clave incorrecta 😅
+  </div>
+
+</div>
+
+<script>
+
+const CLAVE_ADMIN = "Patan2026!";
+
+function entrar(){
+
+  const clave =
+  document.getElementById("clave")
+  .value
+  .trim();
+
+  if(clave === CLAVE_ADMIN){
+
+    localStorage.setItem(
+      "patan_admin",
+      "ok"
+    );
+
+    window.location.href =
+    "/admin-patan.html";
+
+  }else{
+
+    document.getElementById("error")
+    .style.display = "block";
+
+  }
+
+}
+
+document
+.getElementById("clave")
+.addEventListener("keydown", function(e){
+
+  if(e.key === "Enter"){
+    entrar();
+  }
+
+});
+
+</script>
 
 </body>
 </html>
