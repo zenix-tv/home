@@ -398,13 +398,12 @@ Convertir a Cliente
 </button>
 
 ` : ""}
-<a
-class="btn"
-target="_blank"
-href="https://wa.me/56${String(c.whatsapp || "").replace(/\D/g,'')}"
+
+<button
+onclick="enviarAcceso('${c.id}')"
 >
-WhatsApp
-</a>
+Enviar Hoja de Acceso
+</button>
 
 <button
 class="delete"
@@ -427,6 +426,93 @@ ${c.payment_id || ""}
 
 window.activar = async function(id){
 
+window.enviarAcceso = function(id){
+
+  const c = TODOS.find(x => x.id === id);
+
+  if(!c){
+    alert("No encontré este cliente.");
+    return;
+  }
+
+  const usuario =
+  document.getElementById("u-"+id)
+  ?.value
+  .trim()
+  || c.usuario_iptv
+  || "";
+
+  const password =
+  document.getElementById("p-"+id)
+  ?.value
+  .trim()
+  || c.password_iptv
+  || "";
+
+  const m3u =
+  document.getElementById("m-"+id)
+  ?.value
+  .trim()
+  || c.m3u
+  || "";
+
+  if(!usuario || !password || !m3u){
+    alert("Primero guarda usuario, contraseña y M3U.");
+    return;
+  }
+
+  const accesoURL =
+  "https://www.patan.tv/acceso-patan.html?nombre=" +
+  encodeURIComponent(c.nombre || "") +
+  "&plan=" +
+  encodeURIComponent(c.plan || "") +
+  "&usuario=" +
+  encodeURIComponent(usuario) +
+  "&password=" +
+  encodeURIComponent(password) +
+  "&m3u=" +
+  encodeURIComponent(m3u);
+
+  const mensaje =
+`Hola ${c.nombre || "Patán Premium"} 😎🔥
+
+🎉 ¡Bienvenido a PATAN TV!
+
+Tu cuenta ya está activa y lista para disfrutar.
+
+📦 Plan contratado: ${c.plan || ""}
+👤 Usuario: ${usuario}
+🔑 Contraseña: ${password}
+
+🔗 Link M3U:
+${m3u}
+
+📄 Tu hoja de acceso premium:
+${accesoURL}
+
+Guarda esta página. Ahí encontrarás tus datos, apps recomendadas e instrucciones de instalación.
+
+Si necesitas ayuda, estamos para apoyarte.
+PATAN TV 🐶🔥`;
+
+  const telefono =
+  String(c.whatsapp || "")
+  .replace(/\D/g,"");
+
+  const telefonoFinal =
+  telefono.startsWith("56")
+  ? telefono
+  : "56" + telefono;
+
+  window.open(
+    "https://wa.me/" +
+    telefonoFinal +
+    "?text=" +
+    encodeURIComponent(mensaje),
+    "_blank"
+  );
+
+}  
   const usuario =
   document.getElementById("u-"+id)
   .value
