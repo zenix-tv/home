@@ -1,1 +1,363 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin PATAN TV</title>
 
+<style>
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#050b16;
+  color:#fff;
+  padding:24px;
+}
+
+.panel{max-width:1250px;margin:auto}
+
+h1{
+  text-align:center;
+  color:#FFA100;
+  margin-bottom:5px;
+}
+
+.subtitle{
+  text-align:center;
+  color:#ccc;
+  margin-bottom:28px;
+}
+
+.section-title{
+  margin:32px 0 14px;
+  color:#FFA100;
+  font-size:26px;
+  font-weight:900;
+}
+
+.card{
+  background:#111827;
+  border:1px solid rgba(255,161,0,.35);
+  border-radius:20px;
+  padding:20px;
+  margin-bottom:18px;
+  box-shadow:0 0 25px rgba(255,161,0,.12);
+}
+
+.lead-card{
+  border-color:rgba(255,180,0,.6);
+  background:linear-gradient(180deg,#151923,#0d1320);
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:12px;
+}
+
+.label{
+  color:#FFA100;
+  font-weight:900;
+  margin-bottom:4px;
+}
+
+input{
+  width:100%;
+  padding:12px;
+  margin-top:8px;
+  border-radius:10px;
+  border:1px solid rgba(255,161,0,.35);
+  background:#000;
+  color:#fff;
+}
+
+button,a.btn{
+  display:inline-block;
+  margin-top:12px;
+  padding:12px 16px;
+  border-radius:12px;
+  background:#FFA100;
+  color:#000;
+  border:none;
+  font-weight:900;
+  cursor:pointer;
+  text-decoration:none;
+}
+
+.btn-secondary{
+  background:transparent !important;
+  color:#FFA100 !important;
+  border:1px solid rgba(255,161,0,.55) !important;
+}
+
+.status{
+  display:inline-block;
+  padding:6px 10px;
+  border-radius:999px;
+  font-weight:900;
+}
+
+.pendiente{background:#7c2d12;color:#fff}
+.activado{background:#14532d;color:#fff}
+.lead{background:#92400e;color:#fff}
+.approved{background:#14532d;color:#fff}
+
+.small{
+  color:#ccc;
+  font-size:14px;
+  word-break:break-word;
+}
+
+.empty{
+  color:#aaa;
+  background:#0f172a;
+  border:1px dashed rgba(255,161,0,.25);
+  padding:18px;
+  border-radius:16px;
+  text-align:center;
+}
+</style>
+</head>
+
+<body>
+
+<script>
+if(localStorage.getItem("patan_admin") !== "ok"){
+  window.location.href = "/admin-login.html";
+}
+</script>
+  
+<div class="panel">
+  <h1>Panel Admin PATAN TV</h1>
+  <p class="subtitle">Clientes pagados, activaciones y leads comerciales</p>
+
+  <div class="section-title">🟠 Leads sin pago / Clientes interesados</div>
+  <div id="leads"></div>
+
+  <div class="section-title">🟢 Clientes pagados / Pendientes de activación</div>
+  <div id="clientes"></div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  doc,
+  updateDoc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCgK8LvJS69gyEhiUL7U-6AQoKBwyq-Pfs",
+  authDomain: "patan-tv.firebaseapp.com",
+  projectId: "patan-tv",
+  storageBucket: "patan-tv.firebasestorage.app",
+  messagingSenderId: "400945997953",
+  appId: "1:400945997953:web:c5721123411dad95c08580"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const contenedorClientes = document.getElementById("clientes");
+const contenedorLeads = document.getElementById("leads");
+
+function formatearFecha(fecha){
+  if(!fecha) return "";
+  try{
+    return new Date(fecha).toLocaleString("es-CL");
+  }catch(e){
+    return fecha;
+  }
+}
+
+async function cargarLeads(){
+  contenedorLeads.innerHTML = "Cargando leads...";
+
+  const querySnapshot = await getDocs(collection(db, "leads"));
+  contenedorLeads.innerHTML = "";
+
+  if(querySnapshot.empty){
+    contenedorLeads.innerHTML = `<div class="empty">Aún no hay leads sin pago.</div>`;
+    return;
+  }
+
+  querySnapshot.forEach((documento) => {
+    const l = documento.data();
+
+    const telefono = String(l.whatsapp || "").replace(/\D/g,"");
+    const telefonoFinal = telefono.startsWith("56") ? telefono : "56" + telefono;
+
+    const mensaje =
+`Hola ${l.nombre || ""} 😎 Soy de PATAN TV.
+
+Vimos que comenzaste la contratación del plan ${l.plan || ""}, pero no alcanzaste a finalizar el pago.
+
+¿Tuviste algún problema o necesitas ayuda para activar tu plan?`;
+
+    const div = document.createElement("div");
+    div.className = "card lead-card";
+
+    div.innerHTML = `
+      <div class="grid">
+        <div><div class="label">Cliente</div>${l.nombre || ""}</div>
+        <div><div class="label">Correo</div>${l.correo || ""}</div>
+        <div><div class="label">WhatsApp</div>${l.whatsapp || ""}</div>
+        <div><div class="label">Plan</div>${l.plan || ""}</div>
+        <div><div class="label">Precio</div>$${Number(l.precio || 0).toLocaleString("es-CL")}</div>
+        <div><div class="label">Estado</div><span class="status lead">${l.estado || "inicio_checkout"}</span></div>
+      </div>
+
+      <a class="btn" target="_blank"
+        href="https://wa.me/${telefonoFinal}?text=${encodeURIComponent(mensaje)}">
+        Contactar por WhatsApp
+      </a>
+
+      <p class="small">Fecha: ${formatearFecha(l.fecha)}</p>
+    `;
+
+    contenedorLeads.appendChild(div);
+  });
+}
+
+async function cargarClientes(){
+  contenedorClientes.innerHTML = "Cargando clientes...";
+
+  const querySnapshot = await getDocs(collection(db, "clientes"));
+  contenedorClientes.innerHTML = "";
+
+  if(querySnapshot.empty){
+    contenedorClientes.innerHTML = `<div class="empty">Aún no hay clientes pagados.</div>`;
+    return;
+  }
+
+  querySnapshot.forEach((documento) => {
+    const c = documento.data();
+    const id = documento.id;
+
+    const estado = c.estado_activacion || "pendiente";
+
+    const div = document.createElement("div");
+    div.className = "card";
+
+    div.innerHTML = `
+      <div class="grid">
+        <div><div class="label">Cliente</div>${c.nombre || ""}</div>
+        <div><div class="label">Correo</div>${c.correo || ""}</div>
+        <div><div class="label">WhatsApp</div>${c.whatsapp || ""}</div>
+        <div><div class="label">Plan</div>${c.plan || ""}</div>
+        <div><div class="label">Precio</div>$${Number(c.precio || 0).toLocaleString("es-CL")}</div>
+        <div><div class="label">Pago</div><span class="status approved">${c.estado_pago || ""}</span></div>
+        <div><div class="label">Estado</div><span class="status ${estado}">${estado}</span></div>
+      </div>
+
+      <hr style="border-color:rgba(255,255,255,.1);margin:18px 0">
+
+      <div class="grid">
+        <div>
+          <div class="label">Usuario IPTV</div>
+          <input id="usuario-${id}" placeholder="Usuario">
+        </div>
+
+        <div>
+          <div class="label">Contraseña IPTV</div>
+          <input id="password-${id}" placeholder="Contraseña">
+        </div>
+
+        <div>
+          <div class="label">Link M3U</div>
+          <input id="m3u-${id}" placeholder="Link M3U">
+        </div>
+      </div>
+
+      <button onclick="activarCliente('${id}')">Guardar acceso</button>
+      <a class="btn" id="whatsapp-${id}" target="_blank">Enviar por WhatsApp</a>
+
+      <p class="small">Payment ID: ${c.payment_id || ""}</p>
+      <p class="small">Fecha pago: ${formatearFecha(c.fecha_pago)}</p>
+    `;
+
+    contenedorClientes.appendChild(div);
+
+    if(c.usuario_iptv) document.getElementById("usuario-" + id).value = c.usuario_iptv;
+    if(c.password_iptv) document.getElementById("password-" + id).value = c.password_iptv;
+    if(c.m3u) document.getElementById("m3u-" + id).value = c.m3u;
+
+    actualizarWhatsApp(id, c);
+  });
+}
+
+window.activarCliente = async function(id){
+  const usuario = document.getElementById("usuario-" + id).value.trim();
+  const password = document.getElementById("password-" + id).value.trim();
+  const m3u = document.getElementById("m3u-" + id).value.trim();
+
+  if(!usuario || !password || !m3u){
+    alert("Completa usuario, contraseña y M3U.");
+    return;
+  }
+
+  await updateDoc(doc(db, "clientes", id), {
+    usuario_iptv: usuario,
+    password_iptv: password,
+    m3u: m3u,
+    estado_activacion: "activado",
+    fecha_activacion: new Date().toISOString()
+  });
+
+  alert("Cliente activado correctamente.");
+  cargarClientes();
+}
+
+function actualizarWhatsApp(id, c){
+  const btn = document.getElementById("whatsapp-" + id);
+  if(!btn) return;
+
+  btn.addEventListener("click", () => {
+    const usuario = document.getElementById("usuario-" + id).value.trim();
+    const password = document.getElementById("password-" + id).value.trim();
+    const m3u = document.getElementById("m3u-" + id).value.trim();
+
+    if(!usuario || !password || !m3u){
+      alert("Primero completa y guarda usuario, contraseña y M3U.");
+      return;
+    }
+
+    const accesoURL =
+      "https://www.patan.tv/acceso-patan.html?nombre=" + encodeURIComponent(c.nombre || "") +
+      "&plan=" + encodeURIComponent(c.plan || "") +
+      "&usuario=" + encodeURIComponent(usuario) +
+      "&password=" + encodeURIComponent(password) +
+      "&m3u=" + encodeURIComponent(m3u);
+
+    const mensaje =
+`Hola ${c.nombre || "Patán Premium"} 😎🔥
+
+Tu cuenta PATAN TV ya está activa.
+
+📦 Plan: ${c.plan || ""}
+👤 Usuario: ${usuario}
+🔑 Contraseña: ${password}
+
+👉 Tu hoja de acceso:
+${accesoURL}
+
+Guarda este enlace. Ahí tienes tus datos, apps recomendadas e instrucciones.`;
+
+    const telefono = String(c.whatsapp || "").replace(/\D/g,"");
+    const telefonoFinal = telefono.startsWith("56") ? telefono : "56" + telefono;
+
+    btn.href = "https://wa.me/" + telefonoFinal + "?text=" + encodeURIComponent(mensaje);
+  });
+}
+
+cargarLeads();
+cargarClientes();
+</script>
+
+</body>
+</html>
