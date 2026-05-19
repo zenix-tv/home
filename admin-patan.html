@@ -123,6 +123,12 @@ button,a.btn{
 
 <body>
 
+<script>
+if(localStorage.getItem("patan_admin") !== "ok"){
+  window.location.href = "/admin-login.html";
+}
+</script>
+  
 <div class="panel">
   <h1>Panel Admin PATAN TV</h1>
   <p class="subtitle">Clientes pagados, activaciones y leads comerciales</p>
