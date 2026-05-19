@@ -190,7 +190,8 @@ import {
   getDocs,
   doc,
   updateDoc,
-  deleteDoc
+  deleteDoc,
+  addDoc
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
@@ -388,7 +389,15 @@ onclick="contactado('${c.id}','${c.tipo}')"
 >
 Marcar contactado
 </button>
+${c.tipo === "lead" ? `
 
+<button
+onclick="convertirCliente('${c.id}')"
+>
+Convertir a Cliente
+</button>
+
+` : ""}
 <a
 class="btn"
 target="_blank"
@@ -450,6 +459,38 @@ window.activar = async function(id){
 }
 
 window.contactado = async function(id,tipo){
+window.convertirCliente = async function(id){
+
+  const lead =
+  TODOS.find(x => x.id === id);
+
+  if(!lead) return;
+
+  await addDoc(
+    collection(db,"clientes"),
+    {
+      nombre: lead.nombre || "",
+      correo: lead.correo || "",
+      whatsapp: lead.whatsapp || "",
+      plan: lead.plan || "",
+      precio: lead.precio || 0,
+      estado_pago: "approved",
+      estado_activacion: "pendiente",
+      fecha_pago: new Date().toISOString(),
+      origen: "manual"
+    }
+  );
+
+  await deleteDoc(
+    doc(db,"leads",id)
+  );
+
+  alert("Lead convertido en cliente");
+
+  cargar();
+
+}
+
 
   await updateDoc(
     doc(db,tipo === "lead" ? "leads":"clientes",id),
