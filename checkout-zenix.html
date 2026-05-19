@@ -288,7 +288,26 @@ document.getElementById("continuarPago").addEventListener("click", async () => {
   };
 
   localStorage.setItem("patan_cliente", JSON.stringify(cliente));
+try{
+  await window.addDoc(
+    window.collection(window.db, "leads"),
+    {
+      nombre: cliente.nombre,
+      correo: cliente.correo,
+      whatsapp: cliente.telefono,
+      plan: cliente.plan,
+      precio: cliente.precio,
+      estado: "inicio_checkout",
+      fecha: new Date().toISOString()
+    }
+  );
 
+  console.log("Lead guardado en Firebase");
+
+}catch(error){
+  console.error("Error guardando lead:", error);
+}
+  
   document.getElementById("datosBox").style.display = "none";
   document.getElementById("cardPaymentBrick_container").style.display = "block";
 
