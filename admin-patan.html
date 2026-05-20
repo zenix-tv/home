@@ -649,6 +649,8 @@ window.enviarAcceso = function(id){
     "&usuario=" + encodeURIComponent(usuario) +
     "&password=" + encodeURIComponent(password) +
     "&m3u=" + encodeURIComponent(m3u);
+    &inicio=${encodeURIComponent(c.fecha_inicio || "")}
+    &vencimiento=${encodeURIComponent(c.fecha_vencimiento || "")}
 
   const mensaje = `Hola ${c.nombre || "Patán Premium"} 😎🔥
 
