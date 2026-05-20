@@ -642,15 +642,15 @@ window.enviarAcceso = function(id){
     return;
   }
 
-  const accesoURL =
-    "https://www.patan.tv/acceso-patan.html" +
-    "?nombre=" + encodeURIComponent(c.nombre || "") +
-    "&plan=" + encodeURIComponent(c.plan || "") +
-    "&usuario=" + encodeURIComponent(usuario) +
-    "&password=" + encodeURIComponent(password) +
-    "&m3u=" + encodeURIComponent(m3u);
-    &inicio=${encodeURIComponent(c.fecha_inicio || "")}
-    &vencimiento=${encodeURIComponent(c.fecha_vencimiento || "")}
+const accesoURL =
+  "https://www.patan.tv/acceso-patan.html" +
+  "?nombre=" + encodeURIComponent(c.nombre || "") +
+  "&plan=" + encodeURIComponent(c.plan || "") +
+  "&usuario=" + encodeURIComponent(usuario) +
+  "&password=" + encodeURIComponent(password) +
+  "&m3u=" + encodeURIComponent(m3u) +
+  "&inicio=" + encodeURIComponent(c.fecha_inicio || "") +
+  "&vencimiento=" + encodeURIComponent(c.fecha_vencimiento || "");
 
   const mensaje = `Hola ${c.nombre || "Patán Premium"} 😎🔥
 
