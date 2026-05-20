@@ -266,12 +266,22 @@ async function cargar(){
       ...docu.data()
     });
   });
+  
+function normalizarTexto(valor){
+  return String(valor || "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g,"")
+    .trim();
+}
 
+  
   render();
 }
 
 function render(){
-  const texto = inputBusqueda.value.toLowerCase().trim();
+  const texto = normalizarTexto(inputBusqueda.value);
+const textoNumerico = String(inputBusqueda.value || "").replace(/\D/g,"");
   const filtro = selectFiltro.value;
 
   contenedor.innerHTML = "";
@@ -279,11 +289,24 @@ function render(){
   const filtrados = TODOS.filter(c => {
     const estado = obtenerEstado(c);
 
-    const matchTexto =
-      String(c.nombre || "").toLowerCase().includes(texto) ||
-      String(c.correo || "").toLowerCase().includes(texto) ||
-      String(c.whatsapp || "").replace(/\D/g,"").includes(texto.replace(/\D/g,"")) ||
-      String(c.whatsapp || "").toLowerCase().includes(texto);
+ const textoCliente = normalizarTexto(`
+  ${c.nombre || ""}
+  ${c.correo || ""}
+  ${c.whatsapp || ""}
+  ${c.telefono || ""}
+  ${c.plan || ""}
+  ${c.estado || ""}
+  ${c.estado_pago || ""}
+  ${c.estado_activacion || ""}
+  ${c.observaciones || ""}
+`);
+
+const telefonoCliente = String(c.whatsapp || c.telefono || "").replace(/\D/g,"");
+
+const matchTexto =
+  !texto ||
+  textoCliente.includes(texto) ||
+  (textoNumerico && telefonoCliente.includes(textoNumerico));
 
     let matchFiltro = true;
 
