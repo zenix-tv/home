@@ -509,8 +509,8 @@ function render(){
 
 <div class="label">Estado</div>
 <span class="status ${escapeHTML(claseEstado)}">${escapeHTML(textoEstado)}</span>
-${c.fecha_vencimiento ? `
-  <div class="small" style="margin-top:8px">
+${c.tipo === "cliente" && c.fecha_vencimiento ? `
+  <div class="small" style="margin-top:8px;color:#cbd5e1;font-weight:700">
     📅 Termina: ${new Date(c.fecha_vencimiento).toLocaleDateString("es-ES")}
   </div>
 ` : ""}
