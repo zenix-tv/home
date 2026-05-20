@@ -6,6 +6,247 @@
   <title>PATAN TV</title>
  <link rel="stylesheet" href="./styles.css?v=10002" />
 <script src="./script.js?v=10001" defer></script>
+
+
+<style>
+/* =========================================================
+   AJUSTES RESPONSIVE + FLUIDEZ MÓVIL PATAN TV
+   Mantiene PC igual y corrige Android / iPhone / Samsung
+========================================================= */
+html, body{
+  width:100%;
+  max-width:100%;
+  overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior-y:auto;
+}
+
+img, video, iframe{
+  max-width:100%;
+}
+
+section{
+  max-width:100%;
+  overflow:hidden;
+}
+
+/* Menú móvil PRO: una sola barra, sin saltos de línea */
+.navbar{
+  z-index:999;
+}
+
+@media (max-width: 768px){
+  .navbar{
+    position:sticky;
+    top:0;
+    display:flex !important;
+    flex-direction:row !important;
+    align-items:center !important;
+    justify-content:flex-start !important;
+    gap:8px !important;
+    padding:7px 8px !important;
+    min-height:62px !important;
+    overflow:hidden !important;
+    background:rgba(5,11,22,.96) !important;
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+  }
+
+  .logo{
+    flex:0 0 auto !important;
+    display:flex !important;
+    align-items:center !important;
+    margin:0 !important;
+  }
+
+  .logo img{
+    width:82px !important;
+    max-width:82px !important;
+    height:auto !important;
+    max-height:42px !important;
+    object-fit:contain !important;
+  }
+
+  .nav-links{
+    flex:1 1 auto !important;
+    min-width:0 !important;
+    width:auto !important;
+    display:flex !important;
+    flex-direction:row !important;
+    flex-wrap:nowrap !important;
+    justify-content:flex-start !important;
+    align-items:center !important;
+    gap:6px !important;
+    overflow-x:auto !important;
+    overflow-y:hidden !important;
+    padding:0 2px 2px 0 !important;
+    white-space:nowrap !important;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+
+  .nav-links::-webkit-scrollbar{
+    display:none;
+  }
+
+  .nav-links a{
+    flex:0 0 auto !important;
+    display:inline-flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    font-size:13px !important;
+    line-height:1 !important;
+    padding:9px 11px !important;
+    border-radius:999px !important;
+    white-space:nowrap !important;
+  }
+
+  .hero{
+    min-height:calc(100vh - 62px) !important;
+  }
+
+  .hero-content{
+    padding-left:16px !important;
+    padding-right:16px !important;
+  }
+
+  .hero-stats{
+    display:flex !important;
+    flex-direction:column !important;
+    gap:8px !important;
+    text-align:center !important;
+    font-size:15px !important;
+    line-height:1.15 !important;
+  }
+
+  .hero-stats .counter{
+    display:block !important;
+    font-size:42px !important;
+    line-height:1 !important;
+  }
+
+  .btn-main,
+  .plan-btn,
+  .video-btn{
+    max-width:88vw !important;
+    white-space:normal !important;
+    text-align:center !important;
+  }
+
+  /* WhatsApp Patán compacto para no tapar contenido */
+  .patan-whatsapp{
+    right:10px !important;
+    bottom:76px !important;
+    width:50px !important;
+    height:50px !important;
+    min-width:50px !important;
+    min-height:50px !important;
+    transform:none !important;
+    z-index:998 !important;
+  }
+
+  .patan-whatsapp .patan-dog,
+  .patan-dog{
+    width:48px !important;
+    max-width:48px !important;
+    height:auto !important;
+  }
+
+  .patan-message{
+    display:none !important;
+  }
+}
+
+@media (max-width: 390px){
+  .navbar{
+    gap:6px !important;
+    padding:6px 7px !important;
+    min-height:58px !important;
+  }
+
+  .logo img{
+    width:74px !important;
+    max-width:74px !important;
+    max-height:38px !important;
+  }
+
+  .nav-links a{
+    font-size:12px !important;
+    padding:8px 10px !important;
+  }
+
+  .hero{
+    min-height:calc(100vh - 58px) !important;
+  }
+
+  .patan-whatsapp{
+    width:46px !important;
+    height:46px !important;
+    bottom:72px !important;
+  }
+
+  .patan-whatsapp .patan-dog,
+  .patan-dog{
+    width:44px !important;
+    max-width:44px !important;
+  }
+}
+
+/* Suavidad móvil: menos tirones al deslizar */
+html{
+  scroll-behavior:smooth;
+  -webkit-text-size-adjust:100%;
+}
+
+body{
+  overscroll-behavior-y:auto;
+  touch-action:pan-y;
+}
+
+@media (hover:none) and (pointer:coarse){
+  *{
+    -webkit-tap-highlight-color:transparent;
+  }
+
+  .sports-slider,
+  .ranking-slider,
+  .draggable-slider{
+    overflow-x:auto !important;
+    overflow-y:hidden !important;
+    -webkit-overflow-scrolling:touch;
+    touch-action:auto !important;
+    scroll-snap-type:none !important;
+  }
+
+  .sports-track,
+  .ranking-track{
+    transform:none !important;
+    animation:none !important;
+  }
+
+  .league-card,
+  .rank-card,
+  .plan-card,
+  .ultra-device-card,
+  .btn-main{
+    transition:none !important;
+  }
+}
+
+@media (max-width:768px){
+  .hero-video video,
+  #introVideo{
+    object-fit:cover;
+  }
+
+  .ultra-glow-ring,
+  .devices-ultra-bg,
+  .reveal{
+    animation:none !important;
+  }
+}
+</style>
+
 </head>
 
 <body>
@@ -22,15 +263,12 @@
 
   <div class="intro-line"></div>
 
-  <p class="intro-slogan">⚡ Entra ahora antes que otro Patan ocupe tu pantalla</p>
-</div>
-
-<div id="mainContent" style="display:none;">
+  <p class="intro-slogan">⚡ Entra ahora antes que otro Patán ocupe tu pantalla</p>
 </div>
 
 <nav class="navbar">
       <div class="logo">
-  <img src="patan-logo.png" alt="Patan TV">
+  <img src="patan-logo.png" alt="PATAN TV">
 </div>
 
   <div class="nav-links">
@@ -63,7 +301,7 @@
       </p>
                  
       <h3>Acceso inmediato · Sin contratos</h3>
-      <button class="btn-main" id="enterBtn">▶ 🔥 QUIERO SER PATAN</button>
+      <a href="#planes" class="btn-main">🔥 ACTIVAR PATAN TV</a>
     </div>
   </section>
 
@@ -76,10 +314,10 @@
       <span>★</span> BENEFICIO PATAN PREMIUM INCLUIDO
     </span>
 
-    <h2>Comparte PATAN tienes hasta <strong>3 Dispositivos</strong></h2>
+    <h2>Comparte PATAN TV en hasta <strong>3 dispositivos</strong></h2>
 
     <p>
-      No todos los servicios ofrecen <b>3 pantallas simultáneas</b> por el mismo valor.
+      No todos los servicios ofrecen <b>3 pantallas simultáneas</b> por el mismo valor.</p>
   </div>
 
   <div class="ultra-device-grid">
@@ -161,7 +399,7 @@
 <!-- BANNER MUNDIAL 2026 -->
 <section class="worldcup-banner reveal">
   <div class="worldcup-top">
-    <h2>WOW PATAN MIRA PRÓXIMAMENTE</h2>
+    <h2>WOW PATÁN, MIRA LO QUE VIENE</h2>
     <h1>MUNDIAL 2026</h1>
   </div>
 
@@ -186,7 +424,7 @@
   </h1>
 
   <p class="hero-sub">
-   😎 Un verdadero Patan nunca se pierde un partido
+   😎 Un verdadero Patán nunca se pierde un partido
   </p>
 </div>
 
@@ -285,8 +523,8 @@
   
   <!-- VIDEO DEMO -->
 <section class="demo-video reveal">
-    <h2>Mira nuestro sistema como funciona</h2>
-    <p>Es muy simple, hasta el mas Patan puede utilizar nuestro canales</p>
+    <h2>Mira cómo funciona nuestro sistema</h2>
+    <p>Es muy simple: hasta el más Patán puede usar nuestros canales.</p>
     <button class="video-btn" id="openVideo">▶ Ver Video</button>
   </section>
 
@@ -308,14 +546,14 @@
 
   <!-- PLANES -->
   <section class="plans reveal" id="planes">
-    <h2>Elige tu nivel de Patan</h2>
+    <h2>Elige tu nivel de Patán</h2>
     <p class="plans-subtitle">🔥 Activación rápida para Patanes impacientes.</p>
 
     <div class="plans-grid">
       
       
 <div class="plan-card featured">
-  <img src="file_00000000689871f5bd4fa34f49f6552b.png" class="plan-dog" alt="Patan TV">
+  <img src="file_00000000689871f5bd4fa34f49f6552b.png" class="plan-dog" alt="PATAN TV">
         <h3>1 Mes</h3>
         <h4>$9.990</h4>
 
@@ -329,12 +567,11 @@
         </ul>
 
       <a href="checkout-zenix.html?plan=1mes" class="plan-btn">Contratar</a>
-        </a>
       </div>
 
     <div class="plan-card featured">
-      <img src="file_00000000689871f5bd4fa34f49f6552b.png" class="plan-dog" alt="Patan TV">
-        <div class="badge">⚡ El plan más brutal de PATAN TV</div>
+      <img src="file_00000000689871f5bd4fa34f49f6552b.png" class="plan-dog" alt="PATAN TV">
+        <div class="badge">⭐ El plan más elegido de PATAN TV</div>
         <h3>3 Meses Oferta</h3>
         <h4>$26.990</h4>
 
@@ -348,11 +585,10 @@
         </ul>
 
         <a href="checkout-zenix.html?plan=3meses" class="plan-btn">Contratar</a>
-        </a>
       </div>
 
      <div class="plan-card featured">
-       <img src="file_00000000689871f5bd4fa34f49f6552b.png" class="plan-dog" alt="Patan TV">
+       <img src="file_00000000689871f5bd4fa34f49f6552b.png" class="plan-dog" alt="PATAN TV">
         <h3>12 Meses</h3>
         <h4>$79.990</h4>
 
@@ -366,7 +602,6 @@
         </ul>
 
        <a href="checkout-zenix.html?plan=12meses" class="plan-btn">Contratar</a>
-        </a>
       </div>
 
     </div>
@@ -374,7 +609,7 @@
   
 <div style="margin-top:40px; font-size:18px; color:#FFA100; font-weight:700;">
 <div style="text-align:center;">
-🍿 Más de 1.200 Patanes ya se tomaron la Pantalla
+🍿 Más de 1.200 Patanes ya se tomaron la pantalla
 </div>
 
   
@@ -447,7 +682,7 @@
 
   <!-- FAQ -->
   <section class="faq reveal" id="faq">
-    <h2>Dudas Frecuentes de los Patanes Nuevos</h2>
+    <h2>Dudas frecuentes de los Patanes nuevos</h2>
 
     <div class="faq-item">
       <button>¿En cuántos dispositivos puedo usar el servicio?</button>
@@ -457,12 +692,12 @@
     </div>
 
         <div class="faq-item">
-      <button>¿Diferencia de Nuestro Servico PATANTV?</button>
+      <button>¿Por qué elegir PATAN TV?</button>
       <div class="faq-answer">
-        <p>PATANTV tienes:</p>
+        <p>PATAN TV incluye:</p>
 
 <p>* Más de 4.700 canales en vivo y 18.000 películas y series actualizadas constantemente.</p>
-<p>* Sin contratos, sin cables y sin necesidad de múltiples plataformas: todo lo que quieres ver, en un solo lugar..</p>
+<p>* Sin contratos, sin cables y sin necesidad de múltiples plataformas: todo lo que quieres ver, en un solo lugar.</p>
       </div>
     </div>
 
@@ -491,8 +726,8 @@
       <button>¿Cómo puedo suscribirme?</button>
       <div class="faq-answer">
         <p>Suscribirte es muy fácil:
-Haz clic en el botón “Contratar” de uno de nuestros planes en nuestra página web y seras derivado a la Plataforma de Pago con las instrucciones de Activación.
-También puedes contactar a nuestro soporte técnico en el Boton de WhatsApp flotante al lado derecho, si necesitas ayuda durante el proceso.</p>
+Haz clic en el botón “Contratar” de uno de nuestros planes en nuestra página web y serás dirigido a la Plataforma de Pago con las instrucciones de Activación.
+También puedes contactar a nuestro soporte técnico en el botón de WhatsApp flotante al lado derecho, si necesitas ayuda durante el proceso.</p>
       </div>
     </div>
   </section>
@@ -512,7 +747,7 @@ También puedes contactar a nuestro soporte técnico en el Boton de WhatsApp flo
       <a href="https://wa.me/56964180558?text=Hola%20quiero%20información%20de%20Patán%20TV">Contacto</a>
     </div>
 
-    <p>©2026 🔥 PATAN TV — El streaming que hasta un Patán elegiría · Sitio web seguro con SSL</p>
+    <p>© 2026 🔥 PATAN TV — El streaming que hasta un Patán elegiría · Sitio web seguro con SSL</p>
   </footer>
 
 </main>
@@ -524,44 +759,42 @@ También puedes contactar a nuestro soporte técnico en el Boton de WhatsApp flo
   aria-label="Contactar por WhatsApp"
 >
   <img src="patan.png" alt="Patán" class="patan-dog" />
-
-  </div>
   <div class="patan-message">¿Necesitas ayuda, Patán? 😏</div>
 </a>
 
 <!-- SCRIPT CONTADOR -->
 <script>
-setTimeout(function () {
+document.addEventListener("DOMContentLoaded", function () {
   const counters = document.querySelectorAll(".counter");
 
-  counters.forEach(function (counter) {
-    const target = Number(counter.getAttribute("data-target"));
-    let current = 0;
-    const increment = Math.ceil(target / 100);
+  setTimeout(function () {
+    counters.forEach(function (counter) {
+      const target = Number(counter.getAttribute("data-target"));
+      let current = 0;
+      const increment = Math.ceil(target / 100);
 
-    const timer = setInterval(function () {
-      current += increment;
+      const timer = setInterval(function () {
+        current += increment;
 
-      if (current >= target) {
-        counter.textContent = target.toLocaleString("es-ES");
-        counter.style.transform = "scale(1.18)";
+        if (current >= target) {
+          counter.textContent = target.toLocaleString("es-ES");
+          counter.style.transform = "scale(1.18)";
 
-        setTimeout(() => {
-          counter.style.transform = "scale(1)";
-        }, 220);
+          setTimeout(function () {
+            counter.style.transform = "scale(1)";
+          }, 220);
 
-        clearInterval(timer);
-      } else {
-        counter.textContent = current.toLocaleString("es-ES");
-      }
-    }, 25);
-  });
-}, 2200);
+          clearInterval(timer);
+        } else {
+          counter.textContent = current.toLocaleString("es-ES");
+        }
+      }, 25);
+    });
+  }, 1200);
+});
 </script>
 
-
-<script src="./script.js?v=9001"></script>
-
+<!-- FAQ ACORDEÓN -->
 <script>
 document.addEventListener("DOMContentLoaded", function () {
   document.querySelectorAll(".faq-item button").forEach(function (button) {
@@ -580,53 +813,27 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
- <script>
-setTimeout(()=>{
-  const intro = document.getElementById("patanIntro");
-  if(intro){
-    intro.style.opacity = "0";
-    setTimeout(()=> intro.remove(), 500);
-  }
-},3000);
-</script> 
-
-</div>  
- <script>
-window.addEventListener("load", () => {
-  const intro = document.getElementById("patanIntro");
-  const main = document.getElementById("mainContent");
-
-  setTimeout(() => {
-    intro.style.transition = "opacity 1s ease";
-    intro.style.opacity = "0";
-
-    setTimeout(() => {
-      intro.style.display = "none";
-      main.style.display = "block";
-      document.body.style.overflow = "auto";
-    }, 1000);
-  }, 4500);
-});
- </script> 
-
+<!-- INTRO OVERLAY -->
 <script>
-window.addEventListener("load", () => {
+window.addEventListener("load", function () {
   const intro = document.getElementById("patanIntro");
-  const main = document.getElementById("mainContent");
 
-  setTimeout(() => {
+  if (!intro) return;
+
+  document.body.style.overflow = "hidden";
+
+  setTimeout(function () {
     intro.style.transition = "opacity 1s ease";
     intro.style.opacity = "0";
 
-    setTimeout(() => {
-      intro.style.display = "none";
-      main.style.display = "block";
+    setTimeout(function () {
+      intro.remove();
       document.body.style.overflow = "auto";
     }, 1000);
-  }, 4500);
+  }, 3800);
 });
 </script>
 
-</div>
 </body>
 </html>
+
