@@ -245,7 +245,14 @@ function obtenerClaseEstado(estado){
   if(estado === "approved") return "approved";
   return estado || "pendiente";
 }
-
+  
+function normalizarTexto(valor){
+  return String(valor || "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g,"")
+    .trim();
+}
 async function cargar(){
   TODOS = [];
 
@@ -266,15 +273,6 @@ async function cargar(){
       ...docu.data()
     });
   });
-  
-function normalizarTexto(valor){
-  return String(valor || "")
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g,"")
-    .trim();
-}
-
   
   render();
 }
