@@ -469,6 +469,7 @@ const matchTexto =
   filtrados.forEach(c => {
     const estado = obtenerEstado(c);
     const claseEstado = obtenerClaseEstado(estado);
+    
 
     const div = document.createElement("div");
     div.className = "card";
@@ -502,7 +503,7 @@ const matchTexto =
 
         <div>
           <div class="label">Estado</div>
-          <span class="status ${escapeHTML(claseEstado)}">${escapeHTML(estado)}</span>
+          <span class="status ${escapeHTML(textoEstado)}">${escapeHTML(textoEstado)}</span>
         </div>
       </div>
 
