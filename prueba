@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PATAN TV</title>
+ <link rel="stylesheet" href="./styles.css?v=10002" />
+<script src="./script.js?v=10001" defer></script>
+</head>
+
+<body>
+
+<audio id="boomSound" src="boom.mp3" preload="auto"></audio>
+
+<!-- INTRO PATAN TV -->
+<div id="patanIntro">
+  <div class="intro-logo">PATAN<span>TV</span></div>
+
+  <video id="introVideo" autoplay muted playsinline>
+    <source src="patan-mascota.mp4" type="video/mp4">
+  </video>
+
+  <div class="intro-line"></div>
+
+  <p class="intro-slogan">⚡ Entra ahora antes que otro Patán ocupe tu pantalla</p>
+</div>
+
+<nav class="navbar">
+      <div class="logo">
+  <img src="patan-logo.png" alt="PATAN TV">
+</div>
+
+  <div class="nav-links">
+  <a href="#inicio">Inicio</a>
+  <a href="#planes">Planes</a>
+  <a href="#top10">Top 10</a>
+  <a href="#faq">FAQ</a>
+  <a href="#contacto">Contacto</a>
+ 
+</div>
+</nav>
+  
+  
+<main id="siteContent">
+
+  <!-- HERO / PORTADA -->
+  <section class="hero" id="inicio">
+    <div class="hero-video">
+      <video id="heroVideo" autoplay muted loop playsinline preload="auto">
+        <source src="/hero-video.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    
+    <div class="hero-content">
+    
+      <p class="hero-stats">
+        <span class="counter" data-target="4700">0</span> Canales en Vivo
+        <span class="counter" data-target="18000">0</span> Películas y Series Premium      
+      </p>
+                 
+      <h3>Acceso inmediato · Sin contratos</h3>
+      <a href="#planes" class="btn-main">🔥 ACTIVAR PATAN TV</a>
+    </div>
+  </section>
+
+ <!-- DISPOSITIVOS PRO -->
+<section class="devices devices-ultra reveal" id="dispositivos">
+  <div class="devices-ultra-bg"></div>
+
+  <div class="devices-ultra-header">
+    <span class="ultra-badge">
+      <span>★</span> BENEFICIO PATAN PREMIUM INCLUIDO
+    </span>
+
+    <h2>Comparte PATAN TV en hasta <strong>3 dispositivos</strong></h2>
+
+    <p>
+      No todos los servicios ofrecen <b>3 pantallas simultáneas</b> por el mismo valor.</p>
+  </div>
+
+  <div class="ultra-device-grid">
+
+    <div class="ultra-device-card">
+      <div class="ultra-device-icon">
+        <svg viewBox="0 0 64 64" aria-hidden="true">
+          <rect x="9" y="13" width="46" height="31" rx="4"></rect>
+          <path d="M24 51h16M32 44v7"></path>
+        </svg>
+      </div>
+      <h3>Smart TV</h3>
+      <p>Samsung, LG, Android TV y Google TV.</p>
+    </div>
+
+    <div class="ultra-device-card">
+      <div class="ultra-device-icon">
+        <svg viewBox="0 0 64 64" aria-hidden="true">
+          <rect x="13" y="12" width="38" height="28" rx="4"></rect>
+          <path d="M8 48h48l-5-8H13l-5 8zM25 44h14"></path>
+        </svg>
+      </div>
+      <h3>Notebook</h3>
+      <p>Windows, Mac y navegador web.</p>
+    </div>
+
+    <div class="ultra-device-card ultra-featured">
+      <div class="ultra-glow-ring"></div>
+      <div class="ultra-device-icon ultra-main-icon">
+        <svg viewBox="0 0 64 64" aria-hidden="true">
+          <rect x="7" y="16" width="27" height="19" rx="3"></rect>
+          <rect x="36" y="11" width="20" height="32" rx="4"></rect>
+          <rect x="15" y="39" width="34" height="14" rx="3"></rect>
+          <path d="M20 35v4M26 35v4"></path>
+        </svg>
+      </div>
+      <div class="ultra-number">3</div>
+      <h3>Pantallas</h3>
+      <p>Hasta 3 dispositivos simultáneamente.</p>
+    </div>
+
+    <div class="ultra-device-card">
+      <div class="ultra-device-icon">
+        <svg viewBox="0 0 64 64" aria-hidden="true">
+          <rect x="21" y="7" width="22" height="50" rx="6"></rect>
+          <path d="M28 12h8M29 51h6"></path>
+        </svg>
+      </div>
+      <h3>Smartphone</h3>
+      <p>Compatible con Android y iPhone.</p>
+    </div>
+
+    <div class="ultra-device-card">
+      <div class="ultra-device-icon">
+        <svg viewBox="0 0 64 64" aria-hidden="true">
+          <rect x="15" y="18" width="18" height="28" rx="4"></rect>
+          <rect x="38" y="10" width="15" height="44" rx="7"></rect>
+          <circle cx="45.5" cy="20" r="2"></circle>
+          <circle cx="45.5" cy="28" r="2"></circle>
+          <circle cx="45.5" cy="36" r="2"></circle>
+        </svg>
+      </div>
+      <h3>Firestick / Roku</h3>
+      <p>Convierte cualquier TV en centro de entretenimiento.</p>
+    </div>
+
+  </div>
+
+  <div class="ultra-proof">
+    <span>🔒 1 cuenta</span>
+    <span>•</span>
+    <span>3 dispositivos</span>
+    <span>•</span>
+    <strong>sin costos adicionales, en eso no somos Patanes</strong>
+  </div>
+  
+</section>
+
+<!-- BANNER MUNDIAL 2026 -->
+<section class="worldcup-banner reveal">
+  <div class="worldcup-top">
+    <h2>WOW PATÁN, MIRA LO QUE VIENE</h2>
+    <h1>MUNDIAL 2026</h1>
+  </div>
+
+  <div class="worldcup-image-wrap">
+    <img 
+      src="./worldcup-2026.jpg"
+      alt="Mundial 2026 en PATAN TV" 
+      class="worldcup-image">
+  </div>
+   <h3></h3>
+  <a href="#planes" class="btn-main">Ver Mundial en Vivo</a>
+ <p style="color:#FFA100; font-weight:900;">
+⚡ Cupos limitados – Acceso inmediato
+</p>
+</section>
+
+<!-- GALERÍA LIGAS DE FÚTBOL -->
+<div class="ligas-header">
+  <h1 class="hero-title">
+    TODAS LAS LIGAS
+    <span>EN VIVO</span>
+  </h1>
+
+  <p class="hero-sub">
+   😎 Un verdadero Patán nunca se pierde un partido
+  </p>
+</div>
+
+  <div class="sports-slider draggable-slider">
+    <div class="sports-track">
+
+      <div class="league-card">
+         <img src="liga01.png" alt="Champions League">
+        <div class="league-info">
+        <h3>Champions League</h3>
+        </div>
+      </div>
+
+      <div class="league-card">
+        <img src="liga02.png" alt="Premier League">
+        <div class="league-info">
+          <h3>Premier League</h3>
+          <p>Inglaterra</p>
+        </div>
+      </div>
+
+      <div class="league-card">
+        <img src="liga03.png" alt="LaLiga">
+        <div class="league-info">
+          <h3>LaLiga</h3>
+          <p>España</p>
+        </div>
+      </div>
+
+      <div class="league-card">
+        <img src="liga04.png" alt="Serie A">
+        <div class="league-info">
+          <h3>Serie A</h3>
+          <p>Italia</p>
+        </div>
+      </div>
+
+      <div class="league-card">
+        <img src="liga05.png" alt="Bundesliga">
+        <div class="league-info">
+          <h3>Bundesliga</h3>
+          <p>Alemania</p>
+        </div>
+      </div>
+
+      <div class="league-card">
+        <img src="liga06.png" alt="Ligue 1">
+        <div class="league-info">
+          <h3>Ligue 1</h3>
+          <p>Francia</p>
+        </div>
+      </div>
+
+      <div class="league-card">
+        <img src="liga07.png" alt="Saudi League">
+        <div class="league-info">
+          <h3>Saudi League</h3>
+          <p>Arabia Saudi</p>
+        </div>
+      </div>
+
+      <div class="league-card">
+        <img src="liga08.png" alt="Copa Sudamericana">
+        <div class="league-info">
+          <h3>Sudamericana</h3>
+          <p>CONMEBOL</p>
+        </div>
+      </div>
+
+      <div class="league-card">
+        <img src="liga09.png" alt="MLS">
+        <div class="league-info">
+          <h3>MLS</h3>
+          <p>Estados Unidos</p>
+        </div>
+      </div>
+
+      <div class="league-card">
+        <img src="liga10.png" alt="Fútbol Chileno">
+        <div class="league-info">
+          <h3>Fútbol Chileno</h3>
+          <p>Chile</p>
+        </div>
+      </div>
+
+      <!-- DUPLICADO PARA SCROLL INFINITO -->
+      <div class="league-card"><img src="liga01.png" alt=""><div class="league-info"><h3>Champions League</h3><p>Europa</p></div></div>
+      <div class="league-card"><img src="liga02.png" alt=""><div class="league-info"><h3>Premier League</h3><p>Inglaterra</p></div></div>
+      <div class="league-card"><img src="liga03.png" alt=""><div class="league-info"><h3>LaLiga</h3><p>España</p></div></div>
+      <div class="league-card"><img src="liga04.png" alt=""><div class="league-info"><h3>Serie A</h3><p>Italia</p></div></div>
+      <div class="league-card"><img src="liga05.png" alt=""><div class="league-info"><h3>Bundesliga</h3><p>Alemania</p></div></div>
+
+    </div>
+  </div>
+</section>
+  
+  <!-- VIDEO DEMO -->
+<section class="demo-video reveal">
+    <h2>Mira cómo funciona nuestro sistema</h2>
+    <p>Es muy simple: hasta el más Patán puede usar nuestros canales.</p>
+    <button class="video-btn" id="openVideo">▶ Ver Video</button>
+  </section>
+
+  <!-- MODAL VIDEO -->
+  <div class="video-modal" id="videoModal">
+    <div class="video-box">
+      <button class="close-video" id="closeVideo">×</button>
+
+      <div class="video-responsive">
+        <iframe
+          src="https://player.vimeo.com/video/1147809217"
+          frameborder="0"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- PLANES -->
+  <section class="plans reveal" id="planes">
+    <h2>Elige tu nivel de Patán</h2>
+    <p class="plans-subtitle">🔥 Activación rápida para Patanes impacientes.</p>
+
+    <div class="plans-grid">
+      
+      
+<div class="plan-card featured">
+  <img src="file_00000000689871f5bd4fa34f49f6552b.png" class="plan-dog" alt="PATAN TV">
+        <h3>1 Mes</h3>
+        <h4>$9.990</h4>
+
+        <ul>
+          <li>✓ 18.000 Películas y Series Premium</li>
+          <li>✓ 4.700 Canales en Vivo</li>
+          <li>✓ Carpeta Eventos Deportivos Diario</li>
+          <li>✓ 4K + FHD + HD</li>
+          <li>✓ 3 dispositivos simultáneos</li>
+          <li>✓ Activación inmediata</li>
+        </ul>
+
+      <a href="checkout-zenix.html?plan=1mes" class="plan-btn">Contratar</a>
+      </div>
+
+    <div class="plan-card featured">
+      <img src="file_00000000689871f5bd4fa34f49f6552b.png" class="plan-dog" alt="PATAN TV">
+        <div class="badge">⭐ El plan más elegido de PATAN TV</div>
+        <h3>3 Meses Oferta</h3>
+        <h4>$26.990</h4>
+
+        <ul>
+          <li>✓ 18.000 Películas y Series Premium</li>
+          <li>✓ 4.700 Canales en Vivo</li>
+          <li>✓ Carpeta Eventos Deportivos Diario</li>
+          <li>✓ 4K + FHD + HD</li>
+          <li>✓ 3 dispositivos simultáneos</li>
+          <li>✓ Activación inmediata</li>
+        </ul>
+
+        <a href="checkout-zenix.html?plan=3meses" class="plan-btn">Contratar</a>
+      </div>
+
+     <div class="plan-card featured">
+       <img src="file_00000000689871f5bd4fa34f49f6552b.png" class="plan-dog" alt="PATAN TV">
+        <h3>12 Meses</h3>
+        <h4>$79.990</h4>
+
+       <ul>
+          <li>✓ 18.000 Películas y Series Premium</li>
+          <li>✓ 4.700 Canales en Vivo</li>
+          <li>✓ Carpeta Eventos Deportivos Diario</li>
+          <li>✓ 4K + FHD + HD</li>
+          <li>✓ 3 dispositivos simultáneos</li>
+          <li>✓ Activación inmediata</li>
+        </ul>
+
+       <a href="checkout-zenix.html?plan=12meses" class="plan-btn">Contratar</a>
+      </div>
+
+    </div>
+  </section>
+  
+<div style="margin-top:40px; font-size:18px; color:#FFA100; font-weight:700;">
+<div style="text-align:center;">
+🍿 Más de 1.200 Patanes ya se tomaron la pantalla
+</div>
+
+  
+  <!-- TRUST BAR -->
+  <section class="trust-bar">
+    <div class="trust-item">
+      <span class="trust-icon">🔒</span>
+      <span>Pago 100% seguro</span>
+    </div>
+
+    <div class="trust-item">
+      <span class="trust-icon">⚡</span>
+      <span>Activación en minutos</span>
+    </div>
+
+    <div class="trust-item">
+      <span class="trust-icon">🎧</span>
+      <span>Soporte </span>
+    </div>
+
+    <div class="trust-item">
+      <span class="trust-icon">🛡️</span>
+      <span>Servicio Garantizado</span>
+    </div>
+  </section>
+
+  <!-- TOP 10 -->
+  <section class="top10 reveal" id="top10">
+    <div class="top10-header">
+      <span></span>
+      <div>
+        <h3>TOP <strong>10</strong> DE LA SEMANA</h3>
+        <p>🍿 Lo más visto por los Patanes esta semana</p>
+      </div>
+      <span></span>
+    </div>
+
+    <div class="ranking-slider draggable-slider">
+      <div class="ranking-track">
+
+        <div class="rank-card"><div class="rank-number">1</div><img src="1.jpg" alt="PROYECTO"><h4>PROYECTO FIN DEL MUNDO</h4><p>VISTAS<br><strong>3.2 M</strong></p></div>
+        <div class="rank-card"><div class="rank-number">2</div><img src="2.jpg" alt="OUTCOME"><h4>OUTCOME</h4><p>VISTAS<br><strong>2.8 M</strong></p></div>
+        <div class="rank-card"><div class="rank-number">3</div><img src="3.jpg" alt="MALCOLM"><h4>MALCOLM EN MEDIO</h4><p>VISTAS<br><strong>2.4 M</strong></p></div>
+        <div class="rank-card"><div class="rank-number">4</div><img src="4.jpg" alt="LA NOVIA"><h4>LA NOVIA</h4><p>VISTAS<br><strong>2.1 M</strong></p></div>
+        <div class="rank-card"><div class="rank-number">5</div><img src="5.jpg" alt="AVATAR"><h4>AVATAR: FUEGO Y CENIZA</h4><p>VISTAS<br><strong>1.9 M</strong></p></div>
+        <div class="rank-card"><div class="rank-number">6</div><img src="6.jpg" alt="SUPER MARIO"><h4>SUPER MARIO</h4><p>VISTAS<br><strong>1.7 M</strong></p></div>
+        <div class="rank-card"><div class="rank-number">7</div><img src="7.jpg" alt="THE BOYS"><h4>THE BOYS</h4><p>VISTAS<br><strong>1.4 M</strong></p></div>
+        <div class="rank-card"><div class="rank-number">8</div><img src="8.jpg" alt="EMBESTIDA"><h4>EMBESTIDA</h4><p>VISTAS<br><strong>1.2 M</strong></p></div>
+        <div class="rank-card"><div class="rank-number">9</div><img src="9.jpg" alt="ONE PIECE"><h4>ONE PIECE</h4><p>VISTAS<br><strong>980 K</strong></p></div>
+        <div class="rank-card"><div class="rank-number">10</div><img src="10.jpg" alt="RE ZERO"><h4>RE ZERO</h4><p>VISTAS<br><strong>850 K</strong></p></div>
+
+        <div class="rank-card"><div class="rank-number">1</div><img src="1.jpg" alt="PROYECTO"><h4>PROYECTO</h4><p>VISTAS<br><strong>3.2 M</strong></p></div>
+        <div class="rank-card"><div class="rank-number">2</div><img src="2.jpg" alt="OUTCOME"><h4>OUTCOME</h4><p>VISTAS<br><strong>2.8 M</strong></p></div>
+        <div class="rank-card"><div class="rank-number">3</div><img src="3.jpg" alt="MALCOLM"><h4>MALCOLM</h4><p>VISTAS<br><strong>2.4 M</strong></p></div>
+        <div class="rank-card"><div class="rank-number">4</div><img src="4.jpg" alt="LA NOVIA"><h4>LA NOVIA</h4><p>VISTAS<br><strong>2.1 M</strong></p></div>
+        <div class="rank-card"><div class="rank-number">5</div><img src="5.jpg" alt="AVATAR"><h4>AVATAR: FUEGO Y CENIZA</h4><p>VISTAS<br><strong>1.9 M</strong></p></div>
+        <div class="rank-card"><div class="rank-number">6</div><img src="6.jpg" alt="SUPER MARIO GALAXIAS"><h4>SUPER MARIO GALAXIAS</h4><p>VISTAS<br><strong>1.7 M</strong></p></div>
+        <div class="rank-card"><div class="rank-number">7</div><img src="7.jpg" alt="THE BOYS"><h4>THE BOYS</h4><p>VISTAS<br><strong>1.4 M</strong></p></div>
+        <div class="rank-card"><div class="rank-number">8</div><img src="8.jpg" alt="EMBESTIDA"><h4>EMBESTIDA</h4><p>VISTAS<br><strong>1.2 M</strong></p></div>
+        <div class="rank-card"><div class="rank-number">9</div><img src="9.jpg" alt="ONE PIECE"><h4>ONE PIECE</h4><p>VISTAS<br><strong>980 K</strong></p></div>
+        <div class="rank-card"><div class="rank-number">10</div><img src="10.jpg" alt="RE ZERO"><h4>RE ZERO</h4><p>VISTAS<br><strong>850 K</strong></p></div>
+
+      </div>
+    </div>
+
+    <div class="ranking-note">
+      ★ Cifras aproximadas basadas en reproducciones globales
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq reveal" id="faq">
+    <h2>Dudas frecuentes de los Patanes nuevos</h2>
+
+    <div class="faq-item">
+      <button>¿En cuántos dispositivos puedo usar el servicio?</button>
+      <div class="faq-answer">
+        <p>Puedes usar el servicio hasta en 3 dispositivos al mismo tiempo.</p>
+      </div>
+    </div>
+
+        <div class="faq-item">
+      <button>¿Por qué elegir PATAN TV?</button>
+      <div class="faq-answer">
+        <p>PATAN TV incluye:</p>
+
+<p>* Más de 4.700 canales en vivo y 18.000 películas y series actualizadas constantemente.</p>
+<p>* Sin contratos, sin cables y sin necesidad de múltiples plataformas: todo lo que quieres ver, en un solo lugar.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button>¿Necesito internet para ver el contenido?</button>
+      <div class="faq-answer">
+        <p>Sí, necesitas conexión a internet. Recomendamos una velocidad mínima de 20 Mbps.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button>¿En qué dispositivos funciona?</button>
+      <div class="faq-answer">
+        <p>Funciona en Smart TV, celulares, tablets, computadores, TV Box, Roku y Firestick.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button>¿Necesito instalar alguna aplicación?</button>
+      <div class="faq-answer">
+        <p>Sí, te enviaremos instrucciones paso a paso para instalar una app compatible.</p>
+      </div>
+    </div>
+    
+   <div class="faq-item">
+      <button>¿Cómo puedo suscribirme?</button>
+      <div class="faq-answer">
+        <p>Suscribirte es muy fácil:
+Haz clic en el botón “Contratar” de uno de nuestros planes en nuestra página web y serás dirigido a la Plataforma de Pago con las instrucciones de Activación.
+También puedes contactar a nuestro soporte técnico en el botón de WhatsApp flotante al lado derecho, si necesitas ayuda durante el proceso.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer reveal" id="contacto">
+    <h2>Canales de Atención</h2>
+
+    <div class="socials">
+      <a href="https://wa.me/56964180558?text=Hola%20PATAN%20TV,%20quiero%20informaci%C3%B3n%20sobre%20los%20planes" target="_blank">WhatsApp</a>
+      <a href="https://t.me/+-qdIT-ifZDY2YjQx" target="_blank">Telegram</a>
+    </div>
+
+    <div class="legal">
+      <a href="LINK_PRIVACIDAD">Política de privacidad</a>
+      <a href="LINK_TERMINOS">Términos legales</a>
+      <a href="https://wa.me/56964180558?text=Hola%20quiero%20información%20de%20Patán%20TV">Contacto</a>
+    </div>
+
+    <p>© 2026 🔥 PATAN TV — El streaming que hasta un Patán elegiría · Sitio web seguro con SSL</p>
+  </footer>
+
+</main>
+
+<a
+  href="https://wa.me/56964180558?text=Hola%20quiero%20información%20de%20Patán%20TV"
+  class="patan-whatsapp"
+  target="_blank"
+  aria-label="Contactar por WhatsApp"
+>
+  <img src="patan.png" alt="Patán" class="patan-dog" />
+  <div class="patan-message">¿Necesitas ayuda, Patán? 😏</div>
+</a>
+
+<!-- SCRIPT CONTADOR -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const counters = document.querySelectorAll(".counter");
+
+  setTimeout(function () {
+    counters.forEach(function (counter) {
+      const target = Number(counter.getAttribute("data-target"));
+      let current = 0;
+      const increment = Math.ceil(target / 100);
+
+      const timer = setInterval(function () {
+        current += increment;
+
+        if (current >= target) {
+          counter.textContent = target.toLocaleString("es-ES");
+          counter.style.transform = "scale(1.18)";
+
+          setTimeout(function () {
+            counter.style.transform = "scale(1)";
+          }, 220);
+
+          clearInterval(timer);
+        } else {
+          counter.textContent = current.toLocaleString("es-ES");
+        }
+      }, 25);
+    });
+  }, 1200);
+});
+</script>
+
+<!-- FAQ ACORDEÓN -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll(".faq-item button").forEach(function (button) {
+    button.addEventListener("click", function () {
+      const item = button.closest(".faq-item");
+
+      document.querySelectorAll(".faq-item").forEach(function (faq) {
+        if (faq !== item) {
+          faq.classList.remove("active");
+        }
+      });
+
+      item.classList.toggle("active");
+    });
+  });
+});
+</script>
+
+<!-- INTRO OVERLAY -->
+<script>
+window.addEventListener("load", function () {
+  const intro = document.getElementById("patanIntro");
+
+  if (!intro) return;
+
+  document.body.style.overflow = "hidden";
+
+  setTimeout(function () {
+    intro.style.transition = "opacity 1s ease";
+    intro.style.opacity = "0";
+
+    setTimeout(function () {
+      intro.remove();
+      document.body.style.overflow = "auto";
+    }, 1000);
+  }, 3800);
+});
+</script>
+
+</body>
+</html>
