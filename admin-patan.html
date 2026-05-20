@@ -54,6 +54,32 @@ h1{text-align:center;color:#FFA100;margin-bottom:8px}
   gap:12px;
 }
 
+  .stats-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:14px;
+  margin-bottom:22px;
+}
+
+.stat-card{
+  background:#111827;
+  border:1px solid rgba(255,161,0,.35);
+  border-radius:18px;
+  padding:18px;
+  box-shadow:0 0 20px rgba(255,161,0,.12);
+}
+
+.stat-title{
+  color:#cbd5e1;
+  font-size:14px;
+  margin-bottom:10px;
+}
+
+.stat-value{
+  font-size:34px;
+  font-weight:900;
+  color:#FFA100;
+}
 .label{color:#FFA100;font-weight:900;margin-bottom:4px}
 
 input,textarea{
@@ -138,6 +164,7 @@ if(localStorage.getItem("patan_admin") !== "ok"){
 <h1>Panel Admin PATAN TV</h1>
 <div class="subtitle">Clientes · Leads · Activación · WhatsApp Business</div>
 
+<div id="stats" class="stats-grid"></div>
 <div class="topbar">
   <div class="search">
     <input type="text" id="busqueda" placeholder="Buscar cliente, correo o WhatsApp...">
@@ -187,6 +214,7 @@ const db = getFirestore(app);
 const contenedor = document.getElementById("clientes");
 const inputBusqueda = document.getElementById("busqueda");
 const selectFiltro = document.getElementById("filtro");
+const stats = document.getElementById("stats");
 
 let TODOS = [];
 
@@ -273,8 +301,54 @@ async function cargar(){
       ...docu.data()
     });
   });
-  
-  render();
+
+function renderStats(){
+
+  const leads =
+  TODOS.filter(x => x.tipo === "lead").length;
+
+  const pagados =
+  TODOS.filter(x =>
+    x.estado_pago === "approved" ||
+    x.estado_pago === "pagado"
+  ).length;
+
+  const activados =
+  TODOS.filter(x =>
+    x.estado_activacion === "activado"
+  ).length;
+
+  const pendientes =
+  TODOS.filter(x =>
+    x.estado_activacion === "pendiente"
+  ).length;
+
+  stats.innerHTML = `
+
+    <div class="stat-card">
+      <div class="stat-title">🔥 Leads</div>
+      <div class="stat-value">${leads}</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-title">💰 Pagados</div>
+      <div class="stat-value">${pagados}</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-title">✅ Activados</div>
+      <div class="stat-value">${activados}</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-title">⏳ Pendientes</div>
+      <div class="stat-value">${pendientes}</div>
+    </div>
+
+  `;
+}
+ renderStats();
+render();
 }
 
 function render(){
