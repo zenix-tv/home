@@ -541,6 +541,11 @@ function render(){
         ${c.tipo === "cliente" ? `
           <button onclick="activar('${c.id}')">Guardar acceso</button>
           <button class="access" onclick="enviarAcceso('${c.id}')">Enviar hoja de acceso</button>
+          <button class="whatsapp" onclick="enviarRenovacion('${c.id}')">📲 Renovación WhatsApp</button>
+          <button onclick="renovarCliente('${c.id}',1)">➕1 Mes</button>
+          <button onclick="renovarCliente('${c.id}',3)">➕3 Meses</button>
+          <button onclick="renovarCliente('${c.id}',6)">➕6 Meses</button>
+          <button onclick="renovarCliente('${c.id}',12)">➕12 Meses</button>
         ` : ""}
 
         ${c.tipo === "lead" ? `
@@ -748,6 +753,70 @@ window.eliminar = async function(id,tipo){
   await deleteDoc(doc(db,tipo === "lead" ? "leads" : "clientes",id));
   cargar();
 };
+
+
+window.enviarRenovacion = function(id){
+  const c = TODOS.find(x => x.id === id && x.tipo === "cliente");
+
+  if(!c){
+    alert("Cliente no encontrado.");
+    return;
+  }
+
+  const fecha = c.fecha_vencimiento
+    ? new Date(c.fecha_vencimiento).toLocaleDateString("es-ES")
+    : "sin fecha";
+
+  const mensaje = `Hola ${c.nombre || ""} 😎🔥
+
+Tu plan PATÁN TV vence pronto.
+
+📦 Plan actual: ${c.plan || ""}
+📅 Vencimiento: ${fecha}
+
+Si deseas renovar tu servicio premium, responde este mensaje y coordinamos tu renovación.
+
+PATÁN TV 🐶🔥`;
+
+  abrirWhatsAppBusiness(c.whatsapp, mensaje);
+};
+
+window.renovarCliente = async function(id, meses){
+
+  const cliente = TODOS.find(x => x.id === id && x.tipo === "cliente");
+
+  if(!cliente){
+    alert("Cliente no encontrado.");
+    return;
+  }
+
+  const hoy = new Date();
+
+  let baseFecha = hoy;
+
+  if(cliente.fecha_vencimiento){
+
+    const actual = new Date(cliente.fecha_vencimiento);
+
+    if(actual > hoy){
+      baseFecha = actual;
+    }
+  }
+
+  const nuevaFecha = new Date(baseFecha);
+  nuevaFecha.setMonth(nuevaFecha.getMonth() + meses);
+
+  await updateDoc(doc(db,"clientes",id),{
+    fecha_vencimiento: nuevaFecha.toISOString(),
+    ultima_renovacion: new Date().toISOString(),
+    meses_renovados: meses,
+    estado_servicio: "activo"
+  });
+
+  alert(`Cliente renovado +${meses} meses.`);
+  cargar();
+};
+
 
 inputBusqueda.addEventListener("input",render);
 selectFiltro.addEventListener("change",() => {
