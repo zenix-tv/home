@@ -4656,3 +4656,61 @@ body{
 .faq-item.active button::after{
   content:"-" !important;
 }
+@media (max-width: 768px){
+
+  .navbar{
+    height: 72px;
+    padding: 10px 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    overflow: visible;
+  }
+
+  .logo img{
+    width: 120px;
+    max-height: 55px;
+    object-fit: contain;
+  }
+
+  .nav-links{
+    position: absolute;
+    top: 72px;
+    left: 0;
+    width: 100%;
+    background: #050b16;
+    display: none;
+    flex-direction: column;
+    gap: 0;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,161,0,.35);
+  }
+
+  .nav-links.active{
+    display: flex;
+  }
+
+  .nav-links a{
+    width: 100%;
+    text-align: center;
+    padding: 14px;
+    font-size: 18px;
+  }
+
+  .menu-toggle{
+    display: block;
+    background: #ffa100;
+    color: #000;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 22px;
+    font-weight: 900;
+  }
+}
+
+@media (min-width: 769px){
+  .menu-toggle{
+    display: none;
+  }
+}
