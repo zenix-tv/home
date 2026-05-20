@@ -134,7 +134,20 @@ button:hover,a.btn:hover{filter:brightness(1.1)}
 .activado{background:#14532d;color:#fff}
 .lead{background:#1d4ed8;color:#fff}
 .contactado-status,.contactado{background:#166534;color:#fff}
-.approved,.pagado{background:#14532d;color:#fff}
+.approved,.pagado{background:#14532d;color:#fff}.activo{
+  background:#15803d;
+  color:#fff;
+}
+
+.vence-pronto{
+  background:#ea580c;
+  color:#fff;
+}
+
+.vencido{
+  background:#b91c1c;
+  color:#fff;
+}
 
 .small{color:#ccc;font-size:14px;word-break:break-word}
 .empty{padding:30px;text-align:center;color:#cbd5e1;border:1px dashed rgba(255,161,0,.35);border-radius:18px}
@@ -264,14 +277,71 @@ function abrirWhatsAppBusiness(numero, mensaje){
 }
 
 function obtenerEstado(c){
-  if(c.tipo === "lead") return c.estado || "lead";
-  return c.estado_activacion || c.estado_pago || c.estado || "pendiente";
+
+  if(c.tipo === "lead"){
+    return c.estado || "lead";
+  }
+
+  if(c.fecha_vencimiento){
+
+    const hoy =
+    new Date();
+
+    const vencimiento =
+    new Date(c.fecha_vencimiento);
+
+    const diferencia =
+    vencimiento - hoy;
+
+    const dias =
+    Math.ceil(
+      diferencia / (1000 * 60 * 60 * 24)
+    );
+
+    if(dias < 0){
+      return "vencido";
+    }
+
+    if(dias <= 5){
+      return "vence_pronto";
+    }
+
+    return "activo";
+  }
+
+  return (
+    c.estado_activacion ||
+    c.estado_pago ||
+    c.estado ||
+    "pendiente"
+  );
+
 }
 
 function obtenerClaseEstado(estado){
-  if(estado === "contactado") return "contactado-status";
-  if(estado === "approved") return "approved";
+
+  if(estado === "contactado"){
+    return "contactado-status";
+  }
+
+  if(estado === "approved"){
+    return "approved";
+  }
+
+  if(estado === "activo"){
+    return "activo";
+  }
+
+  if(estado === "vence_pronto"){
+    return "vence-pronto";
+  }
+
+  if(estado === "vencido"){
+    return "vencido";
+  }
+
   return estado || "pendiente";
+
 }
   
 function normalizarTexto(valor){
