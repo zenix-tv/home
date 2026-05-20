@@ -30,76 +30,125 @@ section{
   overflow:hidden;
 }
 
-/* Menú adaptable para celulares */
+/* Menú móvil PRO: una sola barra, sin saltos de línea */
 .navbar{
   z-index:999;
 }
 
 @media (max-width: 768px){
   .navbar{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:10px;
-    padding:10px 10px 12px;
+    position:sticky;
+    top:0;
+    display:flex !important;
+    flex-direction:row !important;
+    align-items:center !important;
+    justify-content:flex-start !important;
+    gap:8px !important;
+    padding:7px 8px !important;
+    min-height:62px !important;
+    overflow:hidden !important;
+    background:rgba(5,11,22,.96) !important;
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+  }
+
+  .logo{
+    flex:0 0 auto !important;
+    display:flex !important;
+    align-items:center !important;
+    margin:0 !important;
   }
 
   .logo img{
-    max-height:54px;
-    width:auto;
+    width:82px !important;
+    max-width:82px !important;
+    height:auto !important;
+    max-height:42px !important;
+    object-fit:contain !important;
   }
 
   .nav-links{
-    width:100%;
-    display:flex;
-    justify-content:center;
-    flex-wrap:wrap;
-    gap:7px;
-    padding:0 4px;
+    flex:1 1 auto !important;
+    min-width:0 !important;
+    width:auto !important;
+    display:flex !important;
+    flex-direction:row !important;
+    flex-wrap:nowrap !important;
+    justify-content:flex-start !important;
+    align-items:center !important;
+    gap:6px !important;
+    overflow-x:auto !important;
+    overflow-y:hidden !important;
+    padding:0 2px 2px 0 !important;
+    white-space:nowrap !important;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+
+  .nav-links::-webkit-scrollbar{
+    display:none;
   }
 
   .nav-links a{
-    font-size:12px;
-    line-height:1;
-    padding:8px 10px;
-    border-radius:999px;
-    white-space:nowrap;
+    flex:0 0 auto !important;
+    display:inline-flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    font-size:13px !important;
+    line-height:1 !important;
+    padding:9px 11px !important;
+    border-radius:999px !important;
+    white-space:nowrap !important;
+  }
+
+  .hero{
+    min-height:calc(100vh - 62px) !important;
   }
 
   .hero-content{
-    padding-left:16px;
-    padding-right:16px;
+    padding-left:16px !important;
+    padding-right:16px !important;
   }
 
   .hero-stats{
-    display:flex;
-    flex-direction:column;
-    gap:6px;
-    text-align:center;
-    font-size:15px;
+    display:flex !important;
+    flex-direction:column !important;
+    gap:8px !important;
+    text-align:center !important;
+    font-size:15px !important;
+    line-height:1.15 !important;
+  }
+
+  .hero-stats .counter{
+    display:block !important;
+    font-size:42px !important;
+    line-height:1 !important;
   }
 
   .btn-main,
   .plan-btn,
   .video-btn{
-    max-width:92vw;
-    white-space:normal;
-    text-align:center;
+    max-width:88vw !important;
+    white-space:normal !important;
+    text-align:center !important;
   }
 
-  /* WhatsApp más pequeño en móvil */
+  /* WhatsApp Patán compacto para no tapar contenido */
   .patan-whatsapp{
     right:10px !important;
-    bottom:12px !important;
-    width:66px !important;
-    height:66px !important;
+    bottom:76px !important;
+    width:50px !important;
+    height:50px !important;
+    min-width:50px !important;
+    min-height:50px !important;
     transform:none !important;
+    z-index:998 !important;
   }
 
   .patan-whatsapp .patan-dog,
   .patan-dog{
-    width:64px !important;
-    max-width:64px !important;
+    width:48px !important;
+    max-width:48px !important;
     height:auto !important;
   }
 
@@ -109,28 +158,51 @@ section{
 }
 
 @media (max-width: 390px){
-  .nav-links a{
-    font-size:11px;
-    padding:7px 8px;
+  .navbar{
+    gap:6px !important;
+    padding:6px 7px !important;
+    min-height:58px !important;
   }
 
   .logo img{
-    max-height:48px;
+    width:74px !important;
+    max-width:74px !important;
+    max-height:38px !important;
+  }
+
+  .nav-links a{
+    font-size:12px !important;
+    padding:8px 10px !important;
+  }
+
+  .hero{
+    min-height:calc(100vh - 58px) !important;
   }
 
   .patan-whatsapp{
-    width:58px !important;
-    height:58px !important;
+    width:46px !important;
+    height:46px !important;
+    bottom:72px !important;
   }
 
   .patan-whatsapp .patan-dog,
   .patan-dog{
-    width:56px !important;
-    max-width:56px !important;
+    width:44px !important;
+    max-width:44px !important;
   }
 }
 
-/* Evita tirones por sliders y animaciones en móviles */
+/* Suavidad móvil: menos tirones al deslizar */
+html{
+  scroll-behavior:smooth;
+  -webkit-text-size-adjust:100%;
+}
+
+body{
+  overscroll-behavior-y:auto;
+  touch-action:pan-y;
+}
+
 @media (hover:none) and (pointer:coarse){
   *{
     -webkit-tap-highlight-color:transparent;
@@ -139,39 +211,28 @@ section{
   .sports-slider,
   .ranking-slider,
   .draggable-slider{
-    overflow-x:auto;
-    overflow-y:hidden;
+    overflow-x:auto !important;
+    overflow-y:hidden !important;
     -webkit-overflow-scrolling:touch;
-    touch-action:pan-x;
+    touch-action:auto !important;
     scroll-snap-type:none !important;
   }
 
   .sports-track,
   .ranking-track{
-    will-change:auto !important;
+    transform:none !important;
+    animation:none !important;
   }
 
   .league-card,
   .rank-card,
   .plan-card,
-  .ultra-device-card{
-    scroll-snap-align:none !important;
-  }
-
-  .league-card:hover,
-  .rank-card:hover,
-  .plan-card:hover,
-  .ultra-device-card:hover{
-    transform:none !important;
-  }
-
-  .reveal{
-    opacity:1 !important;
-    transform:none !important;
+  .ultra-device-card,
+  .btn-main{
+    transition:none !important;
   }
 }
 
-/* En móviles muy sensibles reducimos efectos pesados */
 @media (max-width:768px){
   .hero-video video,
   #introVideo{
@@ -179,7 +240,8 @@ section{
   }
 
   .ultra-glow-ring,
-  .devices-ultra-bg{
+  .devices-ultra-bg,
+  .reveal{
     animation:none !important;
   }
 }
