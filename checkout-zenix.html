@@ -4,8 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <script type="module">
-
+<script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
@@ -29,12 +28,12 @@ const db = getFirestore(app);
 window.db = db;
 window.collection = collection;
 window.addDoc = addDoc;
-
 </script>
-  
+
 <title>PATANTV Checkout</title>
-  
+
 <script src="https://sdk.mercadopago.com/js/v2"></script>
+
 <style>
 *{box-sizing:border-box}
 
@@ -132,6 +131,11 @@ input{
   cursor:pointer;
 }
 
+.checkout-btn:disabled{
+  opacity:.65;
+  cursor:not-allowed;
+}
+
 #cardPaymentBrick_container{
   display:none;
   margin-top:25px;
@@ -164,18 +168,14 @@ input{
 }
 
 @media(max-width:600px){
-  body{
-    padding:16px;
-  }
+  body{padding:16px}
 
   .container{
     margin:48px auto 25px;
     padding:30px 18px 24px;
   }
 
-  h1{
-    font-size:27px;
-  }
+  h1{font-size:27px}
 
   .checkout-dog{
     top:-15px;
@@ -183,13 +183,9 @@ input{
     width:78px;
   }
 
-  .secure-box{
-    font-size:13px;
-  }
+  .secure-box{font-size:13px}
 
-  .plan{
-    font-size:22px;
-  }
+  .plan{font-size:22px}
 }
 </style>
 </head>
@@ -218,7 +214,7 @@ input{
     <input type="tel" id="telefono" placeholder="WhatsApp">
 
     <button id="continuarPago" class="checkout-btn">
-      Cargar medio de pago
+      Continuar al pago seguro
     </button>
   </div>
 
@@ -262,6 +258,8 @@ function mostrarEstado(texto, tipo){
   estado.className = "status " + tipo;
 }
 
+let cliente = {};
+
 async function enviarAlertaTelegram(tipo, extra = {}) {
   try {
     await fetch("/api/telegram-alert", {
@@ -282,23 +280,27 @@ async function enviarAlertaTelegram(tipo, extra = {}) {
   } catch (error) {
     console.error("Error alerta Telegram:", error);
   }
-}  
+}
+
 const mp = new MercadoPago(PUBLIC_KEY, { locale:"es-CL" });
 const bricksBuilder = mp.bricks();
 
 let brickCreado = false;
-let cliente = {};
 
 document.getElementById("continuarPago").addEventListener("click", async () => {
 
   const nombre = document.getElementById("nombre").value.trim();
   const correo = document.getElementById("correo").value.trim();
   const telefono = document.getElementById("telefono").value.trim();
+  const boton = document.getElementById("continuarPago");
 
   if(!nombre || !correo || !telefono){
     alert("Completa todos los campos.");
     return;
   }
+
+  boton.disabled = true;
+  boton.textContent = "Cargando pago seguro...";
 
   cliente = {
     nombre,
@@ -309,8 +311,13 @@ document.getElementById("continuarPago").addEventListener("click", async () => {
   };
 
   localStorage.setItem("patan_cliente", JSON.stringify(cliente));
-try{
-  await window.addDoc(
+
+  document.getElementById("datosBox").style.display = "none";
+  document.getElementById("cardPaymentBrick_container").style.display = "block";
+
+  mostrarEstado("Cargando medio de pago seguro con Mercado Pago...", "info");
+
+  window.addDoc(
     window.collection(window.db, "leads"),
     {
       nombre: cliente.nombre,
@@ -321,19 +328,12 @@ try{
       estado: "inicio_checkout",
       fecha: new Date().toISOString()
     }
-  );
-
-  console.log("Lead guardado en Firebase");
-  await enviarAlertaTelegram("lead");
-
-}catch(error){
-  console.error("Error guardando lead:", error);
-}
-  
-  document.getElementById("datosBox").style.display = "none";
-  document.getElementById("cardPaymentBrick_container").style.display = "block";
-
-  mostrarEstado("Ingresa tu tarjeta para activar PATAN.", "info");
+  ).then(() => {
+    console.log("Lead guardado en Firebase");
+    enviarAlertaTelegram("lead");
+  }).catch(error => {
+    console.error("Error guardando lead:", error);
+  });
 
   if(brickCreado) return;
   brickCreado = true;
@@ -349,6 +349,7 @@ try{
     callbacks: {
       onReady: () => {
         console.log("CardPayment Brick listo");
+        mostrarEstado("Ingresa tu tarjeta para activar PATAN.", "info");
       },
 
       onSubmit: (cardFormData) => {
@@ -399,9 +400,10 @@ try{
               );
 
               console.log("Cliente guardado en Firebase");
-              await enviarAlertaTelegram("pago", {
-  payment_id: result.id
-});
+
+              enviarAlertaTelegram("pago", {
+                payment_id: result.id
+              });
 
             }catch(error){
               console.error("Error guardando cliente en Firebase:", error);
@@ -445,11 +447,16 @@ try{
     }
   };
 
-  await bricksBuilder.create(
-    "cardPayment",
-    "cardPaymentBrick_container",
-    settings
-  );
+  try{
+    await bricksBuilder.create(
+      "cardPayment",
+      "cardPaymentBrick_container",
+      settings
+    );
+  }catch(error){
+    console.error(error);
+    mostrarEstado("❌ No pudimos cargar Mercado Pago. Intenta nuevamente.", "error");
+  }
 
 });
 </script>
