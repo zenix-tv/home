@@ -67,6 +67,20 @@ h1{text-align:center;color:#FFA100;margin-bottom:8px}
   border-radius:18px;
   padding:18px;
   box-shadow:0 0 20px rgba(255,161,0,.12);
+  cursor:pointer;
+  transition:.18s ease;
+}
+
+.stat-card:hover{
+  transform:translateY(-3px);
+  border-color:#FFA100;
+  box-shadow:0 0 28px rgba(255,161,0,.28);
+}
+
+.stat-card.active-filter{
+  border-color:#FFA100;
+  box-shadow:0 0 30px rgba(255,161,0,.38);
+  background:linear-gradient(180deg,#182133,#111827);
 }
 
 .stat-title{
@@ -349,33 +363,35 @@ function renderStats(){
     obtenerEstado(x) === "vencido"
   ).length;
 
+  const filtroActual = selectFiltro.value;
+
   stats.innerHTML = `
-    <div class="stat-card">
+    <div class="stat-card ${filtroActual === "lead" ? "active-filter" : ""}" onclick="aplicarFiltroRapido('lead')">
       <div class="stat-title">🔥 Leads</div>
       <div class="stat-value">${leads}</div>
     </div>
 
-    <div class="stat-card">
+    <div class="stat-card ${filtroActual === "approved" ? "active-filter" : ""}" onclick="aplicarFiltroRapido('approved')">
       <div class="stat-title">💰 Pagados</div>
       <div class="stat-value">${pagados}</div>
     </div>
 
-    <div class="stat-card">
+    <div class="stat-card ${filtroActual === "activado" ? "active-filter" : ""}" onclick="aplicarFiltroRapido('activado')">
       <div class="stat-title">✅ Activados</div>
       <div class="stat-value">${activados}</div>
     </div>
 
-    <div class="stat-card">
+    <div class="stat-card ${filtroActual === "pendiente" ? "active-filter" : ""}" onclick="aplicarFiltroRapido('pendiente')">
       <div class="stat-title">⏳ Pendientes</div>
       <div class="stat-value">${pendientes}</div>
     </div>
 
-    <div class="stat-card">
+    <div class="stat-card ${filtroActual === "vence_pronto" ? "active-filter" : ""}" onclick="aplicarFiltroRapido('vence_pronto')">
       <div class="stat-title">🟠 Vencen pronto</div>
       <div class="stat-value">${vencenPronto}</div>
     </div>
 
-    <div class="stat-card">
+    <div class="stat-card ${filtroActual === "vencido" ? "active-filter" : ""}" onclick="aplicarFiltroRapido('vencido')">
       <div class="stat-title">🔴 Vencidos</div>
       <div class="stat-value">${vencidos}</div>
     </div>
@@ -543,6 +559,21 @@ function render(){
     contenedor.appendChild(div);
   });
 }
+
+
+window.aplicarFiltroRapido = function(filtro){
+  selectFiltro.value = filtro;
+  inputBusqueda.value = "";
+  renderStats();
+  render();
+
+  setTimeout(() => {
+    document.getElementById("clientes")?.scrollIntoView({
+      behavior:"smooth",
+      block:"start"
+    });
+  }, 80);
+};
 
 window.activar = async function(id){
   const cliente = TODOS.find(x => x.id === id);
@@ -719,7 +750,10 @@ window.eliminar = async function(id,tipo){
 };
 
 inputBusqueda.addEventListener("input",render);
-selectFiltro.addEventListener("change",render);
+selectFiltro.addEventListener("change",() => {
+  renderStats();
+  render();
+});
 
 cargar();
 </script>
