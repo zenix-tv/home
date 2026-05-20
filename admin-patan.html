@@ -507,10 +507,13 @@ function render(){
           $${Number(c.precio || 0).toLocaleString("es-CL")}
         </div>
 
-        <div>
-          <div class="label">Estado</div>
-          <span class="status ${escapeHTML(claseEstado)}">${escapeHTML(textoEstado)}</span>
-        </div>
+<div class="label">Estado</div>
+<span class="status ${escapeHTML(claseEstado)}">${escapeHTML(textoEstado)}</span>
+${c.fecha_vencimiento ? `
+  <div class="small" style="margin-top:8px">
+    📅 Termina: ${new Date(c.fecha_vencimiento).toLocaleDateString("es-ES")}
+  </div>
+` : ""}
       </div>
 
       <hr>
