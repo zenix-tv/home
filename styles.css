@@ -4714,3 +4714,157 @@ body{
     display: none;
   }
 }
+
+/* =========================================================
+   FIX FINAL MENÚ MÓVIL PATAN TV
+   Logo izquierda · botón menú derecha · desplegable funcional
+========================================================= */
+@media (max-width: 768px){
+  .navbar{
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 72px !important;
+    min-height: 72px !important;
+    padding: 8px 14px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 12px !important;
+    overflow: visible !important;
+    background: rgba(5,10,18,.96) !important;
+    border-bottom: 1px solid rgba(255,161,0,.22) !important;
+    transform: none !important;
+  }
+
+  .navbar.nav-hidden{
+    transform: none !important;
+  }
+
+  .logo{
+    flex: 0 0 auto !important;
+    display: flex !important;
+    align-items: center !important;
+    margin: 0 !important;
+  }
+
+  .logo img{
+    width: auto !important;
+    height: 46px !important;
+    max-height: 46px !important;
+    max-width: 138px !important;
+    object-fit: contain !important;
+    display: block !important;
+  }
+
+  .menu-toggle{
+    display: inline-flex !important;
+    margin-left: auto !important;
+    width: 52px !important;
+    height: 52px !important;
+    min-width: 52px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: #FFA100 !important;
+    color: #000 !important;
+    border: none !important;
+    border-radius: 14px !important;
+    font-size: 30px !important;
+    line-height: 1 !important;
+    font-weight: 900 !important;
+    cursor: pointer !important;
+    box-shadow: 0 0 22px rgba(255,161,0,.38) !important;
+    z-index: 1000001 !important;
+  }
+
+  .nav-links{
+    position: absolute !important;
+    top: 72px !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    display: none !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    gap: 0 !important;
+    padding: 8px 12px 12px !important;
+    background: rgba(5,10,18,.98) !important;
+    border-bottom: 1px solid rgba(255,161,0,.35) !important;
+    box-shadow: 0 18px 38px rgba(0,0,0,.55) !important;
+    overflow: visible !important;
+    white-space: normal !important;
+    z-index: 1000000 !important;
+  }
+
+  .nav-links.active{
+    display: flex !important;
+  }
+
+  .nav-links a{
+    width: 100% !important;
+    display: block !important;
+    padding: 14px 10px !important;
+    margin: 0 !important;
+    text-align: center !important;
+    color: #fff !important;
+    font-size: 18px !important;
+    line-height: 1.1 !important;
+    font-weight: 900 !important;
+    text-decoration: none !important;
+    border-radius: 12px !important;
+    white-space: normal !important;
+  }
+
+  .nav-links a:hover{
+    background: rgba(255,161,0,.12) !important;
+    color: #FFA100 !important;
+  }
+
+  .hero{
+    padding-top: 72px !important;
+    min-height: 100svh !important;
+  }
+
+  .hero-content{
+    padding-top: 40px !important;
+  }
+
+  .patan-whatsapp{
+    right: 12px !important;
+    bottom: 72px !important;
+    width: 54px !important;
+    height: 60px !important;
+    min-width: 54px !important;
+    min-height: 60px !important;
+  }
+
+  .patan-dog,
+  .patan-whatsapp .patan-dog{
+    width: 54px !important;
+    max-width: 54px !important;
+  }
+
+  .patan-message{
+    display: none !important;
+  }
+}
+
+@media (min-width: 769px){
+  .menu-toggle{
+    display: none !important;
+  }
+}
+
+/* Suavidad extra en móvil */
+@media (hover:none) and (pointer:coarse){
+  .navbar,
+  .plan-card,
+  .league-card,
+  .rank-card,
+  .ultra-device-card{
+    transition: none !important;
+  }
+}
