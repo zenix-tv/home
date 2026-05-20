@@ -54,7 +54,7 @@ h1{text-align:center;color:#FFA100;margin-bottom:8px}
   gap:12px;
 }
 
-  .stats-grid{
+.stats-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
   gap:14px;
@@ -80,6 +80,7 @@ h1{text-align:center;color:#FFA100;margin-bottom:8px}
   font-weight:900;
   color:#FFA100;
 }
+
 .label{color:#FFA100;font-weight:900;margin-bottom:4px}
 
 input,textarea{
@@ -134,20 +135,11 @@ button:hover,a.btn:hover{filter:brightness(1.1)}
 .activado{background:#14532d;color:#fff}
 .lead{background:#1d4ed8;color:#fff}
 .contactado-status,.contactado{background:#166534;color:#fff}
-.approved,.pagado{background:#14532d;color:#fff}.activo{
-  background:#15803d;
-  color:#fff;
-}
+.approved,.pagado{background:#14532d;color:#fff}
 
-.vence-pronto{
-  background:#ea580c;
-  color:#fff;
-}
-
-.vencido{
-  background:#b91c1c;
-  color:#fff;
-}
+.activo{background:#15803d;color:#fff}
+.vence-pronto{background:#ea580c;color:#fff}
+.vencido{background:#b91c1c;color:#fff}
 
 .small{color:#ccc;font-size:14px;word-break:break-word}
 .empty{padding:30px;text-align:center;color:#cbd5e1;border:1px dashed rgba(255,161,0,.35);border-radius:18px}
@@ -178,6 +170,7 @@ if(localStorage.getItem("patan_admin") !== "ok"){
 <div class="subtitle">Clientes · Leads · Activación · WhatsApp Business</div>
 
 <div id="stats" class="stats-grid"></div>
+
 <div class="topbar">
   <div class="search">
     <input type="text" id="busqueda" placeholder="Buscar cliente, correo o WhatsApp...">
@@ -191,6 +184,9 @@ if(localStorage.getItem("patan_admin") !== "ok"){
       <option value="activado">Activados</option>
       <option value="pendiente">Pendientes</option>
       <option value="contactado">Contactados</option>
+      <option value="activo">Activos</option>
+      <option value="vence_pronto">Vencen pronto</option>
+      <option value="vencido">Vencidos</option>
     </select>
   </div>
 </div>
@@ -240,18 +236,21 @@ function escapeHTML(valor){
     .replaceAll("'","&#039;");
 }
 
+function normalizarTexto(valor){
+  return String(valor || "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g,"")
+    .trim();
+}
+
 function limpiarTelefonoWhatsApp(numero){
   let tel = String(numero || "").replace(/\D/g,"");
 
   if(!tel) return "";
-
-  // Chile: si viene como 9 dígitos empezando en 9, agregamos 56.
   if(tel.length === 9 && tel.startsWith("9")) return "56" + tel;
-
-  // España: si viene como 9 dígitos empezando en 6, 7, 8 o 9, agregamos 34.
   if(tel.length === 9 && /^[6789]/.test(tel)) return "34" + tel;
 
-  // Si ya viene con código país, lo respetamos.
   return tel;
 }
 
@@ -266,91 +265,123 @@ function abrirWhatsAppBusiness(numero, mensaje){
   const texto = encodeURIComponent(mensaje);
   const esAndroid = /Android/i.test(navigator.userAgent);
 
-  // Android intenta abrir específicamente WhatsApp Business.
   if(esAndroid){
     window.location.href = `intent://send?phone=${telefonoFinal}&text=${texto}#Intent;scheme=whatsapp;package=com.whatsapp.w4b;end`;
     return;
   }
 
-  // PC/iPhone fallback: abre WhatsApp Web/App normal.
   window.open(`https://wa.me/${telefonoFinal}?text=${texto}`, "_blank");
 }
 
-function obtenerEstado(c){
+function obtenerDiasRestantes(c){
+  if(!c.fecha_vencimiento) return null;
 
+  const hoy = new Date();
+  const vencimiento = new Date(c.fecha_vencimiento);
+
+  if(isNaN(vencimiento.getTime())) return null;
+
+  const diferencia = vencimiento - hoy;
+  return Math.ceil(diferencia / (1000 * 60 * 60 * 24));
+}
+
+function obtenerEstado(c){
   if(c.tipo === "lead"){
     return c.estado || "lead";
   }
 
-  if(c.fecha_vencimiento){
+  const dias = obtenerDiasRestantes(c);
 
-    const hoy =
-    new Date();
-
-    const vencimiento =
-    new Date(c.fecha_vencimiento);
-
-    const diferencia =
-    vencimiento - hoy;
-
-    const dias =
-    Math.ceil(
-      diferencia / (1000 * 60 * 60 * 24)
-    );
-
-    if(dias < 0){
-      return "vencido";
-    }
-
-    if(dias <= 5){
-      return "vence_pronto";
-    }
-
+  if(dias !== null){
+    if(dias < 0) return "vencido";
+    if(dias <= 5) return "vence_pronto";
     return "activo";
   }
 
-  return (
-    c.estado_activacion ||
-    c.estado_pago ||
-    c.estado ||
-    "pendiente"
-  );
-
+  return c.estado_activacion || c.estado_pago || c.estado || "pendiente";
 }
 
 function obtenerClaseEstado(estado){
-
-  if(estado === "contactado"){
-    return "contactado-status";
-  }
-
-  if(estado === "approved"){
-    return "approved";
-  }
-
-  if(estado === "activo"){
-    return "activo";
-  }
-
-  if(estado === "vence_pronto"){
-    return "vence-pronto";
-  }
-
-  if(estado === "vencido"){
-    return "vencido";
-  }
-
+  if(estado === "contactado") return "contactado-status";
+  if(estado === "approved") return "approved";
+  if(estado === "activo") return "activo";
+  if(estado === "vence_pronto") return "vence-pronto";
+  if(estado === "vencido") return "vencido";
   return estado || "pendiente";
+}
 
+function obtenerTextoEstado(c){
+  const estado = obtenerEstado(c);
+  const dias = obtenerDiasRestantes(c);
+
+  if(c.tipo === "cliente" && dias !== null){
+    if(estado === "activo") return `activo · ${dias} días`;
+    if(estado === "vence_pronto") return `vence pronto · ${dias} días`;
+    if(estado === "vencido") return `vencido · hace ${Math.abs(dias)} días`;
+  }
+
+  return estado;
 }
-  
-function normalizarTexto(valor){
-  return String(valor || "")
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g,"")
-    .trim();
+
+function renderStats(){
+  const leads = TODOS.filter(x => x.tipo === "lead").length;
+
+  const pagados = TODOS.filter(x =>
+    x.estado_pago === "approved" ||
+    x.estado_pago === "pagado"
+  ).length;
+
+  const activados = TODOS.filter(x =>
+    x.estado_activacion === "activado"
+  ).length;
+
+  const pendientes = TODOS.filter(x =>
+    x.estado_activacion === "pendiente"
+  ).length;
+
+  const vencenPronto = TODOS.filter(x =>
+    x.tipo === "cliente" &&
+    obtenerEstado(x) === "vence_pronto"
+  ).length;
+
+  const vencidos = TODOS.filter(x =>
+    x.tipo === "cliente" &&
+    obtenerEstado(x) === "vencido"
+  ).length;
+
+  stats.innerHTML = `
+    <div class="stat-card">
+      <div class="stat-title">🔥 Leads</div>
+      <div class="stat-value">${leads}</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-title">💰 Pagados</div>
+      <div class="stat-value">${pagados}</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-title">✅ Activados</div>
+      <div class="stat-value">${activados}</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-title">⏳ Pendientes</div>
+      <div class="stat-value">${pendientes}</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-title">🟠 Vencen pronto</div>
+      <div class="stat-value">${vencenPronto}</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-title">🔴 Vencidos</div>
+      <div class="stat-value">${vencidos}</div>
+    </div>
+  `;
 }
+
 async function cargar(){
   TODOS = [];
 
@@ -372,58 +403,13 @@ async function cargar(){
     });
   });
 
-function renderStats(){
-
-  const leads =
-  TODOS.filter(x => x.tipo === "lead").length;
-
-  const pagados =
-  TODOS.filter(x =>
-    x.estado_pago === "approved" ||
-    x.estado_pago === "pagado"
-  ).length;
-
-  const activados =
-  TODOS.filter(x =>
-    x.estado_activacion === "activado"
-  ).length;
-
-  const pendientes =
-  TODOS.filter(x =>
-    x.estado_activacion === "pendiente"
-  ).length;
-
-  stats.innerHTML = `
-
-    <div class="stat-card">
-      <div class="stat-title">🔥 Leads</div>
-      <div class="stat-value">${leads}</div>
-    </div>
-
-    <div class="stat-card">
-      <div class="stat-title">💰 Pagados</div>
-      <div class="stat-value">${pagados}</div>
-    </div>
-
-    <div class="stat-card">
-      <div class="stat-title">✅ Activados</div>
-      <div class="stat-value">${activados}</div>
-    </div>
-
-    <div class="stat-card">
-      <div class="stat-title">⏳ Pendientes</div>
-      <div class="stat-value">${pendientes}</div>
-    </div>
-
-  `;
-}
- renderStats();
-render();
+  renderStats();
+  render();
 }
 
 function render(){
   const texto = normalizarTexto(inputBusqueda.value);
-const textoNumerico = String(inputBusqueda.value || "").replace(/\D/g,"");
+  const textoNumerico = String(inputBusqueda.value || "").replace(/\D/g,"");
   const filtro = selectFiltro.value;
 
   contenedor.innerHTML = "";
@@ -431,24 +417,25 @@ const textoNumerico = String(inputBusqueda.value || "").replace(/\D/g,"");
   const filtrados = TODOS.filter(c => {
     const estado = obtenerEstado(c);
 
- const textoCliente = normalizarTexto(`
-  ${c.nombre || ""}
-  ${c.correo || ""}
-  ${c.whatsapp || ""}
-  ${c.telefono || ""}
-  ${c.plan || ""}
-  ${c.estado || ""}
-  ${c.estado_pago || ""}
-  ${c.estado_activacion || ""}
-  ${c.observaciones || ""}
-`);
+    const textoCliente = normalizarTexto(`
+      ${c.nombre || ""}
+      ${c.correo || ""}
+      ${c.whatsapp || ""}
+      ${c.telefono || ""}
+      ${c.plan || ""}
+      ${c.estado || ""}
+      ${c.estado_pago || ""}
+      ${c.estado_activacion || ""}
+      ${c.estado_servicio || ""}
+      ${c.observaciones || ""}
+    `);
 
-const telefonoCliente = String(c.whatsapp || c.telefono || "").replace(/\D/g,"");
+    const telefonoCliente = String(c.whatsapp || c.telefono || "").replace(/\D/g,"");
 
-const matchTexto =
-  !texto ||
-  textoCliente.includes(texto) ||
-  (textoNumerico && telefonoCliente.includes(textoNumerico));
+    const matchTexto =
+      !texto ||
+      textoCliente.includes(texto) ||
+      (textoNumerico && telefonoCliente.includes(textoNumerico));
 
     let matchFiltro = true;
 
@@ -457,6 +444,9 @@ const matchTexto =
     if(filtro === "activado") matchFiltro = c.estado_activacion === "activado";
     if(filtro === "pendiente") matchFiltro = c.estado_activacion === "pendiente";
     if(filtro === "contactado") matchFiltro = estado === "contactado" || c.estado === "contactado";
+    if(filtro === "activo") matchFiltro = estado === "activo";
+    if(filtro === "vence_pronto") matchFiltro = estado === "vence_pronto";
+    if(filtro === "vencido") matchFiltro = estado === "vencido";
 
     return matchTexto && matchFiltro;
   });
@@ -469,7 +459,7 @@ const matchTexto =
   filtrados.forEach(c => {
     const estado = obtenerEstado(c);
     const claseEstado = obtenerClaseEstado(estado);
-    
+    const textoEstado = obtenerTextoEstado(c);
 
     const div = document.createElement("div");
     div.className = "card";
@@ -555,29 +545,16 @@ const matchTexto =
 }
 
 window.activar = async function(id){
-
-  const cliente =
-  TODOS.find(x => x.id === id);
+  const cliente = TODOS.find(x => x.id === id);
 
   if(!cliente){
     alert("Cliente no encontrado.");
     return;
   }
 
-  const usuario =
-  document.getElementById("u-"+id)
-  ?.value
-  .trim() || "";
-
-  const password =
-  document.getElementById("p-"+id)
-  ?.value
-  .trim() || "";
-
-  const m3u =
-  document.getElementById("m-"+id)
-  ?.value
-  .trim() || "";
+  const usuario = document.getElementById("u-"+id)?.value.trim() || "";
+  const password = document.getElementById("p-"+id)?.value.trim() || "";
+  const m3u = document.getElementById("m-"+id)?.value.trim() || "";
 
   if(!usuario || !password || !m3u){
     alert("Debes completar usuario, contraseña y M3U.");
@@ -585,53 +562,28 @@ window.activar = async function(id){
   }
 
   const hoy = new Date();
-
   let meses = 1;
+  const plan = String(cliente.plan || "").toLowerCase();
 
-  const plan =
-  String(cliente.plan || "")
-  .toLowerCase();
+  if(plan.includes("3")) meses = 3;
+  if(plan.includes("12")) meses = 12;
 
-  if(plan.includes("3")){
-    meses = 3;
-  }
+  const vencimiento = new Date(hoy);
+  vencimiento.setMonth(vencimiento.getMonth() + meses);
 
-  if(plan.includes("12")){
-    meses = 12;
-  }
-
-  const vencimiento =
-  new Date(hoy);
-
-  vencimiento.setMonth(
-    vencimiento.getMonth() + meses
-  );
-
-  await updateDoc(
-    doc(db,"clientes",id),
-    {
-      usuario_iptv: usuario,
-      password_iptv: password,
-      m3u: m3u,
-
-      estado_activacion: "activado",
-      estado_servicio: "activo",
-
-      fecha_inicio:
-      hoy.toISOString(),
-
-      fecha_vencimiento:
-      vencimiento.toISOString(),
-
-      actualizado_en:
-      new Date().toISOString()
-    }
-  );
+  await updateDoc(doc(db,"clientes",id),{
+    usuario_iptv: usuario,
+    password_iptv: password,
+    m3u: m3u,
+    estado_activacion: "activado",
+    estado_servicio: "activo",
+    fecha_inicio: hoy.toISOString(),
+    fecha_vencimiento: vencimiento.toISOString(),
+    actualizado_en: new Date().toISOString()
+  });
 
   alert("Cliente activado correctamente.");
-
   cargar();
-
 };
 
 window.enviarAcceso = function(id){
@@ -774,4 +726,3 @@ cargar();
 
 </body>
 </html>
-
