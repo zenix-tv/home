@@ -419,6 +419,37 @@ ${c.payment_id || ""}
 
 window.activar = async function(id){
 
+  const usuario =
+  document.getElementById("u-"+id)
+  .value
+  .trim();
+
+  const password =
+  document.getElementById("p-"+id)
+  .value
+  .trim();
+
+  const m3u =
+  document.getElementById("m-"+id)
+  .value
+  .trim();
+
+  await updateDoc(
+    doc(db,"clientes",id),
+    {
+      usuario_iptv:usuario,
+      password_iptv:password,
+      m3u:m3u,
+      estado_activacion:"activado"
+    }
+  );
+
+  alert("Cliente activado");
+
+  cargar();
+
+}
+
 window.enviarAcceso = function(id){
 
   const c = TODOS.find(x => x.id === id);
@@ -497,13 +528,7 @@ PATAN TV 🐶🔥`;
   ? telefono
   : "56" + telefono;
 
-  window.open(
-    "https://wa.me/" +
-    telefonoFinal +
-    "?text=" +
-    encodeURIComponent(mensaje),
-    "_blank"
-  );
+abrirWhatsAppBusiness(c.whatsapp, mensaje);
 
 }  
   const usuario =
@@ -536,7 +561,40 @@ PATAN TV 🐶🔥`;
   cargar();
 
 }
+window.convertirCliente = async function(id){
 
+  const lead =
+  TODOS.find(x => x.id === id);
+
+  if(!lead){
+    alert("Lead no encontrado");
+    return;
+  }
+
+  await addDoc(
+    collection(db,"clientes"),
+    {
+      nombre: lead.nombre || "",
+      correo: lead.correo || "",
+      whatsapp: lead.whatsapp || "",
+      plan: lead.plan || "",
+      precio: lead.precio || 0,
+      estado_pago: "approved",
+      estado_activacion: "pendiente",
+      fecha_pago: new Date().toISOString(),
+      origen: "manual"
+    }
+  );
+
+  await deleteDoc(
+    doc(db,"leads",id)
+  );
+
+  alert("Lead convertido en cliente");
+
+  cargar();
+
+}
 window.contactado = async function(id,tipo){
 window.convertirCliente = async function(id){
 
