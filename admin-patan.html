@@ -596,12 +596,28 @@ window.convertirCliente = async function(id){
 
 }
 window.contactado = async function(id,tipo){
+
+  await updateDoc(
+    doc(db, tipo === "lead" ? "leads" : "clientes", id),
+    {
+      estado:"contactado"
+    }
+  );
+
+  alert("Cliente marcado como contactado");
+
+  cargar();
+
+}
+
 window.convertirCliente = async function(id){
 
-  const lead =
-  TODOS.find(x => x.id === id);
+  const lead = TODOS.find(x => x.id === id);
 
-  if(!lead) return;
+  if(!lead){
+    alert("Lead no encontrado");
+    return;
+  }
 
   await addDoc(
     collection(db,"clientes"),
@@ -628,27 +644,14 @@ window.convertirCliente = async function(id){
 
 }
 
-
-  await updateDoc(
-    doc(db,tipo === "lead" ? "leads":"clientes",id),
-    {
-      estado:"contactado"
-    }
-  );
-
-  cargar();
-
-}
-
 window.eliminar = async function(id,tipo){
 
-  const ok =
-  confirm("¿Eliminar registro?");
+  const ok = confirm("¿Eliminar registro?");
 
   if(!ok) return;
 
   await deleteDoc(
-    doc(db,tipo === "lead" ? "leads":"clientes",id)
+    doc(db, tipo === "lead" ? "leads" : "clientes", id)
   );
 
   cargar();
