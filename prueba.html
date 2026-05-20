@@ -6,6 +6,185 @@
   <title>PATAN TV</title>
  <link rel="stylesheet" href="./styles.css?v=10002" />
 <script src="./script.js?v=10001" defer></script>
+
+
+<style>
+/* =========================================================
+   AJUSTES RESPONSIVE + FLUIDEZ MÓVIL PATAN TV
+   Mantiene PC igual y corrige Android / iPhone / Samsung
+========================================================= */
+html, body{
+  width:100%;
+  max-width:100%;
+  overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior-y:auto;
+}
+
+img, video, iframe{
+  max-width:100%;
+}
+
+section{
+  max-width:100%;
+  overflow:hidden;
+}
+
+/* Menú adaptable para celulares */
+.navbar{
+  z-index:999;
+}
+
+@media (max-width: 768px){
+  .navbar{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
+    padding:10px 10px 12px;
+  }
+
+  .logo img{
+    max-height:54px;
+    width:auto;
+  }
+
+  .nav-links{
+    width:100%;
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:7px;
+    padding:0 4px;
+  }
+
+  .nav-links a{
+    font-size:12px;
+    line-height:1;
+    padding:8px 10px;
+    border-radius:999px;
+    white-space:nowrap;
+  }
+
+  .hero-content{
+    padding-left:16px;
+    padding-right:16px;
+  }
+
+  .hero-stats{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    text-align:center;
+    font-size:15px;
+  }
+
+  .btn-main,
+  .plan-btn,
+  .video-btn{
+    max-width:92vw;
+    white-space:normal;
+    text-align:center;
+  }
+
+  /* WhatsApp más pequeño en móvil */
+  .patan-whatsapp{
+    right:10px !important;
+    bottom:12px !important;
+    width:66px !important;
+    height:66px !important;
+    transform:none !important;
+  }
+
+  .patan-whatsapp .patan-dog,
+  .patan-dog{
+    width:64px !important;
+    max-width:64px !important;
+    height:auto !important;
+  }
+
+  .patan-message{
+    display:none !important;
+  }
+}
+
+@media (max-width: 390px){
+  .nav-links a{
+    font-size:11px;
+    padding:7px 8px;
+  }
+
+  .logo img{
+    max-height:48px;
+  }
+
+  .patan-whatsapp{
+    width:58px !important;
+    height:58px !important;
+  }
+
+  .patan-whatsapp .patan-dog,
+  .patan-dog{
+    width:56px !important;
+    max-width:56px !important;
+  }
+}
+
+/* Evita tirones por sliders y animaciones en móviles */
+@media (hover:none) and (pointer:coarse){
+  *{
+    -webkit-tap-highlight-color:transparent;
+  }
+
+  .sports-slider,
+  .ranking-slider,
+  .draggable-slider{
+    overflow-x:auto;
+    overflow-y:hidden;
+    -webkit-overflow-scrolling:touch;
+    touch-action:pan-x;
+    scroll-snap-type:none !important;
+  }
+
+  .sports-track,
+  .ranking-track{
+    will-change:auto !important;
+  }
+
+  .league-card,
+  .rank-card,
+  .plan-card,
+  .ultra-device-card{
+    scroll-snap-align:none !important;
+  }
+
+  .league-card:hover,
+  .rank-card:hover,
+  .plan-card:hover,
+  .ultra-device-card:hover{
+    transform:none !important;
+  }
+
+  .reveal{
+    opacity:1 !important;
+    transform:none !important;
+  }
+}
+
+/* En móviles muy sensibles reducimos efectos pesados */
+@media (max-width:768px){
+  .hero-video video,
+  #introVideo{
+    object-fit:cover;
+  }
+
+  .ultra-glow-ring,
+  .devices-ultra-bg{
+    animation:none !important;
+  }
+}
+</style>
+
 </head>
 
 <body>
@@ -595,3 +774,4 @@ window.addEventListener("load", function () {
 
 </body>
 </html>
+
