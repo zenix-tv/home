@@ -188,7 +188,7 @@ function abrirWhatsAppBusiness(numero, mensaje){
   }
 
   const url =
-  `intent://send?phone=${telefonoFinal}&text=${encodeURIComponent(mensaje)}#Intent;scheme=smsto;package=com.whatsapp.w4b;end`;
+  `https://api.whatsapp.com/send?phone=${telefonoFinal}&text=${encodeURIComponent(mensaje)}#Intent;scheme=smsto;package=com.whatsapp.w4b;end`;
 window.open(url, "_blank");
 }
 
