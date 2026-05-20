@@ -484,25 +484,83 @@ const matchTexto =
 }
 
 window.activar = async function(id){
-  const usuario = document.getElementById("u-"+id)?.value.trim() || "";
-  const password = document.getElementById("p-"+id)?.value.trim() || "";
-  const m3u = document.getElementById("m-"+id)?.value.trim() || "";
 
-  if(!usuario || !password || !m3u){
-    alert("Debes completar usuario, contraseña y M3U antes de activar.");
+  const cliente =
+  TODOS.find(x => x.id === id);
+
+  if(!cliente){
+    alert("Cliente no encontrado.");
     return;
   }
 
-  await updateDoc(doc(db,"clientes",id),{
-    usuario_iptv:usuario,
-    password_iptv:password,
-    m3u:m3u,
-    estado_activacion:"activado",
-    actualizado_en:new Date().toISOString()
-  });
+  const usuario =
+  document.getElementById("u-"+id)
+  ?.value
+  .trim() || "";
 
-  alert("Cliente activado y acceso guardado.");
+  const password =
+  document.getElementById("p-"+id)
+  ?.value
+  .trim() || "";
+
+  const m3u =
+  document.getElementById("m-"+id)
+  ?.value
+  .trim() || "";
+
+  if(!usuario || !password || !m3u){
+    alert("Debes completar usuario, contraseña y M3U.");
+    return;
+  }
+
+  const hoy = new Date();
+
+  let meses = 1;
+
+  const plan =
+  String(cliente.plan || "")
+  .toLowerCase();
+
+  if(plan.includes("3")){
+    meses = 3;
+  }
+
+  if(plan.includes("12")){
+    meses = 12;
+  }
+
+  const vencimiento =
+  new Date(hoy);
+
+  vencimiento.setMonth(
+    vencimiento.getMonth() + meses
+  );
+
+  await updateDoc(
+    doc(db,"clientes",id),
+    {
+      usuario_iptv: usuario,
+      password_iptv: password,
+      m3u: m3u,
+
+      estado_activacion: "activado",
+      estado_servicio: "activo",
+
+      fecha_inicio:
+      hoy.toISOString(),
+
+      fecha_vencimiento:
+      vencimiento.toISOString(),
+
+      actualizado_en:
+      new Date().toISOString()
+    }
+  );
+
+  alert("Cliente activado correctamente.");
+
   cargar();
+
 };
 
 window.enviarAcceso = function(id){
