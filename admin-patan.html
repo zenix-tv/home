@@ -16,7 +16,8 @@ body{
   padding:24px;
 }
 
-h1{text-align:center;color:#FFA100}
+h1{text-align:center;color:#FFA100;margin-bottom:8px}
+.subtitle{text-align:center;color:#cbd5e1;margin-bottom:26px;font-size:14px}
 
 .panel{max-width:1300px;margin:auto}
 
@@ -53,7 +54,7 @@ h1{text-align:center;color:#FFA100}
   gap:12px;
 }
 
-.label{color:#FFA100;font-weight:900}
+.label{color:#FFA100;font-weight:900;margin-bottom:4px}
 
 input{
   width:100%;
@@ -79,28 +80,40 @@ button,a.btn{
   margin-right:8px;
 }
 
+button:hover,a.btn:hover{filter:brightness(1.1)}
+
 .delete{background:#7f1d1d;color:#fff}
 .contactado{background:#14532d;color:#fff}
 .access{background:#2563eb;color:#fff}
+.convertir{background:#9333ea;color:#fff}
+.whatsapp{background:#22c55e;color:#04130a}
 
 .status{
   display:inline-block;
   padding:6px 10px;
   border-radius:999px;
   font-weight:900;
+  text-transform:uppercase;
+  font-size:12px;
 }
 
 .pendiente{background:#7c2d12;color:#fff}
 .activado{background:#14532d;color:#fff}
 .lead{background:#1d4ed8;color:#fff}
-.contactado-status{background:#166534;color:#fff}
-.approved{background:#14532d;color:#fff}
+.contactado-status,.contactado{background:#166534;color:#fff}
+.approved,.pagado{background:#14532d;color:#fff}
 
 .small{color:#ccc;font-size:14px;word-break:break-word}
+.empty{padding:30px;text-align:center;color:#cbd5e1;border:1px dashed rgba(255,161,0,.35);border-radius:18px}
 
 hr{
   border-color:rgba(255,255,255,.1);
   margin:18px 0;
+}
+
+@media(max-width:640px){
+  body{padding:14px}
+  button,a.btn{width:100%;text-align:center;margin-right:0}
 }
 </style>
 </head>
@@ -116,6 +129,7 @@ if(localStorage.getItem("patan_admin") !== "ok"){
 <div class="panel">
 
 <h1>Panel Admin PATAN TV</h1>
+<div class="subtitle">Clientes · Leads · Activación · WhatsApp Business</div>
 
 <div class="topbar">
   <div class="search">
@@ -164,18 +178,32 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 const contenedor = document.getElementById("clientes");
+const inputBusqueda = document.getElementById("busqueda");
+const selectFiltro = document.getElementById("filtro");
+
 let TODOS = [];
+
+function escapeHTML(valor){
+  return String(valor ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
 
 function limpiarTelefonoWhatsApp(numero){
   let tel = String(numero || "").replace(/\D/g,"");
 
-  if(tel.startsWith("56")) return tel;
-  if(tel.startsWith("34")) return tel;
+  if(!tel) return "";
 
-  if(tel.length === 9 && tel.startsWith("9")){
-    return "56" + tel;
-  }
+  // Chile: si viene como 9 dígitos empezando en 9, agregamos 56.
+  if(tel.length === 9 && tel.startsWith("9")) return "56" + tel;
 
+  // España: si viene como 9 dígitos empezando en 6, 7, 8 o 9, agregamos 34.
+  if(tel.length === 9 && /^[6789]/.test(tel)) return "34" + tel;
+
+  // Si ya viene con código país, lo respetamos.
   return tel;
 }
 
@@ -187,318 +215,214 @@ function abrirWhatsAppBusiness(numero, mensaje){
     return;
   }
 
-  const url =
-  `https://api.whatsapp.com/send?phone=${telefonoFinal}&text=${encodeURIComponent(mensaje)}#Intent;scheme=smsto;package=com.whatsapp.w4b;end`;
-window.open(url, "_blank");
+  const texto = encodeURIComponent(mensaje);
+  const esAndroid = /Android/i.test(navigator.userAgent);
+
+  // Android intenta abrir específicamente WhatsApp Business.
+  if(esAndroid){
+    window.location.href = `intent://send?phone=${telefonoFinal}&text=${texto}#Intent;scheme=whatsapp;package=com.whatsapp.w4b;end`;
+    return;
+  }
+
+  // PC/iPhone fallback: abre WhatsApp Web/App normal.
+  window.open(`https://wa.me/${telefonoFinal}?text=${texto}`, "_blank");
+}
+
+function obtenerEstado(c){
+  if(c.tipo === "lead") return c.estado || "lead";
+  return c.estado_activacion || c.estado_pago || c.estado || "pendiente";
+}
+
+function obtenerClaseEstado(estado){
+  if(estado === "contactado") return "contactado-status";
+  if(estado === "approved") return "approved";
+  return estado || "pendiente";
 }
 
 async function cargar(){
-
   TODOS = [];
 
-  const clientesSnap =
-  await getDocs(collection(db,"clientes"));
-
+  const clientesSnap = await getDocs(collection(db,"clientes"));
   clientesSnap.forEach(docu => {
-
     TODOS.push({
       id:docu.id,
       tipo:"cliente",
       ...docu.data()
     });
-
   });
 
-  const leadsSnap =
-  await getDocs(collection(db,"leads"));
-
+  const leadsSnap = await getDocs(collection(db,"leads"));
   leadsSnap.forEach(docu => {
-
     TODOS.push({
       id:docu.id,
       tipo:"lead",
       ...docu.data()
     });
-
   });
 
   render();
-
 }
 
 function render(){
-
-  const texto =
-  document.getElementById("busqueda")
-  .value
-  .toLowerCase();
-
-  const filtro =
-  document.getElementById("filtro")
-  .value;
+  const texto = inputBusqueda.value.toLowerCase().trim();
+  const filtro = selectFiltro.value;
 
   contenedor.innerHTML = "";
 
-  TODOS
-  .filter(c => {
+  const filtrados = TODOS.filter(c => {
+    const estado = obtenerEstado(c);
 
     const matchTexto =
-    (c.nombre || "")
-    .toLowerCase()
-    .includes(texto)
-
-    ||
-
-    (c.correo || "")
-    .toLowerCase()
-    .includes(texto)
-
-    ||
-
-    (c.whatsapp || "")
-    .includes(texto);
+      String(c.nombre || "").toLowerCase().includes(texto) ||
+      String(c.correo || "").toLowerCase().includes(texto) ||
+      String(c.whatsapp || "").replace(/\D/g,"").includes(texto.replace(/\D/g,"")) ||
+      String(c.whatsapp || "").toLowerCase().includes(texto);
 
     let matchFiltro = true;
 
-    if(filtro === "lead"){
-      matchFiltro = c.tipo === "lead";
-    }
-
-    if(filtro === "approved"){
-      matchFiltro = c.estado_pago === "approved";
-    }
-
-    if(filtro === "activado"){
-      matchFiltro = c.estado_activacion === "activado";
-    }
-
-    if(filtro === "pendiente"){
-      matchFiltro = c.estado_activacion === "pendiente";
-    }
+    if(filtro === "lead") matchFiltro = c.tipo === "lead";
+    if(filtro === "approved") matchFiltro = c.estado_pago === "approved" || c.estado_pago === "pagado";
+    if(filtro === "activado") matchFiltro = c.estado_activacion === "activado";
+    if(filtro === "pendiente") matchFiltro = c.estado_activacion === "pendiente";
+    if(filtro === "contactado") matchFiltro = estado === "contactado" || c.estado === "contactado";
 
     return matchTexto && matchFiltro;
+  });
 
-  })
+  if(filtrados.length === 0){
+    contenedor.innerHTML = `<div class="empty">No hay registros para este filtro.</div>`;
+    return;
+  }
 
-  .forEach(c => {
+  filtrados.forEach(c => {
+    const estado = obtenerEstado(c);
+    const claseEstado = obtenerClaseEstado(estado);
 
-    const estado =
-    c.estado_activacion || c.estado || "lead";
-
-    const div =
-    document.createElement("div");
-
+    const div = document.createElement("div");
     div.className = "card";
 
     div.innerHTML = `
+      <div class="grid">
+        <div>
+          <div class="label">Cliente</div>
+          ${escapeHTML(c.nombre || "")}
+        </div>
 
-<div class="grid">
+        <div>
+          <div class="label">Correo</div>
+          ${escapeHTML(c.correo || "")}
+        </div>
 
-<div>
-<div class="label">Cliente</div>
-${c.nombre || ""}
-</div>
+        <div>
+          <div class="label">WhatsApp</div>
+          ${escapeHTML(c.whatsapp || "")}
+        </div>
 
-<div>
-<div class="label">Correo</div>
-${c.correo || ""}
-</div>
+        <div>
+          <div class="label">Plan</div>
+          ${escapeHTML(c.plan || "")}
+        </div>
 
-<div>
-<div class="label">WhatsApp</div>
-${c.whatsapp || ""}
-</div>
+        <div>
+          <div class="label">Precio</div>
+          $${Number(c.precio || 0).toLocaleString("es-CL")}
+        </div>
 
-<div>
-<div class="label">Plan</div>
-${c.plan || ""}
-</div>
+        <div>
+          <div class="label">Estado</div>
+          <span class="status ${escapeHTML(claseEstado)}">${escapeHTML(estado)}</span>
+        </div>
+      </div>
 
-<div>
-<div class="label">Precio</div>
-$${Number(c.precio || 0)
-.toLocaleString("es-CL")}
-</div>
+      <hr>
 
-<div>
-<div class="label">Estado</div>
+      <div class="grid">
+        <div>
+          <div class="label">Usuario IPTV</div>
+          <input id="u-${c.id}" value="${escapeHTML(c.usuario_iptv || "")}" ${c.tipo === "lead" ? "disabled" : ""}>
+        </div>
 
-<span class="status ${estado}">
-${estado}
-</span>
+        <div>
+          <div class="label">Password IPTV</div>
+          <input id="p-${c.id}" value="${escapeHTML(c.password_iptv || "")}" ${c.tipo === "lead" ? "disabled" : ""}>
+        </div>
 
-</div>
+        <div>
+          <div class="label">Link M3U</div>
+          <input id="m-${c.id}" value="${escapeHTML(c.m3u || "")}" ${c.tipo === "lead" ? "disabled" : ""}>
+        </div>
+      </div>
 
-</div>
+      <div class="acciones">
+        ${c.tipo === "cliente" ? `
+          <button onclick="activar('${c.id}')">Guardar acceso</button>
+          <button class="access" onclick="enviarAcceso('${c.id}')">Enviar hoja de acceso</button>
+        ` : ""}
 
-<hr>
+        ${c.tipo === "lead" ? `
+          <button class="whatsapp" onclick="contactarLead('${c.id}')">WhatsApp Lead</button>
+          <button class="convertir" onclick="convertirCliente('${c.id}')">Pasar a Pagado / Contratado</button>
+        ` : ""}
 
-<div class="grid">
+        <button class="contactado" onclick="marcarContactado('${c.id}','${c.tipo}')">Marcar contactado</button>
+        <button class="delete" onclick="eliminar('${c.id}','${c.tipo}')">Eliminar</button>
+      </div>
 
-<div>
-<div class="label">Usuario IPTV</div>
-<input id="u-${c.id}" value="${c.usuario_iptv || ""}">
-</div>
-
-<div>
-<div class="label">Password IPTV</div>
-<input id="p-${c.id}" value="${c.password_iptv || ""}">
-</div>
-
-<div>
-<div class="label">Link M3U</div>
-<input id="m-${c.id}" value="${c.m3u || ""}">
-</div>
-
-</div>
-
-<button onclick="activar('${c.id}')">
-Guardar acceso
-</button>
-
-<button
-class="contactado"
-onclick="contactado('${c.id}','${c.tipo}')"
->
-Marcar contactado
-</button>
-${c.tipo === "lead" ? `
-
-<button
-onclick="convertirCliente('${c.id}')"
->
-Convertir a Cliente
-</button>
-
-` : ""}
-
-${c.tipo === "lead" ? `
-
-<a
-class="btn"
-target="_blank"
-href="https://api.whatsapp.com/send?phone=56${String(c.whatsapp || "").replace(/\D/g,'')}&text=${encodeURIComponent(`Hola ${c.nombre || ""} 😎
-
-Soy de PATAN TV.
-
-Vimos que mostraste interés en el plan ${c.plan || ""}.
-
-¿Te ayudo a activar tu cuenta premium? 🔥`)}#Intent;scheme=smsto;package=com.whatsapp.w4b;end"
->
-WhatsApp Lead
-</a>
-
-` : `
-
-<button
-onclick="enviarAcceso('${c.id}')"
->
-Enviar Hoja de Acceso
-</button>
-
-`}
-
-<button
-class="delete"
-onclick="eliminar('${c.id}','${c.tipo}')"
->
-Eliminar
-</button>
-
-<p class="small">
-${c.payment_id || ""}
-</p>
-
-`;
+      <p class="small">${escapeHTML(c.payment_id || "")}</p>
+    `;
 
     contenedor.appendChild(div);
-
   });
-
 }
 
 window.activar = async function(id){
+  const usuario = document.getElementById("u-"+id)?.value.trim() || "";
+  const password = document.getElementById("p-"+id)?.value.trim() || "";
+  const m3u = document.getElementById("m-"+id)?.value.trim() || "";
 
-  const usuario =
-  document.getElementById("u-"+id)
-  .value
-  .trim();
+  if(!usuario || !password || !m3u){
+    alert("Debes completar usuario, contraseña y M3U antes de activar.");
+    return;
+  }
 
-  const password =
-  document.getElementById("p-"+id)
-  .value
-  .trim();
+  await updateDoc(doc(db,"clientes",id),{
+    usuario_iptv:usuario,
+    password_iptv:password,
+    m3u:m3u,
+    estado_activacion:"activado",
+    actualizado_en:new Date().toISOString()
+  });
 
-  const m3u =
-  document.getElementById("m-"+id)
-  .value
-  .trim();
-
-  await updateDoc(
-    doc(db,"clientes",id),
-    {
-      usuario_iptv:usuario,
-      password_iptv:password,
-      m3u:m3u,
-      estado_activacion:"activado"
-    }
-  );
-
-  alert("Cliente activado");
-
+  alert("Cliente activado y acceso guardado.");
   cargar();
-
-}
+};
 
 window.enviarAcceso = function(id){
-
-  const c = TODOS.find(x => x.id === id);
+  const c = TODOS.find(x => x.id === id && x.tipo === "cliente");
 
   if(!c){
     alert("No encontré este cliente.");
     return;
   }
 
-  const usuario =
-  document.getElementById("u-"+id)
-  ?.value
-  .trim()
-  || c.usuario_iptv
-  || "";
-
-  const password =
-  document.getElementById("p-"+id)
-  ?.value
-  .trim()
-  || c.password_iptv
-  || "";
-
-  const m3u =
-  document.getElementById("m-"+id)
-  ?.value
-  .trim()
-  || c.m3u
-  || "";
+  const usuario = document.getElementById("u-"+id)?.value.trim() || c.usuario_iptv || "";
+  const password = document.getElementById("p-"+id)?.value.trim() || c.password_iptv || "";
+  const m3u = document.getElementById("m-"+id)?.value.trim() || c.m3u || "";
 
   if(!usuario || !password || !m3u){
-    alert("Primero guarda usuario, contraseña y M3U.");
+    alert("Primero completa y guarda usuario, contraseña y M3U.");
     return;
   }
 
   const accesoURL =
-  "https://www.patan.tv/acceso-patan.html?nombre=" +
-  encodeURIComponent(c.nombre || "") +
-  "&plan=" +
-  encodeURIComponent(c.plan || "") +
-  "&usuario=" +
-  encodeURIComponent(usuario) +
-  "&password=" +
-  encodeURIComponent(password) +
-  "&m3u=" +
-  encodeURIComponent(m3u);
+    "https://www.patan.tv/acceso-patan.html" +
+    "?nombre=" + encodeURIComponent(c.nombre || "") +
+    "&plan=" + encodeURIComponent(c.plan || "") +
+    "&usuario=" + encodeURIComponent(usuario) +
+    "&password=" + encodeURIComponent(password) +
+    "&m3u=" + encodeURIComponent(m3u);
 
-  const mensaje =
-`Hola ${c.nombre || "Patán Premium"} 😎🔥
+  const mensaje = `Hola ${c.nombre || "Patán Premium"} 😎🔥
 
 🎉 ¡Bienvenido a PATAN TV!
 
@@ -519,156 +443,84 @@ Guarda esta página. Ahí encontrarás tus datos, apps recomendadas e instruccio
 Si necesitas ayuda, estamos para apoyarte.
 PATAN TV 🐶🔥`;
 
-  const telefono =
-  String(c.whatsapp || "")
-  .replace(/\D/g,"");
+  abrirWhatsAppBusiness(c.whatsapp, mensaje);
+};
 
-  const telefonoFinal =
-  telefono.startsWith("56")
-  ? telefono
-  : "56" + telefono;
+window.contactarLead = function(id){
+  const c = TODOS.find(x => x.id === id && x.tipo === "lead");
 
-abrirWhatsAppBusiness(c.whatsapp, mensaje);
-
-}  
-  const usuario =
-  document.getElementById("u-"+id)
-  .value
-  .trim();
-
-  const password =
-  document.getElementById("p-"+id)
-  .value
-  .trim();
-
-  const m3u =
-  document.getElementById("m-"+id)
-  .value
-  .trim();
-
-  await updateDoc(
-    doc(db,"clientes",id),
-    {
-      usuario_iptv:usuario,
-      password_iptv:password,
-      m3u:m3u,
-      estado_activacion:"activado"
-    }
-  );
-
-  alert("Cliente activado");
-
-  cargar();
-
-}
-window.convertirCliente = async function(id){
-
-  const lead =
-  TODOS.find(x => x.id === id);
-
-  if(!lead){
-    alert("Lead no encontrado");
+  if(!c){
+    alert("No encontré este lead.");
     return;
   }
 
-  await addDoc(
-    collection(db,"clientes"),
-    {
-      nombre: lead.nombre || "",
-      correo: lead.correo || "",
-      whatsapp: lead.whatsapp || "",
-      plan: lead.plan || "",
-      precio: lead.precio || 0,
-      estado_pago: "approved",
-      estado_activacion: "pendiente",
-      fecha_pago: new Date().toISOString(),
-      origen: "manual"
-    }
-  );
+  const mensaje = `Hola ${c.nombre || ""} 😎
 
-  await deleteDoc(
-    doc(db,"leads",id)
-  );
+Soy de PATAN TV 🐶🔥
 
-  alert("Lead convertido en cliente");
+Vimos que mostraste interés en el plan ${c.plan || ""}.
 
-  cargar();
+¿Te ayudo a activar tu cuenta premium ahora?`;
 
-}
-window.contactado = async function(id,tipo){
-
-  await updateDoc(
-    doc(db, tipo === "lead" ? "leads" : "clientes", id),
-    {
-      estado:"contactado"
-    }
-  );
-
-  alert("Cliente marcado como contactado");
-
-  cargar();
-
-}
+  abrirWhatsAppBusiness(c.whatsapp, mensaje);
+};
 
 window.convertirCliente = async function(id){
-
-  const lead = TODOS.find(x => x.id === id);
+  const lead = TODOS.find(x => x.id === id && x.tipo === "lead");
 
   if(!lead){
-    alert("Lead no encontrado");
+    alert("Lead no encontrado.");
     return;
   }
 
-  await addDoc(
-    collection(db,"clientes"),
-    {
-      nombre: lead.nombre || "",
-      correo: lead.correo || "",
-      whatsapp: lead.whatsapp || "",
-      plan: lead.plan || "",
-      precio: lead.precio || 0,
-      estado_pago: "approved",
-      estado_activacion: "pendiente",
-      fecha_pago: new Date().toISOString(),
-      origen: "manual"
-    }
-  );
-
-  await deleteDoc(
-    doc(db,"leads",id)
-  );
-
-  alert("Lead convertido en cliente");
-
-  cargar();
-
-}
-
-window.eliminar = async function(id,tipo){
-
-  const ok = confirm("¿Eliminar registro?");
-
+  const ok = confirm("¿Confirmas que este lead ya pagó y quieres moverlo a Pagados/Clientes?");
   if(!ok) return;
 
-  await deleteDoc(
-    doc(db, tipo === "lead" ? "leads" : "clientes", id)
-  );
+  await addDoc(collection(db,"clientes"),{
+    nombre: lead.nombre || "",
+    correo: lead.correo || "",
+    whatsapp: lead.whatsapp || "",
+    plan: lead.plan || "",
+    precio: lead.precio || 0,
+    estado_pago: "approved",
+    estado_activacion: "pendiente",
+    fecha_pago: new Date().toISOString(),
+    origen: "lead_convertido_manual",
+    payment_id: lead.payment_id || ""
+  });
 
+  await deleteDoc(doc(db,"leads",id));
+
+  alert("Lead convertido en cliente pagado. Ahora puedes cargar usuario, contraseña y M3U.");
   cargar();
+};
 
-}
+window.marcarContactado = async function(id,tipo){
+  const coleccion = tipo === "lead" ? "leads" : "clientes";
 
-document
-.getElementById("busqueda")
-.addEventListener("input",render);
+  await updateDoc(doc(db,coleccion,id),{
+    estado:"contactado",
+    contactado_en:new Date().toISOString()
+  });
 
-document
-.getElementById("filtro")
-.addEventListener("change",render);
+  alert("Registro marcado como contactado.");
+  cargar();
+};
+
+window.eliminar = async function(id,tipo){
+  const ok = confirm("¿Eliminar registro definitivamente?");
+  if(!ok) return;
+
+  await deleteDoc(doc(db,tipo === "lead" ? "leads" : "clientes",id));
+  cargar();
+};
+
+inputBusqueda.addEventListener("input",render);
+selectFiltro.addEventListener("change",render);
 
 cargar();
-
 </script>
 
 </body>
 </html>
+
