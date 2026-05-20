@@ -1,3 +1,42 @@
+async function cargarContenido() {
+
+  try {
+
+    const response = await fetch("./contenido.json");
+    const data = await response.json();
+
+    /* HERO */
+    const heroCanales = document.getElementById("heroCanales");
+    const heroPeliculas = document.getElementById("heroPeliculas");
+    const heroTitulo = document.getElementById("heroTitulo");
+    const heroBoton = document.getElementById("heroBoton");
+
+    if(heroCanales){
+      heroCanales.textContent =
+        Number(data.hero.canales).toLocaleString("es-ES");
+    }
+
+    if(heroPeliculas){
+      heroPeliculas.textContent =
+        Number(data.hero.peliculas).toLocaleString("es-ES");
+    }
+
+    if(heroTitulo){
+      heroTitulo.textContent = data.hero.titulo;
+    }
+
+    if(heroBoton){
+      heroBoton.textContent = data.hero.boton;
+    }
+
+  } catch(error){
+
+    console.log("Error cargando contenido.json", error);
+
+  }
+}
+
+cargarContenido();
 document.addEventListener("DOMContentLoaded", () => {
   const boom = document.getElementById("boomSound");
   const enterBtn = document.getElementById("enterBtn");
