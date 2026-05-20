@@ -56,7 +56,7 @@ h1{text-align:center;color:#FFA100;margin-bottom:8px}
 
 .label{color:#FFA100;font-weight:900;margin-bottom:4px}
 
-input{
+input,textarea{
   width:100%;
   padding:12px;
   margin-top:8px;
@@ -64,6 +64,13 @@ input{
   border:1px solid rgba(255,161,0,.35);
   background:#000;
   color:#fff;
+}
+
+textarea{
+  min-height:92px;
+  resize:vertical;
+  font-family:Arial,Helvetica,sans-serif;
+  line-height:1.35;
 }
 
 button,a.btn{
@@ -353,6 +360,11 @@ function render(){
         </div>
       </div>
 
+      <div style="margin-top:14px">
+        <div class="label">Observaciones / Gestión interna</div>
+        <textarea id="obs-${c.id}" placeholder="Ej: Cliente pidió ayuda para instalar en TV Box, renovar el día 15, pendiente enviar APK, problema técnico, seguimiento comercial...">${escapeHTML(c.observaciones || "")}</textarea>
+      </div>
+
       <div class="acciones">
         ${c.tipo === "cliente" ? `
           <button onclick="activar('${c.id}')">Guardar acceso</button>
@@ -364,6 +376,7 @@ function render(){
           <button class="convertir" onclick="convertirCliente('${c.id}')">Pasar a Pagado / Contratado</button>
         ` : ""}
 
+        <button onclick="guardarObservacion('${c.id}','${c.tipo}')">Guardar observación</button>
         <button class="contactado" onclick="marcarContactado('${c.id}','${c.tipo}')">Marcar contactado</button>
         <button class="delete" onclick="eliminar('${c.id}','${c.tipo}')">Eliminar</button>
       </div>
@@ -486,12 +499,26 @@ window.convertirCliente = async function(id){
     estado_activacion: "pendiente",
     fecha_pago: new Date().toISOString(),
     origen: "lead_convertido_manual",
-    payment_id: lead.payment_id || ""
+    payment_id: lead.payment_id || "",
+    observaciones: lead.observaciones || ""
   });
 
   await deleteDoc(doc(db,"leads",id));
 
   alert("Lead convertido en cliente pagado. Ahora puedes cargar usuario, contraseña y M3U.");
+  cargar();
+};
+
+window.guardarObservacion = async function(id,tipo){
+  const coleccion = tipo === "lead" ? "leads" : "clientes";
+  const observaciones = document.getElementById("obs-"+id)?.value.trim() || "";
+
+  await updateDoc(doc(db,coleccion,id),{
+    observaciones,
+    fecha_ultima_observacion:new Date().toISOString()
+  });
+
+  alert("Observación guardada correctamente.");
   cargar();
 };
 
