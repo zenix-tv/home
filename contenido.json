@@ -1,0 +1,44 @@
+{
+  "hero": {
+    "canales": "4700",
+    "peliculas": "18000",
+    "titulo": "Acceso inmediato · Sin contratos",
+    "boton": "🔥 ACTIVAR PATAN TV"
+  },
+
+  "mundial": {
+    "titulo": "MUNDIAL 2026",
+    "subtitulo": "WOW PATÁN, MIRA LO QUE VIENE",
+    "imagen": "worldcup-2026.jpg"
+  },
+
+  "planes": [
+    {
+      "nombre": "1 Mes",
+      "precio": "$9.990",
+      "link": "checkout-zenix.html?plan=1mes"
+    },
+    {
+      "nombre": "3 Meses Oferta",
+      "precio": "$26.990",
+      "badge": "⭐ El plan más elegido de PATAN TV",
+      "link": "checkout-zenix.html?plan=3meses"
+    },
+    {
+      "nombre": "12 Meses",
+      "precio": "$79.990",
+      "link": "checkout-zenix.html?plan=12meses"
+    }
+  ],
+
+  "faq": [
+    {
+      "pregunta": "¿Necesito internet para ver el contenido?",
+      "respuesta": "Sí, recomendamos una velocidad mínima de 20 Mbps."
+    },
+    {
+      "pregunta": "¿En qué dispositivos funciona?",
+      "respuesta": "Smart TV, Android, iPhone, Roku, Firestick y PC."
+    }
+  ]
+}
