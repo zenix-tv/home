@@ -3,14 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Admin PATAN TV</title>
 
 <style>
-
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
   margin:0;
@@ -20,15 +16,9 @@ body{
   padding:24px;
 }
 
-h1{
-  text-align:center;
-  color:#FFA100;
-}
+h1{text-align:center;color:#FFA100}
 
-.panel{
-  max-width:1300px;
-  margin:auto;
-}
+.panel{max-width:1300px;margin:auto}
 
 .topbar{
   display:flex;
@@ -37,13 +27,9 @@ h1{
   flex-wrap:wrap;
 }
 
-.search{
-  flex:1;
-  min-width:240px;
-}
+.search{flex:1;min-width:240px}
 
-.search input,
-select{
+.search input,select{
   width:100%;
   padding:14px;
   border-radius:12px;
@@ -67,10 +53,7 @@ select{
   gap:12px;
 }
 
-.label{
-  color:#FFA100;
-  font-weight:900;
-}
+.label{color:#FFA100;font-weight:900}
 
 input{
   width:100%;
@@ -96,15 +79,9 @@ button,a.btn{
   margin-right:8px;
 }
 
-.delete{
-  background:#7f1d1d;
-  color:#fff;
-}
-
-.contactado{
-  background:#14532d;
-  color:#fff;
-}
+.delete{background:#7f1d1d;color:#fff}
+.contactado{background:#14532d;color:#fff}
+.access{background:#2563eb;color:#fff}
 
 .status{
   display:inline-block;
@@ -113,31 +90,18 @@ button,a.btn{
   font-weight:900;
 }
 
-.pendiente{
-  background:#7c2d12;
-  color:#fff;
-}
+.pendiente{background:#7c2d12;color:#fff}
+.activado{background:#14532d;color:#fff}
+.lead{background:#1d4ed8;color:#fff}
+.contactado-status{background:#166534;color:#fff}
+.approved{background:#14532d;color:#fff}
 
-.activado{
-  background:#14532d;
-  color:#fff;
-}
-
-.lead{
-  background:#1d4ed8;
-  color:#fff;
-}
-
-.small{
-  color:#ccc;
-  font-size:14px;
-}
+.small{color:#ccc;font-size:14px;word-break:break-word}
 
 hr{
   border-color:rgba(255,255,255,.1);
   margin:18px 0;
 }
-
 </style>
 </head>
 
@@ -154,25 +118,20 @@ if(localStorage.getItem("patan_admin") !== "ok"){
 <h1>Panel Admin PATAN TV</h1>
 
 <div class="topbar">
+  <div class="search">
+    <input type="text" id="busqueda" placeholder="Buscar cliente, correo o WhatsApp...">
+  </div>
 
-<div class="search">
-<input
-type="text"
-id="busqueda"
-placeholder="Buscar cliente, correo o WhatsApp..."
->
-</div>
-
-<div style="width:240px">
-<select id="filtro">
-<option value="todos">Todos</option>
-<option value="lead">Leads</option>
-<option value="approved">Pagados</option>
-<option value="activado">Activados</option>
-<option value="pendiente">Pendientes</option>
-</select>
-</div>
-
+  <div style="width:240px">
+    <select id="filtro">
+      <option value="todos">Todos</option>
+      <option value="lead">Leads</option>
+      <option value="approved">Pagados</option>
+      <option value="activado">Activados</option>
+      <option value="pendiente">Pendientes</option>
+      <option value="contactado">Contactados</option>
+    </select>
+  </div>
 </div>
 
 <div id="clientes"></div>
@@ -180,9 +139,7 @@ placeholder="Buscar cliente, correo o WhatsApp..."
 </div>
 
 <script type="module">
-
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
   getFirestore,
@@ -192,32 +149,48 @@ import {
   updateDoc,
   deleteDoc,
   addDoc
-}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
-
   apiKey: "AIzaSyCgK8LvJS69gyEhiUL7U-6AQoKBwyq-Pfs",
-
   authDomain: "patan-tv.firebaseapp.com",
-
   projectId: "patan-tv",
-
   storageBucket: "patan-tv.firebasestorage.app",
-
   messagingSenderId: "400945997953",
-
   appId: "1:400945997953:web:c5721123411dad95c08580"
-
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-const contenedor =
-document.getElementById("clientes");
-
+const contenedor = document.getElementById("clientes");
 let TODOS = [];
+
+function limpiarTelefonoWhatsApp(numero){
+  let tel = String(numero || "").replace(/\D/g,"");
+
+  if(tel.startsWith("56")) return tel;
+  if(tel.startsWith("34")) return tel;
+
+  if(tel.length === 9 && tel.startsWith("9")){
+    return "56" + tel;
+  }
+
+  return tel;
+}
+
+function abrirWhatsAppBusiness(numero, mensaje){
+  const telefonoFinal = limpiarTelefonoWhatsApp(numero);
+
+  if(!telefonoFinal){
+    alert("Este cliente no tiene WhatsApp válido.");
+    return;
+  }
+
+  const url =
+  `intent://send?phone=${telefonoFinal}&text=${encodeURIComponent(mensaje)}#Intent;scheme=smsto;package=com.whatsapp.w4b;end`;
+window.open(url, "_blank");
+}
 
 async function cargar(){
 
