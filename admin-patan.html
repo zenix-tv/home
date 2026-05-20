@@ -541,11 +541,11 @@ function render(){
         ${c.tipo === "cliente" ? `
           <button onclick="activar('${c.id}')">Guardar acceso</button>
           <button class="access" onclick="enviarAcceso('${c.id}')">Enviar hoja de acceso</button>
-          <button class="whatsapp" onclick="enviarRenovacion('${c.id}')">📲 Renovación WhatsApp</button>
-          <button onclick="renovarCliente('${c.id}',1)">➕1 Mes</button>
-          <button onclick="renovarCliente('${c.id}',3)">➕3 Meses</button>
-          <button onclick="renovarCliente('${c.id}',6)">➕6 Meses</button>
-          <button onclick="renovarCliente('${c.id}',12)">➕12 Meses</button>
+          <button class="whatsapp" onclick="enviarRenovacion('${c.id}')">📲 Renovación WhatsApp
+          </button>
+
+          <button onclick="menuRenovacion('${c.id}')">🔄 Renovar Cliente
+          </button>
         ` : ""}
 
         ${c.tipo === "lead" ? `
@@ -781,6 +781,29 @@ PATÁN TV 🐶🔥`;
   abrirWhatsAppBusiness(c.whatsapp, mensaje);
 };
 
+window.menuRenovacion = function(id){
+
+  const opcion = prompt(
+`RENOVAR CLIENTE
+
+Ingrese:
+1 = 1 Mes
+3 = 3 Meses
+6 = 6 Meses
+12 = 12 Meses`
+  );
+
+  const meses =
+  Number(opcion);
+
+  if(![1,3,6,12].includes(meses)){
+    alert("Opción inválida.");
+    return;
+  }
+
+  renovarCliente(id, meses);
+
+};
 window.renovarCliente = async function(id, meses){
 
   const cliente = TODOS.find(x => x.id === id && x.tipo === "cliente");
