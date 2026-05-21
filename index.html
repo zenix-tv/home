@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PATAN TV</title>
  <link rel="stylesheet" href="./styles.css?v=20260520-menuok" />
+
+<script type="module" src="patan-firebase-loader.js"></script>c
+  
 <script src="./script.js?v=20260520-menuok" defer></script>
 
 <style id="fix-final-menu-mobile-patan">
@@ -204,11 +207,11 @@
     <div class="hero-content">
     
       <p class="hero-stats">
-        <span class="counter" data-target="4700">0</span> Canales en Vivo
+        <span class="counter" id="heroCanales">4700</span> Canales en Vivo
         <span class="counter" id="heroPeliculas">18000</span> Películas y Series Premium      
       </p>
                  
-     <h3 id="heroTitulo">Acceso inmediato · Sin contratos</h3>
+    <h3 id="heroTitulo">Acceso inmediato · Sin contratos</h3>
     <a href="#planes" class="btn-main" id="heroBoton">
 🔥 ACTIVAR PATAN TV
 </a>
