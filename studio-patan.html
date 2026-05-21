@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Studio PATAN TV | Centro de Operaciones</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,Helvetica,sans-serif;background:#050b16;color:#fff;min-height:100vh;padding:22px}
+.header{max-width:1200px;margin:0 auto 24px;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:14px}.brand img{height:54px}.brand h1{font-size:26px;color:#FFA100}.brand p{color:#cfcfcf;font-size:14px;margin-top:4px}
+.actions{display:flex;gap:10px;flex-wrap:wrap}.btn{border:0;border-radius:12px;padding:13px 18px;font-weight:900;cursor:pointer}.save{background:#FFA100;color:#000}.load{background:#111827;color:#fff;border:1px solid rgba(255,161,0,.35)}.danger{background:#3b1111;color:#fff;border:1px solid #ff5555}
+.panel{max-width:1200px;margin:auto;display:grid;grid-template-columns:260px 1fr;gap:20px}.sidebar{background:#0b1220;border:1px solid rgba(255,161,0,.25);border-radius:18px;padding:14px;height:max-content;position:sticky;top:20px}.tab{width:100%;padding:14px;margin:5px 0;border:0;border-radius:12px;background:transparent;color:#fff;text-align:left;font-weight:900;cursor:pointer}.tab.active,.tab:hover{background:#FFA100;color:#000}
+.content{background:#0b1220;border:1px solid rgba(255,161,0,.25);border-radius:18px;padding:22px}.section{display:none}.section.active{display:block}h2{color:#FFA100;margin-bottom:18px}label{display:block;margin:14px 0 6px;font-weight:900;color:#fff}input,textarea{width:100%;padding:13px;border-radius:12px;border:1px solid rgba(255,161,0,.25);background:#111827;color:#fff;font-size:15px}textarea{min-height:90px;resize:vertical}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.card{background:#111827;border:1px solid rgba(255,161,0,.22);border-radius:16px;padding:16px;margin-bottom:14px}.mini-actions{margin-top:12px;display:flex;gap:8px}.small{padding:9px 12px;border-radius:10px;border:0;font-weight:900;cursor:pointer}.add{background:#FFA100;color:#000}.remove{background:#531313;color:#fff}.status{max-width:1200px;margin:0 auto 15px;padding:12px 16px;border-radius:12px;background:#111827;color:#ddd;border:1px solid rgba(255,161,0,.22);display:none}.status.ok{display:block;border-color:#25d366}.status.err{display:block;border-color:#ff5555}.hint{color:#aaa;font-size:13px;margin-top:8px;line-height:1.5}
+@media(max-width:850px){body{padding:14px}.panel{grid-template-columns:1fr}.sidebar{position:static}.grid{grid-template-columns:1fr}.brand img{height:44px}}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="brand">
+    <img src="patan-logo.png" alt="PATAN TV">
+    <div><h1>Studio PATAN TV</h1><p>Centro de Operaciones · Edición en línea</p></div>
+  </div>
+  <div class="actions">
+    <button class="btn load" id="loadBtn">Cargar datos</button>
+    <button class="btn save" id="saveBtn">Guardar en Firebase</button>
+  </div>
+</div>
+<div class="status" id="statusBox"></div>
+<div class="panel">
+  <aside class="sidebar">
+    <button class="tab active" data-tab="hero">Inicio / Hero</button>
+    <button class="tab" data-tab="planes">Planes</button>
+    <button class="tab" data-tab="mundial">Mundial / Evento</button>
+    <button class="tab" data-tab="top10">Top 10</button>
+    <button class="tab" data-tab="ligas">Ligas / Slider</button>
+    <button class="tab" data-tab="faq">FAQ</button>
+    <button class="tab" data-tab="contacto">Contacto</button>
+  </aside>
+  <main class="content">
+    <section class="section active" id="hero">
+      <h2>Inicio / Hero</h2>
+      <div class="grid">
+        <div><label>Canales</label><input id="hero_canales" type="number"></div>
+        <div><label>Películas / Series</label><input id="hero_peliculas" type="number"></div>
+      </div>
+      <label>Título</label><input id="hero_titulo">
+      <label>Texto botón</label><input id="hero_boton">
+      <label>Video principal</label><input id="hero_video" placeholder="hero-video.mp4">
+    </section>
+    <section class="section" id="planes">
+      <h2>Planes y precios</h2>
+      <div id="planesList"></div><button class="small add" id="addPlan">+ Agregar plan</button>
+    </section>
+    <section class="section" id="mundial">
+      <h2>Mundial / Evento principal</h2>
+      <label>Subtítulo</label><input id="mundial_subtitulo">
+      <label>Título</label><input id="mundial_titulo">
+      <label>Imagen</label><input id="mundial_imagen" placeholder="worldcup-2026.jpg">
+      <label>Texto botón</label><input id="mundial_boton" placeholder="Ver Mundial en Vivo">
+    </section>
+    <section class="section" id="top10">
+      <h2>Top 10</h2>
+      <div id="top10List"></div><button class="small add" id="addTop">+ Agregar item</button>
+    </section>
+    <section class="section" id="ligas">
+      <h2>Ligas / Slider deportivo</h2>
+      <div id="ligasList"></div><button class="small add" id="addLiga">+ Agregar liga</button>
+    </section>
+    <section class="section" id="faq">
+      <h2>Preguntas frecuentes</h2>
+      <div id="faqList"></div><button class="small add" id="addFaq">+ Agregar FAQ</button>
+    </section>
+    <section class="section" id="contacto">
+      <h2>Contacto</h2>
+      <label>WhatsApp</label><input id="contacto_whatsapp" placeholder="56964180558">
+      <label>Telegram</label><input id="contacto_telegram" placeholder="https://t.me/...">
+      <label>Mensaje WhatsApp flotante</label><input id="contacto_mensaje" placeholder="¿Necesitas ayuda, Patán? 😏">
+      <p class="hint">Por ahora las imágenes se escriben como nombre de archivo o URL. Cuando activemos Storage, subiremos imágenes desde este mismo panel.</p>
+    </section>
+  </main>
+</div>
+<script type="module">
+import { db } from './firebase-config.js';
+import { doc, getDoc, setDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+
+const ref = doc(db, 'site', 'contenido');
+let data = {
+  hero:{canales:'4700',peliculas:'18000',titulo:'Acceso inmediato · Sin contratos',boton:'🔥 ACTIVAR PATAN TV',video:'hero-video.mp4'},
+  mundial:{titulo:'MUNDIAL 2026',subtitulo:'WOW PATÁN, MIRA LO QUE VIENE',imagen:'worldcup-2026.jpg',boton:'Ver Mundial en Vivo'},
+  planes:[
+    {nombre:'1 Mes',precio:'$9.990',badge:'',link:'checkout-zenix.html?plan=1mes'},
+    {nombre:'3 Meses Oferta',precio:'$26.990',badge:'⭐ El plan más elegido de PATAN TV',link:'checkout-zenix.html?plan=3meses'},
+    {nombre:'12 Meses',precio:'$79.990',badge:'',link:'checkout-zenix.html?plan=12meses'}
+  ],
+  top10:[
+    {numero:1,titulo:'PROYECTO FIN DEL MUNDO',imagen:'1.jpg',vistas:'3.2 M'},
+    {numero:2,titulo:'OUTCOME',imagen:'2.jpg',vistas:'2.8 M'}
+  ],
+  ligas:[
+    {titulo:'Champions League',pais:'Europa',imagen:'liga01.png'},
+    {titulo:'Premier League',pais:'Inglaterra',imagen:'liga02.png'}
+  ],
+  faq:[
+    {pregunta:'¿En cuántos dispositivos puedo usar el servicio?',respuesta:'Puedes usar el servicio hasta en 3 dispositivos al mismo tiempo.'},
+    {pregunta:'¿Necesito internet para ver el contenido?',respuesta:'Sí, recomendamos una velocidad mínima de 20 Mbps.'}
+  ],
+  contacto:{whatsapp:'56964180558',telegram:'https://t.me/+-qdIT-ifZDY2YjQx',mensaje:'¿Necesitas ayuda, Patán? 😏'}
+};
+
+const $ = id => document.getElementById(id);
+function status(msg, ok=true){ const box=$('statusBox'); box.textContent=msg; box.className='status '+(ok?'ok':'err'); setTimeout(()=>box.style.display='none',3500); box.style.display='block'; }
+
+document.querySelectorAll('.tab').forEach(btn=>btn.addEventListener('click',()=>{
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  btn.classList.add('active'); $(btn.dataset.tab).classList.add('active');
+}));
+
+function render(){
+  $('hero_canales').value=data.hero?.canales||''; $('hero_peliculas').value=data.hero?.peliculas||''; $('hero_titulo').value=data.hero?.titulo||''; $('hero_boton').value=data.hero?.boton||''; $('hero_video').value=data.hero?.video||'';
+  $('mundial_subtitulo').value=data.mundial?.subtitulo||''; $('mundial_titulo').value=data.mundial?.titulo||''; $('mundial_imagen').value=data.mundial?.imagen||''; $('mundial_boton').value=data.mundial?.boton||'';
+  $('contacto_whatsapp').value=data.contacto?.whatsapp||''; $('contacto_telegram').value=data.contacto?.telegram||''; $('contacto_mensaje').value=data.contacto?.mensaje||'';
+  renderList('planesList', data.planes, ['nombre','precio','badge','link']);
+  renderList('top10List', data.top10, ['numero','titulo','imagen','vistas']);
+  renderList('ligasList', data.ligas, ['titulo','pais','imagen']);
+  renderList('faqList', data.faq, ['pregunta','respuesta']);
+}
+function renderList(containerId, arr, fields){
+  const cont=$(containerId); cont.innerHTML='';
+  arr.forEach((item,i)=>{
+    const card=document.createElement('div'); card.className='card';
+    card.innerHTML=fields.map(f=>`<label>${f}</label>${f==='respuesta'?`<textarea data-list="${containerId}" data-i="${i}" data-f="${f}">${item[f]||''}</textarea>`:`<input data-list="${containerId}" data-i="${i}" data-f="${f}" value="${String(item[f]||'').replaceAll('"','&quot;')}">`}`).join('')+`<div class="mini-actions"><button class="small remove" data-remove="${containerId}" data-i="${i}">Eliminar</button></div>`;
+    cont.appendChild(card);
+  });
+}
+function collect(){
+  data.hero={canales:$('hero_canales').value,peliculas:$('hero_peliculas').value,titulo:$('hero_titulo').value,boton:$('hero_boton').value,video:$('hero_video').value};
+  data.mundial={subtitulo:$('mundial_subtitulo').value,titulo:$('mundial_titulo').value,imagen:$('mundial_imagen').value,boton:$('mundial_boton').value};
+  data.contacto={whatsapp:$('contacto_whatsapp').value,telegram:$('contacto_telegram').value,mensaje:$('contacto_mensaje').value};
+  document.querySelectorAll('[data-list]').forEach(el=>{
+    const key = mapList(el.dataset.list); data[key][Number(el.dataset.i)][el.dataset.f]=el.value;
+  });
+}
+function mapList(id){ return {planesList:'planes',top10List:'top10',ligasList:'ligas',faqList:'faq'}[id]; }
+
+document.addEventListener('click', e=>{
+  const remove=e.target.dataset.remove;
+  if(remove){ data[mapList(remove)].splice(Number(e.target.dataset.i),1); render(); }
+});
+$('addPlan').onclick=()=>{data.planes.push({nombre:'Nuevo plan',precio:'$0',badge:'',link:'#'});render();};
+$('addTop').onclick=()=>{data.top10.push({numero:data.top10.length+1,titulo:'Nuevo título',imagen:'1.jpg',vistas:'0'});render();};
+$('addLiga').onclick=()=>{data.ligas.push({titulo:'Nueva liga',pais:'',imagen:'liga01.png'});render();};
+$('addFaq').onclick=()=>{data.faq.push({pregunta:'Nueva pregunta',respuesta:'Nueva respuesta'});render();};
+
+$('loadBtn').onclick=loadFirebase;
+$('saveBtn').onclick=saveFirebase;
+async function loadFirebase(){
+  try{ const snap=await getDoc(ref); if(snap.exists()) data={...data,...snap.data()}; render(); status('Datos cargados desde Firebase ✅'); }
+  catch(err){ console.error(err); status('Error cargando Firebase. Revisa reglas de Firestore.', false); }
+}
+async function saveFirebase(){
+  try{ collect(); await setDoc(ref, {...data, updatedAt:serverTimestamp()}, {merge:true}); status('Guardado online en Firebase ✅'); }
+  catch(err){ console.error(err); status('Error guardando. Revisa reglas de Firestore.', false); }
+}
+render();
+loadFirebase();
+</script>
+</body>
+</html>
