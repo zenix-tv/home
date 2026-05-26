@@ -1,4 +1,4 @@
-        export default async function handler(req, res) {
+export default async function handler(req, res) {
   try {
     const XTREAM_URL = process.env.XTREAM_URL;
     const XTREAM_USER = process.env.XTREAM_USER;
@@ -7,7 +7,6 @@
     const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
 
     const CATEGORY_ID = "228";
-
     const HEADER_IMAGE_URL = "https://www.patan.tv/file_00000000ddcc71f48e02b1504fe3995d.png";
 
     if (!XTREAM_URL || !XTREAM_USER || !XTREAM_PASS || !TELEGRAM_TOKEN || !TELEGRAM_CHAT_ID) {
@@ -50,27 +49,41 @@ ${cleanEvents.join("\n")}
 📺 Disponible en PATAN SPORTS HUB
 😎 No seas Patán… disfruta del contenido.`;
 
-    const telegramResponse = await fetch(
+    const sendPhotoResponse = await fetch(
       `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendPhoto`,
       {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           chat_id: TELEGRAM_CHAT_ID,
           photo: HEADER_IMAGE_URL,
-          caption: message
+          caption: "🔥 EVENTOS DE HOY | PATAN SPORTS HUB"
         })
       }
     );
 
-    const telegramData = await telegramResponse.json();
+    const photoData = await sendPhotoResponse.json();
+
+    const sendMessageResponse = await fetch(
+      `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: TELEGRAM_CHAT_ID,
+          text: message
+        })
+      }
+    );
+
+    const messageData = await sendMessageResponse.json();
 
     return res.status(200).json({
       ok: true,
-      telegram_sent: telegramData.ok,
-      telegram_response: telegramData,
+      photo_sent: photoData.ok,
+      photo_response: photoData,
+      message_sent: messageData.ok,
+      message_response: messageData,
       total_events: events.length,
       preview: message
     });
@@ -81,4 +94,4 @@ ${cleanEvents.join("\n")}
       error: error.message
     });
   }
-        }
+}
