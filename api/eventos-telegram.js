@@ -42,7 +42,7 @@ export default async function handler(req, res) {
     });
 
     const message =
-`🔥 EVENTOS DE HOY | PATAN SPORTS HUB
+
 
 ${cleanEvents.join("\n")}
 
@@ -57,7 +57,7 @@ ${cleanEvents.join("\n")}
         body: JSON.stringify({
           chat_id: TELEGRAM_CHAT_ID,
           photo: HEADER_IMAGE_URL,
-          caption: "🔥 EVENTOS DE HOY | PATAN SPORTS HUB"
+          caption: "."
         })
       }
     );
