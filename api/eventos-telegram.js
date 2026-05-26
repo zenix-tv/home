@@ -57,9 +57,12 @@ ${cleanEvents.join("\n")}
     });
 
   } catch (error) {
-    return res.status(500).json({
-      ok: false,
-      error: error.message
-    });
+    return res.status(200).json({
+  ok: true,
+  telegram_sent: tgData.ok,
+  telegram_response: tgData,
+  total_events: events.length,
+  preview: message
+});
   }
 }
