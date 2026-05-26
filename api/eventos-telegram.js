@@ -1,4 +1,4 @@
-export default async function handler(req, res) {
+    export default async function handler(req, res) {
   try {
     const XTREAM_URL = process.env.XTREAM_URL;
     const XTREAM_USER = process.env.XTREAM_USER;
@@ -9,12 +9,9 @@ export default async function handler(req, res) {
     const CATEGORY_ID = "228";
     const HEADER_IMAGE_URL = "https://www.patan.tv/file_00000000ddcc71f48e02b1504fe3995d.png";
 
-    if (!XTREAM_URL || !XTREAM_USER || !XTREAM_PASS || !TELEGRAM_TOKEN || !TELEGRAM_CHAT_ID) {
-      return res.status(500).json({
-        ok: false,
-        error: "Faltan variables de entorno"
-      });
-    }
+    const ANDROID_APP_URL = process.env.ANDROID_APP_URL || "https://www.patan.tv/app";
+    const WEB_PLAYER_URL = process.env.WEB_PLAYER_URL || "https://www.patan.tv";
+    const SUPPORT_URL = process.env.SUPPORT_URL || "https://t.me/patantv";
 
     const xtreamApiUrl =
       `${XTREAM_URL}/player_api.php?username=${encodeURIComponent(XTREAM_USER)}` +
@@ -24,32 +21,29 @@ export default async function handler(req, res) {
     const xtreamResponse = await fetch(xtreamApiUrl);
     const events = await xtreamResponse.json();
 
-    if (!Array.isArray(events) || events.length === 0) {
-      return res.status(200).json({
-        ok: false,
-        message: "No hay eventos deportivos disponibles hoy."
-      });
-    }
+    const cleanEvents = Array.isArray(events)
+      ? events.slice(0, 35).map((event) => {
+          const name = (event.name || "Evento sin nombre")
+            .replace(/\n/g, " ")
+            .replace(/\r/g, " ")
+            .replace(/\s+/g, " ")
+            .trim();
 
-    const cleanEvents = events.slice(0, 35).map((event) => {
-      const name = (event.name || "Evento sin nombre")
-        .replace(/\n/g, " ")
-        .replace(/\r/g, " ")
-        .replace(/\s+/g, " ")
-        .trim();
-
-      return `• ${name}`;
-    });
+          return `• ${name}`;
+        })
+      : [];
 
     const message =
 `🔥 EVENTOS DE HOY | PATAN SPORTS HUB
 
 ${cleanEvents.join("\n")}
 
-📺 Disponible en PATAN SPORTS HUB
+📲 Elige cómo quieres verlo:
+Android TV / Móvil o Web para PC.
+
 😎 No seas Patán… disfruta del contenido.`;
 
-    const sendPhotoResponse = await fetch(
+    const telegramResponse = await fetch(
       `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendPhoto`,
       {
         method: "POST",
@@ -57,34 +51,31 @@ ${cleanEvents.join("\n")}
         body: JSON.stringify({
           chat_id: TELEGRAM_CHAT_ID,
           photo: HEADER_IMAGE_URL,
-          caption: "🔥 EVENTOS DE HOY | PATAN SPORTS HUB"
+          caption: message,
+          reply_markup: {
+            inline_keyboard: [
+              [
+                { text: "📱 Abrir App Android", url: ANDROID_APP_URL }
+              ],
+              [
+                { text: "💻 Ver en PC / Web", url: WEB_PLAYER_URL }
+              ],
+              [
+                { text: "🛠 Soporte PATAN TV", url: SUPPORT_URL }
+              ]
+            ]
+          }
         })
       }
     );
 
-    const photoData = await sendPhotoResponse.json();
-
-    const sendMessageResponse = await fetch(
-      `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          chat_id: TELEGRAM_CHAT_ID,
-          text: message
-        })
-      }
-    );
-
-    const messageData = await sendMessageResponse.json();
+    const telegramData = await telegramResponse.json();
 
     return res.status(200).json({
       ok: true,
-      photo_sent: photoData.ok,
-      photo_response: photoData,
-      message_sent: messageData.ok,
-      message_response: messageData,
-      total_events: events.length,
+      telegram_sent: telegramData.ok,
+      telegram_response: telegramData,
+      total_events: Array.isArray(events) ? events.length : 0,
       preview: message
     });
 
@@ -94,4 +85,4 @@ ${cleanEvents.join("\n")}
       error: error.message
     });
   }
-}
+    }
