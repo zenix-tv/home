@@ -1,4 +1,4 @@
-    export default async function handler(req, res) {
+export default async function handler(req, res) {
   try {
     const XTREAM_URL = process.env.XTREAM_URL;
     const XTREAM_USER = process.env.XTREAM_USER;
@@ -22,7 +22,7 @@
     const events = await xtreamResponse.json();
 
     const cleanEvents = Array.isArray(events)
-      ? events.slice(0, 35).map((event) => {
+      ? events.slice(0, 30).map((event) => {
           const name = (event.name || "Evento sin nombre")
             .replace(/\n/g, " ")
             .replace(/\r/g, " ")
@@ -54,15 +54,9 @@ Android TV / Móvil o Web para PC.
           caption: message,
           reply_markup: {
             inline_keyboard: [
-              [
-                { text: "📱 Abrir App Android", url: ANDROID_APP_URL }
-              ],
-              [
-                { text: "💻 Ver en PC / Web", url: WEB_PLAYER_URL }
-              ],
-              [
-                { text: "🛠 Soporte PATAN TV", url: SUPPORT_URL }
-              ]
+              [{ text: "📱 Abrir App Android", url: ANDROID_APP_URL }],
+              [{ text: "💻 Ver en PC / Web", url: WEB_PLAYER_URL }],
+              [{ text: "🛠 Soporte PATAN TV", url: SUPPORT_URL }]
             ]
           }
         })
@@ -85,4 +79,4 @@ Android TV / Móvil o Web para PC.
       error: error.message
     });
   }
-    }
+}
