@@ -1,4 +1,4 @@
-export default async function handler(req, res) {
+        export default async function handler(req, res) {
   try {
     const XTREAM_URL = process.env.XTREAM_URL;
     const XTREAM_USER = process.env.XTREAM_USER;
@@ -8,17 +8,12 @@ export default async function handler(req, res) {
 
     const CATEGORY_ID = "228";
 
+    const HEADER_IMAGE_URL = "https://www.patan.tv/file_00000000ddcc71f48e02b1504fe3995d.png";
+
     if (!XTREAM_URL || !XTREAM_USER || !XTREAM_PASS || !TELEGRAM_TOKEN || !TELEGRAM_CHAT_ID) {
       return res.status(500).json({
         ok: false,
-        error: "Faltan variables de entorno",
-        required: [
-          "XTREAM_URL",
-          "XTREAM_USER",
-          "XTREAM_PASS",
-          "TELEGRAM_TOKEN",
-          "TELEGRAM_CHAT_ID"
-        ]
+        error: "Faltan variables de entorno"
       });
     }
 
@@ -37,19 +32,15 @@ export default async function handler(req, res) {
       });
     }
 
-    const cleanEvents = events
-      .slice(0, 35)
-      .map((event) => {
-        const rawName = event.name || "Evento sin nombre";
+    const cleanEvents = events.slice(0, 35).map((event) => {
+      const name = (event.name || "Evento sin nombre")
+        .replace(/\n/g, " ")
+        .replace(/\r/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
 
-        const cleanedName = rawName
-          .replace(/\n/g, " ")
-          .replace(/\r/g, " ")
-          .replace(/\s+/g, " ")
-          .trim();
-
-        return `• ${cleanedName}`;
-      });
+      return `• ${name}`;
+    });
 
     const message =
 `🔥 EVENTOS DE HOY | PATAN SPORTS HUB
@@ -60,7 +51,7 @@ ${cleanEvents.join("\n")}
 😎 No seas Patán… disfruta del contenido.`;
 
     const telegramResponse = await fetch(
-      `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`,
+      `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendPhoto`,
       {
         method: "POST",
         headers: {
@@ -68,7 +59,8 @@ ${cleanEvents.join("\n")}
         },
         body: JSON.stringify({
           chat_id: TELEGRAM_CHAT_ID,
-          text: message
+          photo: HEADER_IMAGE_URL,
+          caption: message
         })
       }
     );
@@ -89,5 +81,4 @@ ${cleanEvents.join("\n")}
       error: error.message
     });
   }
-}
-  
+        }
