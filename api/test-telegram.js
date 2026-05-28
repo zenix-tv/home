@@ -1,6 +1,8 @@
 export default async function handler(req, res) {
   try {
-    const response = await fetch(`${req.headers.origin}/api/telegram-alert`, {
+    const baseUrl = `https://${req.headers.host}`;
+
+    const response = await fetch(`${baseUrl}/api/telegram-alert`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -19,6 +21,7 @@ export default async function handler(req, res) {
 
     return res.status(200).json({
       ok: true,
+      status: response.status,
       telegram_response: data
     });
 
