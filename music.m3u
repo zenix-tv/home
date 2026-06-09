@@ -1,10 +1,26 @@
 #EXTM3U
+#EXTINF:-1 tvg-id="FactoriadeFiccion.es@SD",FDF (1080p)
+http://92.176.119.180:2095/play/a15w
+#EXTINF:-1 tvg-id="FactoriadeFiccion.es@SD",FDF (1080p)
+http://92.176.119.180:2095/play/a1fo
 #EXTINF:-1 tvg-id="StingrayHolidayscapes.ca@HD",Stingray Holidayscapes (1080p)
 https://plextv.ott-channels.stingray.com/holidayscapes/master.m3u8
 #EXTINF:-1 tvg-id="QelloConcertsbyStingray.ca@SD",Qello Concerts by Stingray (1080p)
 https://lotus.stingray.com/manifest/qello-qello001-montreal/samsungtvplus/master.m3u8
+#EXTINF:-1 tvg-id="Vevo70s.us@SD",Vevo 70s (1080p)
+https://amg00056-vevotv-vevo70saunz-samsungau-xzszd.amagi.tv/playlist/amg00056-vevotv-vevo70saunz-samsungau/playlist.m3u8
+#EXTINF:-1 tvg-id="Vevo80s.us@SD",Vevo 80s (1080p)
+https://amg00056-vevotv-vevo80saunz-samsungau-rp5e3.amagi.tv/playlist/amg00056-vevotv-vevo80saunz-samsungau/playlist.m3u8
 #EXTINF:-1 tvg-id="StingrayClassicRock.ca@SD",Stingray Classic Rock (1080p)
 https://lotus.stingray.com/manifest/ose-101ads-montreal/samsungtvplus/master.m3u8
+#EXTINF:-1 tvg-id="Vevo90s.us@SD",Vevo 90s (1080p)
+https://amg00056-vevotv-vevo90saunz-samsungau-n6a0d.amagi.tv/playlist/amg00056-vevotv-vevo90saunz-samsungau/playlist.m3u8
+#EXTINF:-1 tvg-id="VevoCountry.us@SD",Vevo Country (1080p)
+https://amg00056-vevotv-vevocountryau-samsungau-ktmqm.amagi.tv/playlist/amg00056-vevotv-vevocountryau-samsungau/playlist.m3u8
+#EXTINF:-1 tvg-id="VevoPop.us@SD",Vevo Pop (1080p)
+https://d128y56w6v2kax.cloudfront.net/playlist/amg00056-vevotv-vevopopau-samsungau/playlist.m3u8
+#EXTINF:-1 tvg-id="VevoRetroRock.us@SD",Vevo Retro Rock (1080p)
+https://d2lyea6if8kkz9.cloudfront.net/playlist/amg00056-vevotv-vevoretrorockau-samsungau/playlist.m3u8
 #EXTINF:-1 tvg-id="StingrayClassica.ca@SD",Stingray Classica (1080p)
 https://lotus.stingray.com/manifest/classica-cla008-montreal/samsungtvplus/master.m3u8
 #EXTINF:-1 tvg-id="StingrayCMusic.ca@SD",Stingray CMusic (1080p)
