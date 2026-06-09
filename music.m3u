@@ -1,8 +1,4 @@
 #EXTM3U
-#EXTINF:-1 tvg-id="FactoriadeFiccion.es@SD",FDF (1080p)
-http://92.176.119.180:2095/play/a15w
-#EXTINF:-1 tvg-id="FactoriadeFiccion.es@SD",FDF (1080p)
-http://92.176.119.180:2095/play/a1fo
 #EXTINF:-1 tvg-id="StingrayHolidayscapes.ca@HD",Stingray Holidayscapes (1080p)
 https://plextv.ott-channels.stingray.com/holidayscapes/master.m3u8
 #EXTINF:-1 tvg-id="QelloConcertsbyStingray.ca@SD",Qello Concerts by Stingray (1080p)
