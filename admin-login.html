@@ -116,38 +116,62 @@ button{
 
 </div>
 
-<script>
+ <script type="module">
 
-const CLAVE_ADMIN = "Patan2026!";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
-function entrar(){
+import {
+  getAuth,
+  signInWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-  const clave =
-  document.getElementById("clave")
-  .value
-  .trim();
+const firebaseConfig = {
+  apiKey: "AIzaSyCgK8LvJS69gyEhiUL7U-6AQoKBwyq-Pfs",
+  authDomain: "patan-tv.firebaseapp.com",
+  projectId: "patan-tv",
+  storageBucket: "patan-tv.firebasestorage.app",
+  messagingSenderId: "400945997953",
+  appId: "1:400945997953:web:c5721123411dad95c08580"
+};
 
-  if(clave === CLAVE_ADMIN){
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+window.entrar = async function(){
+
+  const email =
+  document.getElementById("email").value.trim();
+
+  const password =
+  document.getElementById("password").value.trim();
+
+  try{
+
+    await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
 
     localStorage.setItem(
       "patan_admin",
-      "ok"
+      "firebase"
     );
 
     window.location.href =
     "/admin-patan.html";
 
-  }else{
+  }catch(e){
 
-    document.getElementById("error")
-    .style.display = "block";
+    document.getElementById("error").style.display =
+    "block";
 
   }
 
-}
+};
 
 document
-.getElementById("clave")
+.getElementById("password")
 .addEventListener("keydown", function(e){
 
   if(e.key === "Enter"){
