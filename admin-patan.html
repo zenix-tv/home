@@ -211,6 +211,12 @@ if(localStorage.getItem("patan_admin") !== "ok"){
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  
+import {
+  getAuth,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
 
 import {
   getFirestore,
@@ -233,6 +239,20 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+
+const auth = getAuth(app);
+
+onAuthStateChanged(auth, (user) => {
+
+  if (!user) {
+
+    localStorage.removeItem("patan_admin");
+
+    window.location.href = "/admin-login.html";
+
+  }
+
+});
 
 const contenedor = document.getElementById("clientes");
 const inputBusqueda = document.getElementById("busqueda");
