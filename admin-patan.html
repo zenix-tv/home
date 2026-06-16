@@ -242,15 +242,19 @@ const db = getFirestore(app);
 
 const auth = getAuth(app);
 
+let authReady = false;
+
 onAuthStateChanged(auth, (user) => {
 
+  authReady = true;
+
   if (!user) {
-
     localStorage.removeItem("patan_admin");
-
     window.location.href = "/admin-login.html";
-
+    return;
   }
+
+  localStorage.setItem("patan_admin", "firebase");
 
 });
 
