@@ -199,7 +199,11 @@ hr{
     </select>
   </div>
 </div>
-
+  
+<button onclick="cerrarSesion()" style="background:#ef4444;color:white;">
+  Cerrar sesión
+</button>
+  
 <div id="clientes"></div>
 
 </div>
@@ -252,6 +256,17 @@ onAuthStateChanged(auth, (user) => {
   localStorage.setItem("patan_admin", "firebase");
 
 });
+
+window.cerrarSesion = async function(){
+
+  await auth.signOut();
+
+  localStorage.removeItem("patan_admin");
+
+  window.location.href = "/admin-login.html";
+
+};
+  
 
 const contenedor = document.getElementById("clientes");
 const inputBusqueda = document.getElementById("busqueda");
