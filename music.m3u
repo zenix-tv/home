@@ -1,4 +1,12 @@
 #EXTM3U
+#EXTINF:-1 tvg-id="Chilevision 4K", CHV 4K M3U8 PRUEBA
+http://xcontrolx.net:8080/live/raraya2026/9xetKVesyy/469311.m3u8
+#EXTINF:-1 tvg-id="Chilevision 4K", CHV 4K TS PRUEBA
+http://xcontrolx.net:8080/live/raraya2026/9xetKVesyy/469311.ts
+#EXTINF:-1 tvg-id="LA 1 4K", LA 1 4K TS PRUEBA
+http://xcontrolx.net:8080/live/raraya2026/9xetKVesyy/468940.ts
+#EXTINF:-1 tvg-id="LA 1 4K", LA 1 4K M3U8 PRUEBA
+http://xcontrolx.net:8080/live/raraya2026/9xetKVesyy/468940.m3u8
 #EXTINF:-1 tvg-id="StingrayHolidayscapes.ca@HD",Stingray Holidayscapes (1080p)
 https://plextv.ott-channels.stingray.com/holidayscapes/master.m3u8
 #EXTINF:-1 tvg-id="QelloConcertsbyStingray.ca@SD",Qello Concerts by Stingray (1080p)
