@@ -1,5 +1,5 @@
 #EXTM3U
-#EXTINF:-1 tvg-id="Chilevision 4K", CHV 4K M3U8 PRUEBA
+#EXTINF:-1 tvg-id="Chilevision 4K", CHV 4K M3U8 PRUEBA1
 http://xcontrolx.net:8080/live/raraya2026/9xetKVesyy/469311.m3u8
 #EXTINF:-1 tvg-id="Chilevision 4K", CHV 4K TS PRUEBA
 http://xcontrolx.net:8080/live/raraya2026/9xetKVesyy/469311.ts
